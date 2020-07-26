@@ -16,14 +16,14 @@
 
 package com.marktony.zhihudaily.util
 
-import kotlinx.coroutines.experimental.DefaultDispatcher
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.newFixedThreadPoolContext
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.newFixedThreadPoolContext
+import kotlin.coroutines.CoroutineContext
+
 
 const val THREAD_COUNT = 3
 
 open class AppExecutors constructor(
-        val ioContext: CoroutineContext = DefaultDispatcher,
+        val ioContext: CoroutineContext = Dispatchers.Default,
         val networkContext: CoroutineContext = newFixedThreadPoolContext(THREAD_COUNT, "networkIO"),
-        val uiContext: CoroutineContext = UI)
+        val uiContext: CoroutineContext = Dispatchers.Main)

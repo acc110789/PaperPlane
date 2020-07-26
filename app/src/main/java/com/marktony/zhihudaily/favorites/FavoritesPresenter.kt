@@ -21,8 +21,8 @@ import com.marktony.zhihudaily.data.source.repository.DoubanMomentNewsRepository
 import com.marktony.zhihudaily.data.source.repository.GuokrHandpickNewsRepository
 import com.marktony.zhihudaily.data.source.repository.ZhihuDailyNewsRepository
 import com.marktony.zhihudaily.util.launchSilent
-import kotlinx.coroutines.experimental.android.UI
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Created by lizhaotailang on 2017/6/6.
@@ -36,7 +36,7 @@ class FavoritesPresenter(
         private val mZhihuRepository: ZhihuDailyNewsRepository,
         private val mDoubanRepository: DoubanMomentNewsRepository,
         private val mGuokrRepository: GuokrHandpickNewsRepository,
-        private val uiContext: CoroutineContext = UI
+        private val uiContext: CoroutineContext = Dispatchers.Main
 ) : FavoritesContract.Presenter {
 
     init {

@@ -25,7 +25,7 @@ import com.marktony.zhihudaily.data.source.Result
 import com.marktony.zhihudaily.data.source.datasource.GuokrHandpickDataSource
 import com.marktony.zhihudaily.retrofit.RetrofitService
 import com.marktony.zhihudaily.util.AppExecutors
-import kotlinx.coroutines.experimental.withContext
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

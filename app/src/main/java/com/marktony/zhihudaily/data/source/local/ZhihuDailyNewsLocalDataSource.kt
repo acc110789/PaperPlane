@@ -23,7 +23,7 @@ import com.marktony.zhihudaily.data.source.Result
 import com.marktony.zhihudaily.data.source.datasource.ZhihuDailyNewsDataSource
 import com.marktony.zhihudaily.database.dao.ZhihuDailyNewsDao
 import com.marktony.zhihudaily.util.AppExecutors
-import kotlinx.coroutines.experimental.withContext
+import kotlinx.coroutines.withContext
 
 /**
  * Created by lizhaotailang on 2017/5/21.

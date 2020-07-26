@@ -21,8 +21,8 @@ import com.marktony.zhihudaily.data.ContentType
 import com.marktony.zhihudaily.data.source.Result
 import com.marktony.zhihudaily.data.source.repository.*
 import com.marktony.zhihudaily.util.launchSilent
-import kotlinx.coroutines.experimental.android.UI
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Created by lizhaotailang on 2017/5/24.
@@ -34,7 +34,7 @@ import kotlin.coroutines.experimental.CoroutineContext
 class DetailsPresenter : DetailsContract.Presenter {
 
     private val mView: DetailsContract.View
-    private val uiContext: CoroutineContext = UI
+    private val uiContext: CoroutineContext = Dispatchers.Main
 
     private var mDoubanNewsRepository: DoubanMomentNewsRepository? = null
     private var mDoubanContentRepository: DoubanMomentContentRepository? = null

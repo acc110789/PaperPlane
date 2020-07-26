@@ -19,8 +19,8 @@ package com.marktony.zhihudaily.timeline
 import com.marktony.zhihudaily.data.source.Result
 import com.marktony.zhihudaily.data.source.repository.ZhihuDailyNewsRepository
 import com.marktony.zhihudaily.util.launchSilent
-import kotlinx.coroutines.experimental.android.UI
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Created by lizhaotailang on 2017/5/21.
@@ -32,7 +32,7 @@ import kotlin.coroutines.experimental.CoroutineContext
 class ZhihuDailyPresenter(
         private val mView: ZhihuDailyContract.View,
         private val mRepository: ZhihuDailyNewsRepository,
-        private val uiContext: CoroutineContext = UI
+        private val uiContext: CoroutineContext = Dispatchers.Main
 ) : ZhihuDailyContract.Presenter {
 
     init {
