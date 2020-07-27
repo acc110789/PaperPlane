@@ -16,7 +16,7 @@
 
 package com.marktony.zhihudaily.glide
 
-import android.support.v7.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatImageView
 import com.marktony.zhihudaily.R
 
 fun AppCompatImageView.loadImage(url: String?) {

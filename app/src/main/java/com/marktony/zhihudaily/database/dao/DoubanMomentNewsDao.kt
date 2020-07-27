@@ -16,7 +16,7 @@
 
 package com.marktony.zhihudaily.database.dao
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import com.marktony.zhihudaily.data.DoubanMomentNewsPosts
 
 /**

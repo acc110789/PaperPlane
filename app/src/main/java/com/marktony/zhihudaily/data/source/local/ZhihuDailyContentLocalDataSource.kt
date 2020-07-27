@@ -16,7 +16,7 @@
 
 package com.marktony.zhihudaily.data.source.local
 
-import android.support.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting
 import com.marktony.zhihudaily.data.ZhihuDailyContent
 import com.marktony.zhihudaily.data.source.LocalDataNotFoundException
 import com.marktony.zhihudaily.data.source.Result

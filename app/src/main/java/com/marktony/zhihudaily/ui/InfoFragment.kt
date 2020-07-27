@@ -17,7 +17,7 @@
 package com.marktony.zhihudaily.ui
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +30,7 @@ import com.marktony.zhihudaily.R
  * Displays the [InfoPreferenceFragment].
  */
 
-class InfoFragment : Fragment() {
+class InfoFragment : androidx.fragment.app.Fragment() {
 
     companion object {
 

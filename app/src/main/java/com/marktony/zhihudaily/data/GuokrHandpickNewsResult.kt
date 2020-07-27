@@ -17,7 +17,7 @@
 package com.marktony.zhihudaily.data
 
 import android.annotation.SuppressLint
-import android.arch.persistence.room.*
+import androidx.room.*
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

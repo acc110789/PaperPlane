@@ -17,7 +17,7 @@
 package com.marktony.zhihudaily.ui
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import com.marktony.zhihudaily.R
 import kotlinx.android.synthetic.main.fragment_open_source_license.*

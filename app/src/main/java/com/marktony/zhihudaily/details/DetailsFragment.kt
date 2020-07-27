@@ -22,9 +22,9 @@ import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.design.widget.BottomSheetDialog
-import android.support.v4.app.Fragment
-import android.support.v7.widget.AppCompatTextView
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import androidx.fragment.app.Fragment
+import androidx.appcompat.widget.AppCompatTextView
 import android.text.Html
 import android.view.*
 import android.webkit.WebSettings
@@ -47,7 +47,7 @@ import kotlinx.android.synthetic.main.fragment_details.*
  * Shown by [DetailsActivity]. Works with [DetailsPresenter].
  */
 
-class DetailsFragment : Fragment(), DetailsContract.View {
+class DetailsFragment : androidx.fragment.app.Fragment(), DetailsContract.View {
 
     private var mId: Int = 0
     private var mType: ContentType = ContentType.TYPE_ZHIHU_DAILY

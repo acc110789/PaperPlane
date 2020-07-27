@@ -16,7 +16,7 @@
 
 package com.marktony.zhihudaily.data.source.remote
 
-import android.support.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting
 import com.marktony.zhihudaily.BuildConfig
 import com.marktony.zhihudaily.data.GuokrHandpickContent
 import com.marktony.zhihudaily.data.GuokrHandpickContentResult

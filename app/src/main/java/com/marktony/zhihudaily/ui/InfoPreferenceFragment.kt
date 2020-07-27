@@ -26,10 +26,10 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.support.annotation.StringRes
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatDelegate
-import android.support.v7.preference.PreferenceFragmentCompat
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.preference.PreferenceFragmentCompat
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.marktony.zhihudaily.R

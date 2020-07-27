@@ -17,8 +17,8 @@
 package com.marktony.zhihudaily.favorites
 
 import android.content.Context
-import android.support.v7.widget.AppCompatTextView
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +42,7 @@ class FavoritesAdapter(
         private val mZhihuList: MutableList<ZhihuDailyNewsQuestion>,
         private val mDoubanList: MutableList<DoubanMomentNewsPosts>,
         private val mGuokrList: MutableList<GuokrHandpickNewsResult>
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
 
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mContext)
 
@@ -91,7 +91,7 @@ class FavoritesAdapter(
         }
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder = when (viewType) {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder = when (viewType) {
         ItemWrapper.TYPE_EMPTY -> EmptyViewHolder(mLayoutInflater.inflate(R.layout.item_empty, viewGroup, false))
         ItemWrapper.TYPE_ZHIHU -> ZhihuItemViewHolder(mLayoutInflater.inflate(R.layout.item_universal_layout, viewGroup, false), mListener)
         ItemWrapper.TYPE_DOUBAN -> DoubanItemHolder(mLayoutInflater.inflate(R.layout.item_universal_layout, viewGroup, false), mListener)
@@ -100,7 +100,7 @@ class FavoritesAdapter(
         else -> CategoryViewHolder(mLayoutInflater.inflate(R.layout.item_category, viewGroup, false))
     }
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, i: Int) {
+    override fun onBindViewHolder(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, i: Int) {
         val iw = mWrapperList[i]
 
         when (iw.viewType) {
@@ -212,7 +212,7 @@ class FavoritesAdapter(
     class ZhihuItemViewHolder(
             itemView: View,
             private val listener: OnRecyclerViewItemOnClickListener?
-    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)
@@ -226,7 +226,7 @@ class FavoritesAdapter(
     class DoubanItemHolder(
             itemView: View,
             private val listener: OnRecyclerViewItemOnClickListener?
-    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)
@@ -240,7 +240,7 @@ class FavoritesAdapter(
     class DoubanNoImageHolder(
             itemView: View,
             private val listener: OnRecyclerViewItemOnClickListener?
-    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)
@@ -254,7 +254,7 @@ class FavoritesAdapter(
     class GuokrViewHolder(
             itemView: View,
             private val listener: OnRecyclerViewItemOnClickListener?
-    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)
@@ -266,9 +266,9 @@ class FavoritesAdapter(
 
     }
 
-    class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class CategoryViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView)
 
-    class EmptyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class EmptyViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView)
 
     class ItemWrapper(val viewType: Int) {
 

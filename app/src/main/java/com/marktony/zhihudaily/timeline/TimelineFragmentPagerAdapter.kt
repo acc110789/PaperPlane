@@ -17,9 +17,9 @@
 package com.marktony.zhihudaily.timeline
 
 import android.content.Context
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 
 import com.marktony.zhihudaily.R
 
@@ -31,12 +31,12 @@ import com.marktony.zhihudaily.R
  */
 
 class TimelineFragmentPagerAdapter(
-        fm: FragmentManager,
+        fm: androidx.fragment.app.FragmentManager,
         context: Context,
         private val mZhihuFragment: ZhihuDailyFragment,
         private val mDoubanFragment: DoubanMomentFragment,
         private val mGuokrFragment: GuokrHandpickFragment
-) : FragmentPagerAdapter(fm) {
+) : androidx.fragment.app.FragmentPagerAdapter(fm) {
 
     private val pageCount = 3
     private val titles: Array<String> = arrayOf(context.getString(
@@ -44,7 +44,7 @@ class TimelineFragmentPagerAdapter(
             context.getString(R.string.douban_moment),
             context.getString(R.string.guokr_handpick))
 
-    override fun getItem(i: Int): Fragment = when (i) {
+    override fun getItem(i: Int): androidx.fragment.app.Fragment = when (i) {
         0 -> mZhihuFragment
         1 -> mDoubanFragment
         else -> mGuokrFragment

@@ -16,7 +16,7 @@
 
 package com.marktony.zhihudaily.details
 
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import com.marktony.zhihudaily.BasePresenter
 import com.marktony.zhihudaily.BaseView
 import com.marktony.zhihudaily.data.*

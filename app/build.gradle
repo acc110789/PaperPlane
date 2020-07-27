@@ -7,13 +7,13 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
 
-    implementation "com.android.support:appcompat-v7:${versions.support_library}"
-    implementation "com.android.support:design:${versions.support_library}"
-    implementation "com.android.support:preference-v14:${versions.support_library}"
-    implementation "com.android.support:customtabs:${versions.support_library}"
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
+    implementation 'androidx.browser:browser:1.0.0'
 
-    implementation "android.arch.persistence.room:runtime:${versions.arch_room}"
-    kapt "android.arch.persistence.room:compiler:${versions.arch_room}"
+    implementation 'androidx.room:room-runtime:2.0.0'
+    kapt 'androidx.room:room-compiler:2.0.0'
 
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
     implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
@@ -29,16 +29,5 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
-
-    testImplementation "junit:junit:${versions.junit}"
-    testImplementation "org.mockito:mockito-core:${versions.mockito}"
-    testImplementation "org.hamcrest:hamcrest-all:${versions.hamcrest}"
-
-    androidTestImplementation "com.android.support.test:runner:${versions.support_test}"
-    androidTestImplementation "com.android.support.test:rules:${versions.support_test}"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:${versions.espresso}"
-    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:${versions.espresso}"
-    androidTestImplementation "com.android.support.test.espresso:espresso-intents:${versions.espresso}"
-    androidTestImplementation "org.mockito:mockito-android:${versions.mockito}"
 
 }

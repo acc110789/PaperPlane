@@ -17,7 +17,7 @@
 package com.marktony.zhihudaily.details
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.marktony.zhihudaily.R
 import com.marktony.zhihudaily.data.ContentType
 import com.marktony.zhihudaily.data.source.repository.DoubanMomentContentRepository

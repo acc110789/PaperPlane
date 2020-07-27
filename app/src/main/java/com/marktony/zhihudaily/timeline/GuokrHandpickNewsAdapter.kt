@@ -16,7 +16,7 @@
 
 package com.marktony.zhihudaily.timeline
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,12 +32,12 @@ import kotlinx.android.synthetic.main.item_universal_layout.view.*
  * Adapter between the data of [GuokrHandpickNewsResult] and [RecyclerView].
  */
 
-class GuokrHandpickNewsAdapter(private val mList: MutableList<GuokrHandpickNewsResult>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class GuokrHandpickNewsAdapter(private val mList: MutableList<GuokrHandpickNewsResult>) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
     private var mListener: OnRecyclerViewItemOnClickListener? = null
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): RecyclerView.ViewHolder = ItemViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.item_universal_layout, viewGroup, false), mListener)
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder = ItemViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.item_universal_layout, viewGroup, false), mListener)
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, i: Int) {
+    override fun onBindViewHolder(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, i: Int) {
         val (_, _, _, _, _, _, _, _, _, _, _, _, imageInfo, _, _, _, _, _, _, _, _, _, _, _, title) = mList[i]
 
         with((viewHolder as ItemViewHolder).itemView) {
@@ -62,7 +62,7 @@ class GuokrHandpickNewsAdapter(private val mList: MutableList<GuokrHandpickNewsR
     class ItemViewHolder(
             itemView: View,
             private val listener: OnRecyclerViewItemOnClickListener?
-    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)

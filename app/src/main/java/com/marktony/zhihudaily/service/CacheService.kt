@@ -23,8 +23,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Handler
 import android.os.IBinder
-import android.support.v4.content.LocalBroadcastManager
-import android.support.v7.preference.PreferenceManager
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.preference.PreferenceManager
 import com.marktony.zhihudaily.data.PostType
 import com.marktony.zhihudaily.database.AppDatabase
 import com.marktony.zhihudaily.retrofit.RetrofitService
@@ -85,7 +85,7 @@ class CacheService : Service() {
 
         val filter = IntentFilter()
         filter.addAction(BROADCAST_FILTER_ACTION)
-        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver!!, filter)
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver!!, filter)
 
         mZhihuService = Retrofit.Builder()
                 .baseUrl(RetrofitService.ZHIHU_DAILY_BASE)
@@ -110,7 +110,7 @@ class CacheService : Service() {
         super.onDestroy()
         // DO NOT forget to unregister the receiver.
         if (mReceiver != null) {
-            LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver!!)
+            androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver!!)
         }
     }
 

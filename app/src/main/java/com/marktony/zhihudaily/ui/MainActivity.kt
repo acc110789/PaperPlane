@@ -18,8 +18,8 @@ package com.marktony.zhihudaily.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import com.marktony.zhihudaily.R
 import com.marktony.zhihudaily.favorites.FavoritesFragment
 import com.marktony.zhihudaily.favorites.FavoritesPresenter
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showFragment(fragment: Fragment?) {
+    private fun showFragment(fragment: androidx.fragment.app.Fragment?) {
         val fm = supportFragmentManager
         when (fragment) {
             is TimelineFragment -> fm.beginTransaction()

@@ -18,12 +18,12 @@ package com.marktony.zhihudaily.timeline
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.LocalBroadcastManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,12 +45,12 @@ import java.util.*
  * Displays a grid of [ZhihuDailyNewsQuestion]s.
  */
 
-class ZhihuDailyFragment : Fragment(), ZhihuDailyContract.View {
+class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.View {
 
     override lateinit var mPresenter: ZhihuDailyContract.Presenter
 
     private var mAdapter: ZhihuDailyNewsAdapter? = null
-    private lateinit var mLayoutManager: LinearLayoutManager
+    private lateinit var mLayoutManager: androidx.recyclerview.widget.LinearLayoutManager
 
     private var mYear: Int = 0
     private var mMonth: Int = 0
@@ -91,10 +91,10 @@ class ZhihuDailyFragment : Fragment(), ZhihuDailyContract.View {
             mPresenter.loadNews(true, true, c.timeInMillis)
         }
 
-        mLayoutManager = LinearLayoutManager(context)
+        mLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         recycler_view.layoutManager = mLayoutManager
-        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+        recycler_view.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy > 0) {
                     activity?.findViewById<FloatingActionButton>(R.id.fab)?.hide()
@@ -161,7 +161,7 @@ class ZhihuDailyFragment : Fragment(), ZhihuDailyContract.View {
             val intent = Intent(CacheService.BROADCAST_FILTER_ACTION)
             intent.putExtra(CacheService.FLAG_ID, id)
             intent.putExtra(CacheService.FLAG_TYPE, PostType.ZHIHU)
-            LocalBroadcastManager.getInstance(context!!).sendBroadcast(intent)
+            androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(context!!).sendBroadcast(intent)
         }
     }
 

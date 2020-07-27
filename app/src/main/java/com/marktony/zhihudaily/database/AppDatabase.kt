@@ -16,9 +16,9 @@
 
 package com.marktony.zhihudaily.database
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.Room
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import android.content.Context
 import com.marktony.zhihudaily.data.*
 import com.marktony.zhihudaily.database.dao.*
