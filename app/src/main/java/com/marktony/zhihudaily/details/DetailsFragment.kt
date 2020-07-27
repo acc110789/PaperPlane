@@ -47,7 +47,7 @@ import kotlinx.android.synthetic.main.fragment_details.*
  * Shown by [DetailsActivity]. Works with [DetailsPresenter].
  */
 
-class DetailsFragment : androidx.fragment.app.Fragment(), DetailsContract.View {
+class DetailsFragment : Fragment(), DetailsContract.View {
 
     private var mId: Int = 0
     private var mType: ContentType = ContentType.TYPE_ZHIHU_DAILY
@@ -138,12 +138,12 @@ class DetailsFragment : androidx.fragment.app.Fragment(), DetailsContract.View {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater?.inflate(R.menu.menu_more, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item?.itemId
         when (id) {
             android.R.id.home -> activity?.onBackPressed()
