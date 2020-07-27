@@ -93,4 +93,6 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-intents:${versions.espresso}"
     androidTestImplementation "org.mockito:mockito-android:${versions.mockito}"
 
+    implementation project(":arch")
+
 }
