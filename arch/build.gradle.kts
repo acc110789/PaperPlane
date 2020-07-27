@@ -23,6 +23,6 @@ android {
 
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
-    implementation(LibDeps.KOTLIN_STDLIB)
-    implementation(LibDeps.APPCOMPAT)
+    implementation(LibDependency.KOTLIN_STDLIB)
+    implementation(LibDependency.APPCOMPAT)
 }

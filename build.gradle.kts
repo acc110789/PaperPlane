@@ -1,6 +1,6 @@
 buildscript {
     configBuildScriptRepo()
-    configBuildScriptClasspath(LibDeps.ANDROID_GRADLE_PLUGIN, LibDeps.KOTLIN_GRADLE_PLUGIN)
+    configBuildScriptClasspath(LibDependency.ANDROID_GRADLE_PLUGIN, LibDependency.KOTLIN_GRADLE_PLUGIN)
 }
 
 rootProject.apply {

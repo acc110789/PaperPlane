@@ -43,29 +43,29 @@ dependencies {
 
     implementation(fileTree("include" to listOf("*.jar"), "dir" to "libs"))
 
-    implementation(LibDeps.KOTLIN_STDLIB)
+    implementation(LibDependency.KOTLIN_STDLIB)
 
-    implementation(LibDeps.APPCOMPAT)
-    implementation(LibDeps.MATERIAL)
-    implementation(LibDeps.LEGACY)
-    implementation(LibDeps.BROWSER)
+    implementation(LibDependency.APPCOMPAT)
+    implementation(LibDependency.MATERIAL)
+    implementation(LibDependency.LEGACY)
+    implementation(LibDependency.BROWSER)
 
-    implementation(LibDeps.ROOM)
-    kapt(LibDeps.ROOM_COMPILER)
+    implementation(LibDependency.ROOM)
+    kapt(LibDependency.ROOM_COMPILER)
 
-    implementation(LibDeps.RETROFIT)
-    implementation(LibDeps.RETROFIT_CONVERTER_GSON)
-    implementation(LibDeps.OK_LOGGING)
+    implementation(LibDependency.RETROFIT)
+    implementation(LibDependency.RETROFIT_CONVERTER_GSON)
+    implementation(LibDependency.OK_LOGGING)
 
-    implementation(LibDeps.GLIDE)
-    implementation(LibDeps.OK_GLIDE)
-    kapt(LibDeps.GLIDE_COMPILER)
+    implementation(LibDependency.GLIDE)
+    implementation(LibDependency.OK_GLIDE)
+    kapt(LibDependency.GLIDE_COMPILER)
 
-    implementation(LibDeps.DATE_TIME_PICKER) {
+    implementation(LibDependency.DATE_TIME_PICKER) {
         exclude(group = "com.android.support")
     }
 
-    implementation(LibDeps.COROUTINES)
-    implementation(LibDeps.COROUTINES_ANDROID)
+    implementation(LibDependency.COROUTINES)
+    implementation(LibDependency.COROUTINES_ANDROID)
 
 }

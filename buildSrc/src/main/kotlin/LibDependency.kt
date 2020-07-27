@@ -1,6 +1,6 @@
 
 
-object LibDeps {
+object LibDependency {
     private const val KOTLIN_VERSION = "1.3.72"
 
     const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:4.0.1"
