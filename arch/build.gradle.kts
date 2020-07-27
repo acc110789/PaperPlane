@@ -5,14 +5,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion(28)
-    buildToolsVersion("28.0.3")
+    compileSdkVersion(AndroidConfig.COMPILE_SDK_VERSION)
+    buildToolsVersion(AndroidConfig.BUILD_TOOL_VERSION)
 
     defaultConfig {
-        minSdkVersion(21)
-        targetSdkVersion(28)
-        versionCode = 1
-        versionName = "1.0"
+        minSdkVersion(AndroidConfig.MIN_SDK_VERSION)
+        targetSdkVersion(AndroidConfig.TARGET_SDK_VERSION)
     }
 
     buildTypes {
@@ -25,6 +23,6 @@ android {
 
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.72")
-    implementation("androidx.appcompat:appcompat:1.1.0")
+    implementation(LibDeps.KOTLIN_STDLIB)
+    implementation(LibDeps.APPCOMPAT)
 }
