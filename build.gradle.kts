@@ -1,14 +1,14 @@
 buildscript {
-    configBuildScriptRepo()
+    addBuildScriptRepos()
     
-    configBuildScriptClasspath(
+    addBuildScriptClassPath(
             LibDependency.ANDROID_GRADLE_PLUGIN,
             LibDependency.KOTLIN_GRADLE_PLUGIN
     )
 }
 
 rootProject.apply {
-    configAllProjectRepo()
+    addAllProjectRepos()
 }
 
 tasks.create("clean", Delete::class.java) {

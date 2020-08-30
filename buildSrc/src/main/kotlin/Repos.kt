@@ -4,13 +4,13 @@ import org.gradle.kotlin.dsl.ScriptHandlerScope
 import org.gradle.kotlin.dsl.maven
 import org.gradle.kotlin.dsl.repositories
 
-fun ScriptHandlerScope.configBuildScriptRepo() = repositories { Repos.buildScriptRepo(this) }
+fun ScriptHandlerScope.addBuildScriptRepos() = repositories { Repos.buildScriptRepo(this) }
 
-fun ScriptHandlerScope.configBuildScriptClasspath(vararg paths: String) = dependencies {
+fun ScriptHandlerScope.addBuildScriptClassPath(vararg paths: String) = dependencies {
     paths.forEach { classpath(it) }
 }
 
-fun Project.configAllProjectRepo() = allprojects { repositories { Repos.projectRepo(this) } }
+fun Project.addAllProjectRepos() = allprojects { repositories { Repos.projectRepo(this) } }
 
 private object Repos {
 
