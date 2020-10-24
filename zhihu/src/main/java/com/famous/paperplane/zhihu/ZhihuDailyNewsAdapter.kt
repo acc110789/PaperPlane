@@ -16,7 +16,6 @@
 
 package com.famous.paperplane.zhihu
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.famous.paperplane.business_base.OnRecyclerViewItemOnClickListener
@@ -28,14 +27,13 @@ import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
  * Adapter between the data of [ZhihuDailyNewsQuestion] and [RecyclerView].
  */
 
-class ZhihuDailyNewsAdapter(private val mList: MutableList<ZhihuDailyNewsQuestion>) : RecyclerView.Adapter<ZhihuDailyNewsItemVIewHolder>() {
+class ZhihuDailyNewsAdapter(private val mList: MutableList<ZhihuDailyNewsQuestion>) : RecyclerView.Adapter<ZhihuDailyNewsItemViewHolder>() {
 
     private var mListener: OnRecyclerViewItemOnClickListener? = null
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) =
-        ZhihuDailyNewsItemVIewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.item_universal_layout, viewGroup, false), mListener)
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) = ZhihuDailyNewsItemViewHolder.create(viewGroup, listener = mListener)
 
-    override fun onBindViewHolder(viewHolder: ZhihuDailyNewsItemVIewHolder, i: Int) = viewHolder.bind(mList[i])
+    override fun onBindViewHolder(viewHolder: ZhihuDailyNewsItemViewHolder, i: Int) = viewHolder.bind(mList[i])
 
     override fun getItemCount(): Int = mList.size
 
