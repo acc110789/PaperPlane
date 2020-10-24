@@ -16,6 +16,7 @@
 
 package com.marktony.zhihudaily.timeline
 
+import androidx.lifecycle.ViewModel
 import com.marktony.zhihudaily.data.source.Result
 import com.marktony.zhihudaily.data.source.repository.ZhihuDailyNewsRepository
 import com.marktony.zhihudaily.util.launchSilent
@@ -33,14 +34,13 @@ class ZhihuDailyPresenter(
         private val mView: ZhihuDailyContract.View,
         private val mRepository: ZhihuDailyNewsRepository,
         private val uiContext: CoroutineContext = Dispatchers.Main
-) : ZhihuDailyContract.Presenter {
+): ViewModel(), ZhihuDailyContract.Presenter {
 
     init {
         mView.mPresenter = this
     }
 
     override fun start() {
-
     }
 
     override fun loadNews(forceUpdate: Boolean, clearCache: Boolean, date: Long) = launchSilent(uiContext) {

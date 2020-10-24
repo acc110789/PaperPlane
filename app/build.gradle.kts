@@ -39,33 +39,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":arch"))
-
     implementation(fileTree("include" to listOf("*.jar"), "dir" to "libs"))
 
-    implementation(KOTLIN_STDLIB)
+    api(project(":zhihu"))
 
-    implementation(APPCOMPAT)
-    implementation(MATERIAL)
-    implementation(LEGACY)
-    implementation(BROWSER)
-
-    implementation(ROOM)
     kapt(ROOM_COMPILER)
-
-    implementation(RETROFIT)
-    implementation(RETROFIT_CONVERTER_GSON)
-    implementation(OK_LOGGING)
-
-    implementation(GLIDE)
-    implementation(OK_GLIDE)
     kapt(GLIDE_COMPILER)
-
-    implementation(DATE_TIME_PICKER) {
-        exclude(group = "com.android.support")
-    }
-
-    implementation(COROUTINES)
-    implementation(COROUTINES_ANDROID)
-
 }

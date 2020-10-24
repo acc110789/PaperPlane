@@ -1,2 +1,3 @@
-include(":arch")
+include(":zhihu")
+include(":business-base")
 include(":app")

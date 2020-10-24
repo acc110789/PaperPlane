@@ -1,5 +1,3 @@
-
-
 private const val KOTLIN_VERSION = "1.3.72"
 
 const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:4.0.1"
@@ -32,3 +30,12 @@ const val DATE_TIME_PICKER = "com.wdullaer:materialdatetimepicker:3.6.0"
 private const val COROUTINES_VERSION = "1.3.8"
 const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION"
 const val COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
+
+const val MODULE_ANDROID = "com.kwai.kim.module_suite:module-android:0.0.3"
+const val MODULE_BASE = "com.kwai.kim.module_suite:module-base:0.0.1"
+const val MODULE_COMPILER = "com.kwai.kim.module_suite:module-compiler:0.0.2"
+
+const val ROUTER_ANNOTATION = "com.kwai.kim.router_suite:router-annotation:0.0.1"
+const val ROUTER_ANDROID = "com.kwai.kim.router_suite:router-android:0.0.3"
+const val ROUTER_COMPILER = "com.kwai.kim.router_suite:router-compiler:0.0.1"
+const val ROUTER_PLUGIN = "com.kwai.kim.router_suite:router-plugin:0.0.2"
