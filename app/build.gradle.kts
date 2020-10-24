@@ -20,6 +20,7 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 argument("room.schemaLocation", "$projectDir/schemas")
+                argument("MODULE_PACKAGE_NAME", "com.famous.paperplane." + project.name)
             }
         }
     }

@@ -2,6 +2,7 @@ private const val KOTLIN_VERSION = "1.3.72"
 
 const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:4.0.1"
 const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
+const val ANDROID_KOTLIN_EXTENSION = "org.jetbrains.kotlin:kotlin-android-extensions:$KOTLIN_VERSION"
 
 const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
 

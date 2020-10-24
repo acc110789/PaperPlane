@@ -12,6 +12,7 @@ buildscript {
     dependencies {
         classpath(ANDROID_GRADLE_PLUGIN)
         classpath(KOTLIN_GRADLE_PLUGIN)
+//        classpath(ANDROID_KOTLIN_EXTENSION)
         classpath(MODULE_PLUGIN)
     }
 }
