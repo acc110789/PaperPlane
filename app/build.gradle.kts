@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
-    id("kotlin-kapt")
+    kotlin("kapt")
 }
 
 android {
@@ -43,29 +43,29 @@ dependencies {
 
     implementation(fileTree("include" to listOf("*.jar"), "dir" to "libs"))
 
-    implementation(LibDependency.KOTLIN_STDLIB)
+    implementation(KOTLIN_STDLIB)
 
-    implementation(LibDependency.APPCOMPAT)
-    implementation(LibDependency.MATERIAL)
-    implementation(LibDependency.LEGACY)
-    implementation(LibDependency.BROWSER)
+    implementation(APPCOMPAT)
+    implementation(MATERIAL)
+    implementation(LEGACY)
+    implementation(BROWSER)
 
-    implementation(LibDependency.ROOM)
-    kapt(LibDependency.ROOM_COMPILER)
+    implementation(ROOM)
+    kapt(ROOM_COMPILER)
 
-    implementation(LibDependency.RETROFIT)
-    implementation(LibDependency.RETROFIT_CONVERTER_GSON)
-    implementation(LibDependency.OK_LOGGING)
+    implementation(RETROFIT)
+    implementation(RETROFIT_CONVERTER_GSON)
+    implementation(OK_LOGGING)
 
-    implementation(LibDependency.GLIDE)
-    implementation(LibDependency.OK_GLIDE)
-    kapt(LibDependency.GLIDE_COMPILER)
+    implementation(GLIDE)
+    implementation(OK_GLIDE)
+    kapt(GLIDE_COMPILER)
 
-    implementation(LibDependency.DATE_TIME_PICKER) {
+    implementation(DATE_TIME_PICKER) {
         exclude(group = "com.android.support")
     }
 
-    implementation(LibDependency.COROUTINES)
-    implementation(LibDependency.COROUTINES_ANDROID)
+    implementation(COROUTINES)
+    implementation(COROUTINES_ANDROID)
 
 }

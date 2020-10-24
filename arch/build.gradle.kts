@@ -13,6 +13,7 @@ android {
         targetSdkVersion(AndroidConfig.TARGET_SDK_VERSION)
     }
 
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -23,6 +24,6 @@ android {
 
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
-    implementation(LibDependency.KOTLIN_STDLIB)
-    implementation(LibDependency.APPCOMPAT)
+    implementation(KOTLIN_STDLIB)
+    implementation(APPCOMPAT)
 }
