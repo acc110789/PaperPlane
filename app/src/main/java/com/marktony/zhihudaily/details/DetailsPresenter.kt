@@ -17,11 +17,11 @@
 package com.marktony.zhihudaily.details
 
 import com.marktony.zhihudaily.R
-import com.marktony.zhihudaily.data.ContentType
+import com.famous.paperplane.business_base.ContentType
 import com.famous.paperplane.business_base.Result
 import com.famous.paperplane.zhihu.base.ZhihuDailyNewsRepository
 import com.marktony.zhihudaily.data.source.repository.*
-import com.marktony.zhihudaily.util.launchSilent
+import com.famous.paperplane.business_base.launchSilent
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
 

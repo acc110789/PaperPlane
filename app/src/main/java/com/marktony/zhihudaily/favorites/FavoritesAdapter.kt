@@ -27,7 +27,7 @@ import com.marktony.zhihudaily.data.DoubanMomentNewsPosts
 import com.marktony.zhihudaily.data.GuokrHandpickNewsResult
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.marktony.zhihudaily.glide.loadImage
-import com.marktony.zhihudaily.interfaze.OnRecyclerViewItemOnClickListener
+import com.famous.paperplane.business_base.OnRecyclerViewItemOnClickListener
 import kotlinx.android.synthetic.main.item_category.view.*
 import kotlinx.android.synthetic.main.item_universal_layout.view.*
 

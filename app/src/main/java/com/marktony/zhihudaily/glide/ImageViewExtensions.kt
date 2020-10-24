@@ -16,10 +16,10 @@
 
 package com.marktony.zhihudaily.glide
 
-import androidx.appcompat.widget.AppCompatImageView
+import android.widget.ImageView
 import com.marktony.zhihudaily.R
 
-fun AppCompatImageView.loadImage(url: String?) {
+fun ImageView.loadImage(url: String?) {
     GlideApp.with(context)
             .asBitmap()
             .load(url)

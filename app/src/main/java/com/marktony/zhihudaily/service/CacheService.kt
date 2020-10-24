@@ -24,7 +24,7 @@ import android.content.IntentFilter
 import android.os.Handler
 import android.os.IBinder
 import androidx.preference.PreferenceManager
-import com.marktony.zhihudaily.data.PostType
+import com.famous.paperplane.business_base.PostType
 import com.marktony.zhihudaily.database.AppDatabase
 import com.marktony.zhihudaily.retrofit.RetrofitService
 import com.famous.paperplane.zhihu.net.ZhihuDailyService

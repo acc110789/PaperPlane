@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.interfaze
-
-import android.view.View
+package com.famous.paperplane.business_base
 
 /**
- * Created by lizhaotailang on 2016/3/18.
+ * Created by lizhaotailang on 2017/5/25.
  *
- * OnClickListener for [android.support.v7.widget.RecyclerView] item.
+ * The types of items and contents.
  */
-interface OnRecyclerViewItemOnClickListener {
 
-    fun onItemClick(v: View, position: Int)
+enum class ContentType {
+
+    TYPE_ZHIHU_DAILY,
+    TYPE_DOUBAN_MOMENT,
+    TYPE_GUOKR_HANDPICK
 
 }

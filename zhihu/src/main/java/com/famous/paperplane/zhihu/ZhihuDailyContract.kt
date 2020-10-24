@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.timeline
+package com.famous.paperplane.zhihu
 
-import com.marktony.zhihudaily.BasePresenter
-import com.marktony.zhihudaily.BaseView
+import com.famous.paperplane.business_base.BasePresenter
+import com.famous.paperplane.business_base.BaseView
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 
 /**

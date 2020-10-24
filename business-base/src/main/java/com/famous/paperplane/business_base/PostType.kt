@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.data
+package com.famous.paperplane.business_base
 
 /**
  * Created by lizhaotailang on 2017/6/19.

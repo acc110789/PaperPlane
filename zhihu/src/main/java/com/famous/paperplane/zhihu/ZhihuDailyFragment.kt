@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.timeline
+package com.famous.paperplane.zhihu
 
 import android.content.Intent
 import android.os.Bundle
@@ -23,13 +23,11 @@ import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.marktony.zhihudaily.R
-import com.marktony.zhihudaily.data.ContentType
-import com.marktony.zhihudaily.data.PostType
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.famous.paperplane.business_base.*
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
-import com.marktony.zhihudaily.details.DetailsActivity
-import com.marktony.zhihudaily.interfaze.OnRecyclerViewItemOnClickListener
-import com.marktony.zhihudaily.service.CacheService
+import com.famous.paperplane.business_base.app.appModule
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.fragment_timeline_page.*
 import java.util.*
@@ -46,7 +44,7 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
     override lateinit var mPresenter: ZhihuDailyContract.Presenter
 
     private var mAdapter: ZhihuDailyNewsAdapter? = null
-    private lateinit var mLayoutManager: androidx.recyclerview.widget.LinearLayoutManager
+    private lateinit var mLayoutManager: LinearLayoutManager
 
     private var mYear: Int = 0
     private var mMonth: Int = 0
@@ -87,7 +85,7 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
             mPresenter.loadNews(true, true, c.timeInMillis)
         }
 
-        mLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+        mLayoutManager = LinearLayoutManager(context)
         recycler_view.layoutManager = mLayoutManager
         recycler_view.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
@@ -132,11 +130,11 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
             mAdapter?.setItemClickListener(object : OnRecyclerViewItemOnClickListener {
 
                 override fun onItemClick(v: View, position: Int) {
-                    val intent = Intent(activity, DetailsActivity::class.java).apply {
-                        putExtra(DetailsActivity.KEY_ARTICLE_ID, list[position].id)
-                        putExtra(DetailsActivity.KEY_ARTICLE_TYPE, ContentType.TYPE_ZHIHU_DAILY)
-                        putExtra(DetailsActivity.KEY_ARTICLE_TITLE, list[position].title)
-                        putExtra(DetailsActivity.KEY_ARTICLE_IS_FAVORITE, list[position].isFavorite)
+                    val intent = Intent(activity, appModule.detailActivityClass()).apply {
+                        putExtra(DetailActivityParam.KEY_ARTICLE_ID, list[position].id)
+                        putExtra(DetailActivityParam.KEY_ARTICLE_TYPE, ContentType.TYPE_ZHIHU_DAILY)
+                        putExtra(DetailActivityParam.KEY_ARTICLE_TITLE, list[position].title)
+                        putExtra(DetailActivityParam.KEY_ARTICLE_IS_FAVORITE, list[position].isFavorite)
                     }
                     startActivity(intent)
                 }
@@ -154,10 +152,10 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
 
         // Cache data of the items
         for ((_, _, id) in list) {
-            val intent = Intent(CacheService.BROADCAST_FILTER_ACTION)
-            intent.putExtra(CacheService.FLAG_ID, id)
-            intent.putExtra(CacheService.FLAG_TYPE, PostType.ZHIHU)
-            androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(context!!).sendBroadcast(intent)
+            val intent = Intent(CacheServiceParam.BROADCAST_FILTER_ACTION)
+            intent.putExtra(CacheServiceParam.FLAG_ID, id)
+            intent.putExtra(CacheServiceParam.FLAG_TYPE, PostType.ZHIHU)
+            LocalBroadcastManager.getInstance(context!!).sendBroadcast(intent)
         }
     }
 

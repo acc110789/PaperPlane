@@ -18,11 +18,12 @@ package com.marktony.zhihudaily.timeline
 
 import android.os.Bundle
 import com.google.android.material.tabs.TabLayout
-import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.famous.paperplane.zhihu.ZhihuDailyFragment
+import com.famous.paperplane.zhihu.ZhihuDailyPresenter
 import com.marktony.zhihudaily.R
 import com.marktony.zhihudaily.injection.Injection
 import kotlinx.android.synthetic.main.fragment_timeline.*

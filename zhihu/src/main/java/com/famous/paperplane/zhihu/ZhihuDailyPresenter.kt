@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.timeline
+package com.famous.paperplane.zhihu
 
 import androidx.lifecycle.ViewModel
 import com.famous.paperplane.business_base.Result
 import com.famous.paperplane.zhihu.base.ZhihuDailyNewsRepository
-import com.marktony.zhihudaily.util.launchSilent
+import com.famous.paperplane.business_base.launchSilent
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
 

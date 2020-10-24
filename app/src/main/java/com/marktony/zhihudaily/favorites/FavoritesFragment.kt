@@ -22,12 +22,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.marktony.zhihudaily.R
-import com.marktony.zhihudaily.data.ContentType
+import com.famous.paperplane.business_base.ContentType
 import com.marktony.zhihudaily.data.DoubanMomentNewsPosts
 import com.marktony.zhihudaily.data.GuokrHandpickNewsResult
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.marktony.zhihudaily.details.DetailsActivity
-import com.marktony.zhihudaily.interfaze.OnRecyclerViewItemOnClickListener
+import com.famous.paperplane.business_base.OnRecyclerViewItemOnClickListener
 import kotlinx.android.synthetic.main.framgent_favorites.*
 
 /**

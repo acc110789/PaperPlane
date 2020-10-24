@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.timeline
+package com.famous.paperplane.zhihu
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.marktony.zhihudaily.R
+import androidx.recyclerview.widget.RecyclerView
+import com.famous.paperplane.business_base.OnRecyclerViewItemOnClickListener
+import com.famous.paperplane.business_base.imageService
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
-import com.marktony.zhihudaily.glide.loadImage
-import com.marktony.zhihudaily.interfaze.OnRecyclerViewItemOnClickListener
 import kotlinx.android.synthetic.main.item_universal_layout.view.*
 
 /**
@@ -32,17 +31,18 @@ import kotlinx.android.synthetic.main.item_universal_layout.view.*
  * Adapter between the data of [ZhihuDailyNewsQuestion] and [RecyclerView].
  */
 
-class ZhihuDailyNewsAdapter(private val mList: MutableList<ZhihuDailyNewsQuestion>) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
+class ZhihuDailyNewsAdapter(private val mList: MutableList<ZhihuDailyNewsQuestion>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var mListener: OnRecyclerViewItemOnClickListener? = null
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder = ItemViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.item_universal_layout, viewGroup, false), mListener)
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+            ItemViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.item_universal_layout, viewGroup, false), mListener)
 
-    override fun onBindViewHolder(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, i: Int) {
+    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, i: Int) {
         val (images, _, _, _, title) = mList[i]
 
         with((viewHolder as ItemViewHolder).itemView) {
-            image_view_cover.loadImage(images?.get(0))
+            imageService.loadImage(image_view_cover, images?.get(0))
             text_view_title.text = title
         }
     }
@@ -63,7 +63,7 @@ class ZhihuDailyNewsAdapter(private val mList: MutableList<ZhihuDailyNewsQuestio
     class ItemViewHolder(
             itemView: View,
             private val listener: OnRecyclerViewItemOnClickListener?
-    ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)
