@@ -17,7 +17,7 @@
 package com.marktony.zhihudaily.data.source.repository
 
 import com.marktony.zhihudaily.data.DoubanMomentNewsPosts
-import com.marktony.zhihudaily.data.source.Result
+import com.famous.paperplane.business_base.Result
 import com.marktony.zhihudaily.data.source.datasource.DoubanMomentNewsDataSource
 import com.marktony.zhihudaily.util.formatDoubanMomentDateStringToLong
 import java.util.*

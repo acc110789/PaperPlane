@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.data.source.remote
+package com.famous.paperplane.zhihu.net
 
 import androidx.annotation.VisibleForTesting
-import com.marktony.zhihudaily.BuildConfig
-import com.marktony.zhihudaily.data.ZhihuDailyNews
-import com.marktony.zhihudaily.data.ZhihuDailyNewsQuestion
-import com.marktony.zhihudaily.data.source.RemoteDataNotFoundException
-import com.marktony.zhihudaily.data.source.Result
-import com.marktony.zhihudaily.data.source.datasource.ZhihuDailyNewsDataSource
-import com.marktony.zhihudaily.retrofit.RetrofitService
-import com.marktony.zhihudaily.util.AppExecutors
-import com.marktony.zhihudaily.util.formatZhihuDailyDateLongToString
+import com.famous.paperplane.business_base.RemoteDataNotFoundException
+import com.famous.paperplane.business_base.Result
+import com.famous.paperplane.zhihu.BuildConfig
+import com.famous.paperplane.zhihu.base.ZhihuDailyNewsDataSource
+import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
+import com.famous.paperplane.zhihu.utils.formatZhihuDailyDateLongToString
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -38,9 +36,9 @@ import retrofit2.converter.gson.GsonConverterFactory
  * Implementation of the [ZhihuDailyNews] data source that accesses network.
  */
 
-class ZhihuDailyNewsRemoteDataSource private constructor(private val mAppExecutors: AppExecutors) : ZhihuDailyNewsDataSource {
+class ZhihuDailyNewsRemoteDataSource private constructor() : ZhihuDailyNewsDataSource {
 
-    private val mZhihuDailyService: RetrofitService.ZhihuDailyService by lazy {
+    private val mZhihuDailyService: ZhihuDailyService by lazy {
         val httpClientBuilder = OkHttpClient.Builder()
 
         if (BuildConfig.DEBUG) {
@@ -52,12 +50,12 @@ class ZhihuDailyNewsRemoteDataSource private constructor(private val mAppExecuto
         httpClientBuilder.retryOnConnectionFailure(true)
 
         val retrofit = Retrofit.Builder()
-                .baseUrl(RetrofitService.ZHIHU_DAILY_BASE)
+                .baseUrl(ZHIHU_DAILY_BASE)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClientBuilder.build())
                 .build()
 
-        retrofit.create(RetrofitService.ZhihuDailyService::class.java)
+        retrofit.create(ZhihuDailyService::class.java)
     }
 
     companion object {
@@ -65,10 +63,10 @@ class ZhihuDailyNewsRemoteDataSource private constructor(private val mAppExecuto
         private var INSTANCE: ZhihuDailyNewsRemoteDataSource? = null
 
         @JvmStatic
-        fun getInstance(appExecutors: AppExecutors): ZhihuDailyNewsRemoteDataSource {
+        fun getInstance(): ZhihuDailyNewsRemoteDataSource {
             if (INSTANCE == null) {
                 synchronized(ZhihuDailyNewsRemoteDataSource::javaClass) {
-                    INSTANCE = ZhihuDailyNewsRemoteDataSource(appExecutors)
+                    INSTANCE = ZhihuDailyNewsRemoteDataSource()
                 }
             }
             return INSTANCE!!
@@ -81,7 +79,7 @@ class ZhihuDailyNewsRemoteDataSource private constructor(private val mAppExecuto
 
     }
 
-    override suspend fun getZhihuDailyNews(forceUpdate: Boolean, clearCache: Boolean, date: Long): Result<List<ZhihuDailyNewsQuestion>> = withContext(mAppExecutors.ioContext) {
+    override suspend fun getZhihuDailyNews(forceUpdate: Boolean, clearCache: Boolean, date: Long): Result<List<ZhihuDailyNewsQuestion>> = withContext(IO) {
         try {
             val response = mZhihuDailyService.getZhihuList(formatZhihuDailyDateLongToString(date)).execute()
             if (response.isSuccessful) {

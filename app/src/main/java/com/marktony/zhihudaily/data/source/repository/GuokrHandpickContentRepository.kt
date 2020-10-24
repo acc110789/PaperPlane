@@ -17,7 +17,7 @@
 package com.marktony.zhihudaily.data.source.repository
 
 import com.marktony.zhihudaily.data.GuokrHandpickContentResult
-import com.marktony.zhihudaily.data.source.Result
+import com.famous.paperplane.business_base.Result
 import com.marktony.zhihudaily.data.source.datasource.GuokrHandpickContentDataSource
 
 /**

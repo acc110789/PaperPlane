@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.database.dao
+package com.famous.paperplane.zhihu.db
 
 import androidx.room.*
-import com.marktony.zhihudaily.data.ZhihuDailyNewsQuestion
 
 /**
  * Created by lizhaotailang on 2017/6/15.

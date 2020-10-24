@@ -18,8 +18,8 @@ package com.marktony.zhihudaily.data.source.local
 
 import androidx.annotation.VisibleForTesting
 import com.marktony.zhihudaily.data.DoubanMomentNewsPosts
-import com.marktony.zhihudaily.data.source.LocalDataNotFoundException
-import com.marktony.zhihudaily.data.source.Result
+import com.famous.paperplane.business_base.LocalDataNotFoundException
+import com.famous.paperplane.business_base.Result
 import com.marktony.zhihudaily.data.source.datasource.DoubanMomentNewsDataSource
 import com.marktony.zhihudaily.database.dao.DoubanMomentNewsDao
 import com.marktony.zhihudaily.util.AppExecutors

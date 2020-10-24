@@ -40,16 +40,6 @@ interface RetrofitService {
 
     }
 
-    interface ZhihuDailyService {
-
-        @GET("before/{date}")
-        fun getZhihuList(@Path("date") date: String): Call<ZhihuDailyNews>
-
-        @GET("{id}")
-        fun getZhihuContent(@Path("id") id: Int): Call<ZhihuDailyContent>
-
-    }
-
     interface DoubanMomentService {
 
         @GET("stream/date/{date}")

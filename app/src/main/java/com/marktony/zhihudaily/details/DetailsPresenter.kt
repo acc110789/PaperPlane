@@ -18,7 +18,8 @@ package com.marktony.zhihudaily.details
 
 import com.marktony.zhihudaily.R
 import com.marktony.zhihudaily.data.ContentType
-import com.marktony.zhihudaily.data.source.Result
+import com.famous.paperplane.business_base.Result
+import com.famous.paperplane.zhihu.base.ZhihuDailyNewsRepository
 import com.marktony.zhihudaily.data.source.repository.*
 import com.marktony.zhihudaily.util.launchSilent
 import kotlinx.coroutines.Dispatchers

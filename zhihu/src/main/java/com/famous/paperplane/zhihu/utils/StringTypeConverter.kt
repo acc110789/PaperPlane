@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.database.converter
+package com.famous.paperplane.zhihu.utils
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

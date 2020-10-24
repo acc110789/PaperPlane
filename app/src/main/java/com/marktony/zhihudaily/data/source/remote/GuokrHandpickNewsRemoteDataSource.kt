@@ -20,8 +20,8 @@ import androidx.annotation.VisibleForTesting
 import com.marktony.zhihudaily.BuildConfig
 import com.marktony.zhihudaily.data.GuokrHandpickNews
 import com.marktony.zhihudaily.data.GuokrHandpickNewsResult
-import com.marktony.zhihudaily.data.source.RemoteDataNotFoundException
-import com.marktony.zhihudaily.data.source.Result
+import com.famous.paperplane.business_base.RemoteDataNotFoundException
+import com.famous.paperplane.business_base.Result
 import com.marktony.zhihudaily.data.source.datasource.GuokrHandpickDataSource
 import com.marktony.zhihudaily.retrofit.RetrofitService
 import com.marktony.zhihudaily.util.AppExecutors

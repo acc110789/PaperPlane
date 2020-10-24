@@ -18,7 +18,7 @@ package com.marktony.zhihudaily.timeline
 
 import com.marktony.zhihudaily.BasePresenter
 import com.marktony.zhihudaily.BaseView
-import com.marktony.zhihudaily.data.ZhihuDailyNewsQuestion
+import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 
 /**
  * Created by lizhaotailang on 2017/5/21.

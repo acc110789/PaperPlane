@@ -17,8 +17,8 @@
 package com.marktony.zhihudaily.timeline
 
 import androidx.lifecycle.ViewModel
-import com.marktony.zhihudaily.data.source.Result
-import com.marktony.zhihudaily.data.source.repository.ZhihuDailyNewsRepository
+import com.famous.paperplane.business_base.Result
+import com.famous.paperplane.zhihu.base.ZhihuDailyNewsRepository
 import com.marktony.zhihudaily.util.launchSilent
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext

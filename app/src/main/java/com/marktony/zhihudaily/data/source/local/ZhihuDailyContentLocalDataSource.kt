@@ -17,11 +17,11 @@
 package com.marktony.zhihudaily.data.source.local
 
 import androidx.annotation.VisibleForTesting
-import com.marktony.zhihudaily.data.ZhihuDailyContent
-import com.marktony.zhihudaily.data.source.LocalDataNotFoundException
-import com.marktony.zhihudaily.data.source.Result
+import com.famous.paperplane.zhihu.db.ZhihuDailyContent
+import com.famous.paperplane.business_base.LocalDataNotFoundException
+import com.famous.paperplane.business_base.Result
 import com.marktony.zhihudaily.data.source.datasource.ZhihuDailyContentDataSource
-import com.marktony.zhihudaily.database.dao.ZhihuDailyContentDao
+import com.famous.paperplane.zhihu.db.ZhihuDailyContentDao
 import com.marktony.zhihudaily.util.AppExecutors
 import kotlinx.coroutines.withContext
 

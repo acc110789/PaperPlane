@@ -16,7 +16,7 @@
 
 package com.marktony.zhihudaily.timeline
 
-import com.marktony.zhihudaily.data.source.Result
+import com.famous.paperplane.business_base.Result
 import com.marktony.zhihudaily.data.source.repository.DoubanMomentNewsRepository
 import com.marktony.zhihudaily.util.launchSilent
 import kotlinx.coroutines.Dispatchers

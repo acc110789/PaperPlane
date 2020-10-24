@@ -21,7 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.marktony.zhihudaily.R
-import com.marktony.zhihudaily.data.ZhihuDailyNewsQuestion
+import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.marktony.zhihudaily.glide.loadImage
 import com.marktony.zhihudaily.interfaze.OnRecyclerViewItemOnClickListener
 import kotlinx.android.synthetic.main.item_universal_layout.view.*

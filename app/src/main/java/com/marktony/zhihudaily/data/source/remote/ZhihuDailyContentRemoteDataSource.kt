@@ -18,11 +18,12 @@ package com.marktony.zhihudaily.data.source.remote
 
 import androidx.annotation.VisibleForTesting
 import com.marktony.zhihudaily.BuildConfig
-import com.marktony.zhihudaily.data.ZhihuDailyContent
-import com.marktony.zhihudaily.data.source.RemoteDataNotFoundException
-import com.marktony.zhihudaily.data.source.Result
+import com.famous.paperplane.zhihu.db.ZhihuDailyContent
+import com.famous.paperplane.business_base.RemoteDataNotFoundException
+import com.famous.paperplane.business_base.Result
 import com.marktony.zhihudaily.data.source.datasource.ZhihuDailyContentDataSource
 import com.marktony.zhihudaily.retrofit.RetrofitService
+import com.famous.paperplane.zhihu.net.ZhihuDailyService
 import com.marktony.zhihudaily.util.AppExecutors
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -40,7 +41,7 @@ class ZhihuDailyContentRemoteDataSource private constructor(
         private val mAppExecutors: AppExecutors
 ) : ZhihuDailyContentDataSource {
 
-    private val mZhihuDailyService: RetrofitService.ZhihuDailyService by lazy {
+    private val mZhihuDailyService: ZhihuDailyService by lazy {
         val httpClientBuilder = OkHttpClient.Builder()
 
         if (BuildConfig.DEBUG) {
@@ -57,7 +58,7 @@ class ZhihuDailyContentRemoteDataSource private constructor(
                 .client(httpClientBuilder.build())
                 .build()
 
-        retrofit.create(RetrofitService.ZhihuDailyService::class.java)
+        retrofit.create(ZhihuDailyService::class.java)
     }
 
     companion object {
@@ -99,7 +100,7 @@ class ZhihuDailyContentRemoteDataSource private constructor(
     }
 
     override suspend fun saveContent(content: ZhihuDailyContent) {
-        // Not required because the [com.marktony.zhihudaily.data.source.repository.ZhihuDailyNewsRepository] handles the logic of refreshing the
+        // Not required because the [com.famous.paperplane.zhihu.base.ZhihuDailyNewsRepository] handles the logic of refreshing the
         // news from all the available data sources.
     }
 

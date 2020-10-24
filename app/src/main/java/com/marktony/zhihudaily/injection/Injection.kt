@@ -1,6 +1,9 @@
 package com.marktony.zhihudaily.injection
 
 import android.content.Context
+import com.famous.paperplane.zhihu.db.ZhihuDailyNewsLocalDataSource
+import com.famous.paperplane.zhihu.net.ZhihuDailyNewsRemoteDataSource
+import com.famous.paperplane.zhihu.base.ZhihuDailyNewsRepository
 import com.marktony.zhihudaily.data.source.local.*
 import com.marktony.zhihudaily.data.source.remote.*
 import com.marktony.zhihudaily.data.source.repository.*
@@ -11,7 +14,7 @@ object Injection {
 
     private val appExecutors: AppExecutors = AppExecutors()
 
-    fun provideZhihuDailyNewsRepository(context: Context): ZhihuDailyNewsRepository = ZhihuDailyNewsRepository.getInstance(ZhihuDailyNewsRemoteDataSource.getInstance(appExecutors), ZhihuDailyNewsLocalDataSource.getInstance(appExecutors, AppDatabase.getInstance(context).zhihuDailyNewsDao()))
+    fun provideZhihuDailyNewsRepository(context: Context): ZhihuDailyNewsRepository = ZhihuDailyNewsRepository.getInstance(ZhihuDailyNewsRemoteDataSource.getInstance(), ZhihuDailyNewsLocalDataSource.getInstance(AppDatabase.getInstance(context).zhihuDailyNewsDao()))
 
     fun provideZhihuDailyContentRepository(context: Context): ZhihuDailyContentRepository = ZhihuDailyContentRepository.getInstance(ZhihuDailyContentRemoteDataSource.getInstance(appExecutors), ZhihuDailyContentLocalDataSource.getInstance(appExecutors, AppDatabase.getInstance(context).zhihuDailyContentDao()))
 

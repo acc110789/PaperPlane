@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.data.source.local
+package com.famous.paperplane.zhihu.db
 
 import androidx.annotation.VisibleForTesting
-import com.marktony.zhihudaily.data.ZhihuDailyNewsQuestion
-import com.marktony.zhihudaily.data.source.LocalDataNotFoundException
-import com.marktony.zhihudaily.data.source.Result
-import com.marktony.zhihudaily.data.source.datasource.ZhihuDailyNewsDataSource
-import com.marktony.zhihudaily.database.dao.ZhihuDailyNewsDao
-import com.marktony.zhihudaily.util.AppExecutors
+import com.famous.paperplane.business_base.LocalDataNotFoundException
+import com.famous.paperplane.business_base.Result
+import com.famous.paperplane.zhihu.base.ZhihuDailyNewsDataSource
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 
 /**
@@ -32,7 +30,6 @@ import kotlinx.coroutines.withContext
  */
 
 class ZhihuDailyNewsLocalDataSource private constructor(
-        val mAppExecutors: AppExecutors,
         val mZhihuDailyNewsDao: ZhihuDailyNewsDao
 ) : ZhihuDailyNewsDataSource {
 
@@ -40,10 +37,10 @@ class ZhihuDailyNewsLocalDataSource private constructor(
         private var INSTANCE: ZhihuDailyNewsLocalDataSource? = null
 
         @JvmStatic
-        fun getInstance(appExecutors: AppExecutors, zhihuDailyNewsDao: ZhihuDailyNewsDao): ZhihuDailyNewsLocalDataSource {
+        fun getInstance(zhihuDailyNewsDao: ZhihuDailyNewsDao): ZhihuDailyNewsLocalDataSource {
             if (INSTANCE == null) {
                 synchronized(ZhihuDailyNewsLocalDataSource::javaClass) {
-                    INSTANCE = ZhihuDailyNewsLocalDataSource(appExecutors, zhihuDailyNewsDao)
+                    INSTANCE = ZhihuDailyNewsLocalDataSource(zhihuDailyNewsDao)
                 }
             }
             return INSTANCE!!
@@ -55,23 +52,23 @@ class ZhihuDailyNewsLocalDataSource private constructor(
         }
     }
 
-    override suspend fun getZhihuDailyNews(forceUpdate: Boolean, clearCache: Boolean, date: Long): Result<List<ZhihuDailyNewsQuestion>> = withContext(mAppExecutors.ioContext) {
+    override suspend fun getZhihuDailyNews(forceUpdate: Boolean, clearCache: Boolean, date: Long): Result<List<ZhihuDailyNewsQuestion>> = withContext(IO) {
         val news = mZhihuDailyNewsDao.queryAllByDate(date)
         if (news.isNotEmpty()) Result.Success(news) else Result.Error(LocalDataNotFoundException())
     }
 
-    override suspend fun getFavorites(): Result<List<ZhihuDailyNewsQuestion>> = withContext(mAppExecutors.ioContext) {
+    override suspend fun getFavorites(): Result<List<ZhihuDailyNewsQuestion>> = withContext(IO) {
         val favorites = mZhihuDailyNewsDao.queryAllFavorites()
         if (favorites.isNotEmpty()) Result.Success(favorites) else Result.Error(LocalDataNotFoundException())
     }
 
-    override suspend fun getItem(itemId: Int): Result<ZhihuDailyNewsQuestion> = withContext(mAppExecutors.ioContext) {
+    override suspend fun getItem(itemId: Int): Result<ZhihuDailyNewsQuestion> = withContext(IO) {
         val item = mZhihuDailyNewsDao.queryItemById(itemId)
         if (item != null) Result.Success(item) else Result.Error(LocalDataNotFoundException())
     }
 
     override suspend fun favoriteItem(itemId: Int, favorite: Boolean) {
-        withContext(mAppExecutors.ioContext) {
+        withContext(IO) {
             mZhihuDailyNewsDao.queryItemById(itemId)?.let {
                 it.isFavorite = favorite
                 mZhihuDailyNewsDao.update(it)
@@ -80,7 +77,7 @@ class ZhihuDailyNewsLocalDataSource private constructor(
     }
 
     override suspend fun saveAll(list: List<ZhihuDailyNewsQuestion>) {
-        withContext(mAppExecutors.ioContext) {
+        withContext(IO) {
             mZhihuDailyNewsDao.insertAll(list)
         }
     }

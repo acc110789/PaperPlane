@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.data
+package com.famous.paperplane.zhihu.db
 
 import android.annotation.SuppressLint
 import androidx.room.ColumnInfo
@@ -22,9 +22,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import android.os.Parcelable
+import com.famous.paperplane.zhihu.utils.StringTypeConverter
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.marktony.zhihudaily.database.converter.StringTypeConverter
 import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "zhihu_daily_content")

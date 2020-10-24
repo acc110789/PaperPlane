@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.data.source.repository
+package com.famous.paperplane.zhihu.base
 
-import com.marktony.zhihudaily.data.ZhihuDailyNewsQuestion
-import com.marktony.zhihudaily.data.source.Result
-import com.marktony.zhihudaily.data.source.datasource.ZhihuDailyNewsDataSource
+import com.famous.paperplane.business_base.Result
+import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import java.util.*
 
 /**

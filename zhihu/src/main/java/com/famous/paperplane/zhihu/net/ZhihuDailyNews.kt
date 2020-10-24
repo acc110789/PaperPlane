@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.data
+package com.famous.paperplane.zhihu.net
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
+import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize

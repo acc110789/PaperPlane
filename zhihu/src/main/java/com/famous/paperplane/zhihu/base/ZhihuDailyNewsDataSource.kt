@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.data.source.datasource
+package com.famous.paperplane.zhihu.base
 
-import com.marktony.zhihudaily.data.ZhihuDailyNewsQuestion
-import com.marktony.zhihudaily.data.source.Result
+import com.famous.paperplane.business_base.Result
+import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
+
 
 /**
  * Created by lizhaotailang on 2017/5/21.

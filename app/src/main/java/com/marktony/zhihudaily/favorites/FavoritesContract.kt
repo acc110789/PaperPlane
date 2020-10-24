@@ -20,7 +20,7 @@ import com.marktony.zhihudaily.BasePresenter
 import com.marktony.zhihudaily.BaseView
 import com.marktony.zhihudaily.data.DoubanMomentNewsPosts
 import com.marktony.zhihudaily.data.GuokrHandpickNewsResult
-import com.marktony.zhihudaily.data.ZhihuDailyNewsQuestion
+import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 
 /**
  * Created by lizhaotailang on 2017/6/6.

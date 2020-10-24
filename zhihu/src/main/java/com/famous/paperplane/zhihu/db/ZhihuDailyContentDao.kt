@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.database.dao
+package com.famous.paperplane.zhihu.db
 
 import androidx.room.*
-import com.marktony.zhihudaily.data.ZhihuDailyContent
+import com.famous.paperplane.zhihu.db.ZhihuDailyContent
 
 
 /**

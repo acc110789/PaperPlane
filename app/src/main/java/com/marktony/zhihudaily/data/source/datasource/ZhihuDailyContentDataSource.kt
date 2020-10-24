@@ -16,8 +16,8 @@
 
 package com.marktony.zhihudaily.data.source.datasource
 
-import com.marktony.zhihudaily.data.ZhihuDailyContent
-import com.marktony.zhihudaily.data.source.Result
+import com.famous.paperplane.zhihu.db.ZhihuDailyContent
+import com.famous.paperplane.business_base.Result
 
 /**
  * Created by lizhaotailang on 2017/5/25.

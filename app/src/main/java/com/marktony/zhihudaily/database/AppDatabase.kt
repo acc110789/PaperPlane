@@ -20,6 +20,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import android.content.Context
+import com.famous.paperplane.zhihu.db.ZhihuDailyContent
+import com.famous.paperplane.zhihu.db.ZhihuDailyContentDao
+import com.famous.paperplane.zhihu.db.ZhihuDailyNewsDao
+import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.marktony.zhihudaily.data.*
 import com.marktony.zhihudaily.database.dao.*
 

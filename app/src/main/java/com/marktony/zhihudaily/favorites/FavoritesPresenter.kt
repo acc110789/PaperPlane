@@ -16,10 +16,10 @@
 
 package com.marktony.zhihudaily.favorites
 
-import com.marktony.zhihudaily.data.source.Result
+import com.famous.paperplane.business_base.Result
 import com.marktony.zhihudaily.data.source.repository.DoubanMomentNewsRepository
 import com.marktony.zhihudaily.data.source.repository.GuokrHandpickNewsRepository
-import com.marktony.zhihudaily.data.source.repository.ZhihuDailyNewsRepository
+import com.famous.paperplane.zhihu.base.ZhihuDailyNewsRepository
 import com.marktony.zhihudaily.util.launchSilent
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext

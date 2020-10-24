@@ -31,6 +31,7 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
+import com.famous.paperplane.zhihu.db.ZhihuDailyContent
 import com.marktony.zhihudaily.R
 import com.marktony.zhihudaily.customtabs.CustomTabsHelper
 import com.marktony.zhihudaily.data.*
