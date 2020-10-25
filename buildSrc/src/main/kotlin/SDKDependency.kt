@@ -1,10 +1,10 @@
-private const val KOTLIN_VERSION = "1.3.72"
+private const val KOTLIN_VERSION = "1.4.10"
 
 const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:4.0.1"
 const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
 const val ANDROID_KOTLIN_EXTENSION = "org.jetbrains.kotlin:kotlin-android-extensions:$KOTLIN_VERSION"
 
-const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
 
 const val APPCOMPAT = "androidx.appcompat:appcompat:1.1.0"
 const val MATERIAL = "com.google.android.material:material:1.1.0"

@@ -1,20 +1,17 @@
 package com.famous.paperplane.zhihu.daily
 
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.famous.paperplane.business_base.imageService
-import com.famous.paperplane.business_base.layoutInflater
 import com.famous.paperplane.zhihu.R
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
-import kotlinx.android.extensions.LayoutContainer
 
 class ZhihuDailyNewsItemViewHolder(
     itemView: View,
     private val itemContext: ZhihuDailyNewsItemContext
-) : RecyclerView.ViewHolder(itemView), View.OnClickListener, LayoutContainer {
+) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
     private var item: ZhihuDailyNewsQuestion? = null
 
@@ -35,7 +32,4 @@ class ZhihuDailyNewsItemViewHolder(
         val item = this.item ?: return
         itemContext.onItemClick(item)
     }
-
-    override val containerView: View? get() = itemView
-
 }
