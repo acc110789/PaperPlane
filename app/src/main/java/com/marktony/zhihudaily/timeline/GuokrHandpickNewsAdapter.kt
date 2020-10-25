@@ -24,7 +24,8 @@ import com.marktony.zhihudaily.R
 import com.marktony.zhihudaily.data.GuokrHandpickNewsResult
 import com.marktony.zhihudaily.glide.loadImage
 import com.famous.paperplane.business_base.OnRecyclerViewItemOnClickListener
-import kotlinx.android.synthetic.main.item_universal_layout.view.*
+import com.famous.paperplane.business_base.image_view_cover
+import com.famous.paperplane.business_base.text_view_title
 
 /**
  * Created by lizhaotailang on 2017/5/24.
@@ -32,12 +33,12 @@ import kotlinx.android.synthetic.main.item_universal_layout.view.*
  * Adapter between the data of [GuokrHandpickNewsResult] and [RecyclerView].
  */
 
-class GuokrHandpickNewsAdapter(private val mList: MutableList<GuokrHandpickNewsResult>) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
+class GuokrHandpickNewsAdapter(private val mList: MutableList<GuokrHandpickNewsResult>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var mListener: OnRecyclerViewItemOnClickListener? = null
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder = ItemViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.item_universal_layout, viewGroup, false), mListener)
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): RecyclerView.ViewHolder = ItemViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.item_universal_layout, viewGroup, false), mListener)
 
-    override fun onBindViewHolder(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, i: Int) {
+    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, i: Int) {
         val (_, _, _, _, _, _, _, _, _, _, _, _, imageInfo, _, _, _, _, _, _, _, _, _, _, _, title) = mList[i]
 
         with((viewHolder as ItemViewHolder).itemView) {
@@ -62,7 +63,7 @@ class GuokrHandpickNewsAdapter(private val mList: MutableList<GuokrHandpickNewsR
     class ItemViewHolder(
             itemView: View,
             private val listener: OnRecyclerViewItemOnClickListener?
-    ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)

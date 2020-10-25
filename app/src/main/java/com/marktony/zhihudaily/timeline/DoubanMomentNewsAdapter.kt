@@ -24,7 +24,8 @@ import com.marktony.zhihudaily.R
 import com.marktony.zhihudaily.data.DoubanMomentNewsPosts
 import com.marktony.zhihudaily.glide.loadImage
 import com.famous.paperplane.business_base.OnRecyclerViewItemOnClickListener
-import kotlinx.android.synthetic.main.item_universal_layout.view.*
+import com.famous.paperplane.business_base.image_view_cover
+import com.famous.paperplane.business_base.text_view_title
 
 /**
  * Created by lizhaotailang on 2017/5/22.

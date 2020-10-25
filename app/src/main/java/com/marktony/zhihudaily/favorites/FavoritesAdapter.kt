@@ -28,8 +28,9 @@ import com.marktony.zhihudaily.data.GuokrHandpickNewsResult
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.marktony.zhihudaily.glide.loadImage
 import com.famous.paperplane.business_base.OnRecyclerViewItemOnClickListener
+import com.famous.paperplane.business_base.image_view_cover
+import com.famous.paperplane.business_base.text_view_title
 import kotlinx.android.synthetic.main.item_category.view.*
-import kotlinx.android.synthetic.main.item_universal_layout.view.*
 
 /**
  * Created by lizhaotailang on 2017/6/14.
@@ -42,7 +43,7 @@ class FavoritesAdapter(
         private val mZhihuList: MutableList<ZhihuDailyNewsQuestion>,
         private val mDoubanList: MutableList<DoubanMomentNewsPosts>,
         private val mGuokrList: MutableList<GuokrHandpickNewsResult>
-) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mContext)
 
@@ -91,7 +92,7 @@ class FavoritesAdapter(
         }
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder = when (viewType) {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder = when (viewType) {
         ItemWrapper.TYPE_EMPTY -> EmptyViewHolder(mLayoutInflater.inflate(R.layout.item_empty, viewGroup, false))
         ItemWrapper.TYPE_ZHIHU -> ZhihuItemViewHolder(mLayoutInflater.inflate(R.layout.item_universal_layout, viewGroup, false), mListener)
         ItemWrapper.TYPE_DOUBAN -> DoubanItemHolder(mLayoutInflater.inflate(R.layout.item_universal_layout, viewGroup, false), mListener)
@@ -100,7 +101,7 @@ class FavoritesAdapter(
         else -> CategoryViewHolder(mLayoutInflater.inflate(R.layout.item_category, viewGroup, false))
     }
 
-    override fun onBindViewHolder(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, i: Int) {
+    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, i: Int) {
         val iw = mWrapperList[i]
 
         when (iw.viewType) {
@@ -212,7 +213,7 @@ class FavoritesAdapter(
     class ZhihuItemViewHolder(
             itemView: View,
             private val listener: OnRecyclerViewItemOnClickListener?
-    ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)
@@ -226,7 +227,7 @@ class FavoritesAdapter(
     class DoubanItemHolder(
             itemView: View,
             private val listener: OnRecyclerViewItemOnClickListener?
-    ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)
@@ -240,7 +241,7 @@ class FavoritesAdapter(
     class DoubanNoImageHolder(
             itemView: View,
             private val listener: OnRecyclerViewItemOnClickListener?
-    ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)
@@ -254,7 +255,7 @@ class FavoritesAdapter(
     class GuokrViewHolder(
             itemView: View,
             private val listener: OnRecyclerViewItemOnClickListener?
-    ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)
@@ -266,9 +267,9 @@ class FavoritesAdapter(
 
     }
 
-    class CategoryViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView)
+    class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    class EmptyViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView)
+    class EmptyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     class ItemWrapper(val viewType: Int) {
 

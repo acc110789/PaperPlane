@@ -22,14 +22,17 @@ import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.marktony.zhihudaily.R
 import com.famous.paperplane.business_base.ContentType
 import com.marktony.zhihudaily.data.GuokrHandpickNewsResult
 import com.famous.paperplane.business_base.PostType
 import com.marktony.zhihudaily.details.DetailsActivity
 import com.famous.paperplane.business_base.OnRecyclerViewItemOnClickListener
+import com.famous.paperplane.empty_view
+import com.famous.paperplane.recycler_view
+import com.famous.paperplane.refresh_layout
 import com.marktony.zhihudaily.service.CacheService
-import kotlinx.android.synthetic.main.fragment_timeline_page.*
 
 /**
  * Created by lizhaotailang on 2017/5/24.
@@ -62,16 +65,16 @@ class GuokrHandpickFragment : androidx.fragment.app.Fragment(), GuokrHandpickCon
         super.onViewCreated(view, savedInstanceState)
 
         context?.let {
-            refresh_layout.setColorSchemeColors(ContextCompat.getColor(context!!, R.color.colorAccent))
+            view.refresh_layout.setColorSchemeColors(ContextCompat.getColor(it, R.color.colorAccent))
         }
-        refresh_layout.setOnRefreshListener {
+        view.refresh_layout.setOnRefreshListener {
             mPresenter.load(true, true, 0, 20)
             mOffset = 0
         }
 
         mLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
-        recycler_view.layoutManager = mLayoutManager
-        recycler_view.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+        view.recycler_view.layoutManager = mLayoutManager
+        view.recycler_view.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy > 0 && mLayoutManager.findLastCompletelyVisibleItemPosition() == mListSize - 1) {
@@ -94,8 +97,8 @@ class GuokrHandpickFragment : androidx.fragment.app.Fragment(), GuokrHandpickCon
     }
 
     override fun setLoadingIndicator(active: Boolean) {
-        refresh_layout.post {
-            refresh_layout.isRefreshing = active
+        view?.refresh_layout?.post {
+            view?.refresh_layout?.isRefreshing = active
         }
     }
 
@@ -116,21 +119,23 @@ class GuokrHandpickFragment : androidx.fragment.app.Fragment(), GuokrHandpickCon
                 }
 
             })
-            recycler_view.adapter = mAdapter
+            view?.recycler_view?.adapter = mAdapter
         } else {
             mAdapter?.updateData(list)
         }
 
         mListSize = list.size
 
-        empty_view.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
-        recycler_view.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
+        view?.empty_view?.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
+        view?.recycler_view?.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
 
         for ((_, _, _, _, _, id) in list) {
             val intent = Intent(CacheService.BROADCAST_FILTER_ACTION)
             intent.putExtra(CacheService.FLAG_ID, id)
             intent.putExtra(CacheService.FLAG_TYPE, PostType.GUOKR)
-            androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(context!!).sendBroadcast(intent)
+            context?.let {
+                LocalBroadcastManager.getInstance(it).sendBroadcast(intent)
+            }
         }
 
     }
