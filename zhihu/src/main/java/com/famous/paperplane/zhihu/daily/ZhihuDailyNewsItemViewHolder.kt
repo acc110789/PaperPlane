@@ -11,33 +11,15 @@ import com.famous.paperplane.zhihu.R
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import kotlinx.android.extensions.LayoutContainer
 
-interface ZhihuDailyNewsItemContext {
-    fun onItemClick(item: ZhihuDailyNewsQuestion)
-}
-
 class ZhihuDailyNewsItemViewHolder(
     itemView: View,
     private val itemContext: ZhihuDailyNewsItemContext
 ) : RecyclerView.ViewHolder(itemView), View.OnClickListener, LayoutContainer {
 
-    companion object {
-        fun create(
-            parent: ViewGroup,
-            context: ZhihuDailyNewsItemContext
-        ): ZhihuDailyNewsItemViewHolder {
-            val itemView =
-                parent.layoutInflater().inflate(R.layout.item_universal_layout, parent, false)
-            return ZhihuDailyNewsItemViewHolder(
-                itemView,
-                context
-            )
-        }
-    }
+    private var item: ZhihuDailyNewsQuestion? = null
 
     private val cover: ImageView = itemView.findViewById(R.id.image_view_cover)
     private val title: TextView = itemView.findViewById(R.id.text_view_title)
-
-    private var item: ZhihuDailyNewsQuestion? = null
 
     init {
         itemView.setOnClickListener(this)
