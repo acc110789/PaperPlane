@@ -17,7 +17,9 @@
 package com.marktony.zhihudaily
 
 import android.app.Application
-import android.util.DebugUtils
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
 /**
  * Created by lizhaotailang on 2017/5/24.
@@ -29,6 +31,9 @@ class PaperPlaneApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        startKoin {
+            androidLogger(Level.DEBUG)
+        }
 //        if (PreferenceManager.getDefaultSharedPreferences(applicationContext).getBoolean("night_mode", false)) {
 //            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 //        } else {

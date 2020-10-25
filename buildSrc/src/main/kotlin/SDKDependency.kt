@@ -41,3 +41,30 @@ const val ROUTER_ANNOTATION = "com.kwai.kim.router_suite:router-annotation:0.0.1
 const val ROUTER_ANDROID = "com.kwai.kim.router_suite:router-android:0.0.3"
 const val ROUTER_COMPILER = "com.kwai.kim.router_suite:router-compiler:0.0.1"
 const val ROUTER_PLUGIN = "com.kwai.kim.router_suite:router-plugin:0.0.2"
+
+
+private const val lifecycle_version = "2.2.0"
+// ViewModel
+const val VIEW_MODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+// LiveData
+const val LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+// Saved state module for ViewModel
+const val VIEW_MODEL_SAVE_STATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+// Annotation processor
+const val LIFECYCLE_COMPILER ="androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+// optional - helpers for implementing LifecycleOwner in a Service
+const val LIFECYCLE_SERVICE = "androidx.lifecycle:lifecycle-service:$lifecycle_version"
+// optional - ProcessLifecycleOwner provides a lifecycle for the whole application process
+const val LIFECYCLE_PROCESS = "androidx.lifecycle:lifecycle-process:$lifecycle_version"
+
+
+// Stable Koin Version
+private const val koin_version = "2.2.0-rc-2"
+// Koin for Android
+const val KOIN_ANDROID = "org.koin:koin-android:$koin_version"
+// or Koin for Lifecycle scoping
+const val KOIN_ANDROIDX_SCOPE = "org.koin:koin-androidx-scope:$koin_version"
+// or Koin for Android Architecture ViewModel
+const val KOIN_VIEWMODEL = "org.koin:koin-androidx-viewmodel:$koin_version"
+// or Koin for Android Fragment Factory (unstable version)
+const val KOIN_ANDROIDX_FRAGMENT = "org.koin:koin-androidx-fragment:$koin_version"

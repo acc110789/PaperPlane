@@ -51,4 +51,18 @@ dependencies {
 
     api(MODULE_ANDROID)
     api(MODULE_BASE)
+
+    //anroid jetpack 架构组件
+    api(VIEW_MODEL_KTX)
+    api(LIVE_DATA_KTX)
+    api(VIEW_MODEL_SAVE_STATE)
+    kapt(LIFECYCLE_COMPILER)
+    api(LIFECYCLE_SERVICE)
+    api(LIFECYCLE_PROCESS)
+
+    //koin
+    api(KOIN_ANDROID)
+    api(KOIN_ANDROIDX_SCOPE)
+    api(KOIN_VIEWMODEL)
+    api(KOIN_ANDROIDX_FRAGMENT)
 }
