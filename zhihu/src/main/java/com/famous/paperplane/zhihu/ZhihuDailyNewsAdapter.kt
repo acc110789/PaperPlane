@@ -27,25 +27,20 @@ import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
  * Adapter between the data of [ZhihuDailyNewsQuestion] and [RecyclerView].
  */
 
-class ZhihuDailyNewsAdapter(private val mList: MutableList<ZhihuDailyNewsQuestion>) : RecyclerView.Adapter<ZhihuDailyNewsItemViewHolder>() {
+class ZhihuDailyNewsAdapter(private val itemContext: ZhihuDailyNewsItemContext) : RecyclerView.Adapter<ZhihuDailyNewsItemViewHolder>() {
 
-    private var mListener: OnRecyclerViewItemOnClickListener? = null
+    private val mList = mutableListOf<ZhihuDailyNewsQuestion>()
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) = ZhihuDailyNewsItemViewHolder.create(viewGroup, listener = mListener)
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) = ZhihuDailyNewsItemViewHolder.create(viewGroup, context = itemContext)
 
     override fun onBindViewHolder(viewHolder: ZhihuDailyNewsItemViewHolder, i: Int) = viewHolder.bind(mList[i])
 
     override fun getItemCount(): Int = mList.size
 
-    fun setItemClickListener(listener: OnRecyclerViewItemOnClickListener) {
-        this.mListener = listener
-    }
-
     fun updateData(list: List<ZhihuDailyNewsQuestion>) {
         mList.clear()
         mList.addAll(list)
         notifyDataSetChanged()
-        notifyItemRemoved(list.size)
     }
 
 

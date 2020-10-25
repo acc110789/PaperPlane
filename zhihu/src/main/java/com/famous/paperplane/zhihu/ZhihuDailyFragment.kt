@@ -30,6 +30,9 @@ import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.famous.paperplane.business_base.app.appModule
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.fragment_timeline_page.*
+import org.koin.android.ext.android.inject
+import org.koin.core.context.loadKoinModules
+import org.koin.core.parameter.parametersOf
 import java.util.*
 
 /**
@@ -39,11 +42,11 @@ import java.util.*
  * Displays a grid of [ZhihuDailyNewsQuestion]s.
  */
 
-class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.View {
+class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.View, ZhihuDailyNewsItemContext {
 
     override lateinit var mPresenter: ZhihuDailyContract.Presenter
 
-    private var mAdapter: ZhihuDailyNewsAdapter? = null
+    private val mAdapter: ZhihuDailyNewsAdapter by inject { parametersOf(this) }
     private lateinit var mLayoutManager: LinearLayoutManager
 
     private var mYear: Int = 0
@@ -64,6 +67,8 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        loadKoinModules(zhihuModule)
+
         val c = Calendar.getInstance()
         c.timeZone = TimeZone.getTimeZone("GMT+08")
         mYear = c.get(Calendar.YEAR)
@@ -73,11 +78,21 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(R.layout.fragment_timeline_page, container, false)
 
+    override fun onItemClick(item: ZhihuDailyNewsQuestion) {
+        val intent = Intent(activity, appModule.detailActivityClass()).apply {
+            putExtra(DetailActivityParam.KEY_ARTICLE_ID, item.id)
+            putExtra(DetailActivityParam.KEY_ARTICLE_TYPE, ContentType.TYPE_ZHIHU_DAILY)
+            putExtra(DetailActivityParam.KEY_ARTICLE_TITLE, item.title)
+            putExtra(DetailActivityParam.KEY_ARTICLE_IS_FAVORITE, item.isFavorite)
+        }
+        startActivity(intent)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        context?.let {
-            refresh_layout.setColorSchemeColors(ContextCompat.getColor(context!!, R.color.colorAccent))
+        context?.let {it
+            refresh_layout.setColorSchemeColors(ContextCompat.getColor(it, R.color.colorAccent))
         }
         refresh_layout.setOnRefreshListener {
             val c = Calendar.getInstance()
@@ -85,6 +100,7 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
             mPresenter.loadNews(true, true, c.timeInMillis)
         }
 
+        recycler_view.adapter = mAdapter
         mLayoutManager = LinearLayoutManager(context)
         recycler_view.layoutManager = mLayoutManager
         recycler_view.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
@@ -125,26 +141,7 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
     }
 
     override fun showResult(list: MutableList<ZhihuDailyNewsQuestion>) {
-        if (mAdapter == null) {
-            mAdapter = ZhihuDailyNewsAdapter(list)
-            mAdapter?.setItemClickListener(object : OnRecyclerViewItemOnClickListener {
-
-                override fun onItemClick(v: View, position: Int) {
-                    val intent = Intent(activity, appModule.detailActivityClass()).apply {
-                        putExtra(DetailActivityParam.KEY_ARTICLE_ID, list[position].id)
-                        putExtra(DetailActivityParam.KEY_ARTICLE_TYPE, ContentType.TYPE_ZHIHU_DAILY)
-                        putExtra(DetailActivityParam.KEY_ARTICLE_TITLE, list[position].title)
-                        putExtra(DetailActivityParam.KEY_ARTICLE_IS_FAVORITE, list[position].isFavorite)
-                    }
-                    startActivity(intent)
-                }
-
-            })
-            recycler_view.adapter = mAdapter
-        } else {
-            mAdapter?.updateData(list)
-        }
-
+        mAdapter.updateData(list)
         mListSize = list.size
 
         empty_view.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
@@ -155,7 +152,10 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
             val intent = Intent(CacheServiceParam.BROADCAST_FILTER_ACTION)
             intent.putExtra(CacheServiceParam.FLAG_ID, id)
             intent.putExtra(CacheServiceParam.FLAG_TYPE, PostType.ZHIHU)
-            LocalBroadcastManager.getInstance(context!!).sendBroadcast(intent)
+            context?.let {
+                LocalBroadcastManager.getInstance(it).sendBroadcast(intent)
+            }
+
         }
     }
 
@@ -166,6 +166,8 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
     }
 
     fun showDatePickerDialog() {
+        val activity = activity ?: return
+
         val c = Calendar.getInstance()
         c.set(mYear, mMonth, mDay)
         val dialog = DatePickerDialog.newInstance({ _, year, monthOfYear, dayOfMonth ->
@@ -185,8 +187,6 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
         dialog.minDate = minDate
         dialog.vibrate(false)
 
-        dialog.show(activity!!.fragmentManager, ZhihuDailyFragment::class.java.simpleName)
-
+        dialog.show(activity.fragmentManager, ZhihuDailyFragment::class.java.simpleName)
     }
-
 }
