@@ -36,6 +36,7 @@ const val MODULE_ANDROID = "com.kwai.kim.module_suite:module-android:0.0.3"
 const val MODULE_BASE = "com.kwai.kim.module_suite:module-base:0.0.1"
 const val MODULE_COMPILER = "com.kwai.kim.module_suite:module-compiler:0.0.2"
 const val MODULE_PLUGIN = "com.kwai.kim.module_suite:module-plugin:0.0.8"
+const val MODULE_PLUGIN_NAME = "com.kwai.kim.module"
 
 const val ROUTER_ANNOTATION = "com.kwai.kim.router_suite:router-annotation:0.0.1"
 const val ROUTER_ANDROID = "com.kwai.kim.router_suite:router-android:0.0.3"

@@ -27,4 +27,5 @@ dependencies {
     kapt(ROOM_COMPILER)
     kapt(GLIDE_COMPILER)
     kapt(LIFECYCLE_COMPILER)
+    kapt(MODULE_COMPILER)
 }

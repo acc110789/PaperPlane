@@ -3,7 +3,7 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
-    id("com.kwai.kim.module")
+    id(MODULE_PLUGIN_NAME)
 }
 
 android {
@@ -47,4 +47,6 @@ dependencies {
 
     kapt(ROOM_COMPILER)
     kapt(GLIDE_COMPILER)
+    kapt(LIFECYCLE_COMPILER)
+    kapt(MODULE_COMPILER)
 }

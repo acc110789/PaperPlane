@@ -45,12 +45,12 @@ dependencies {
     api(COROUTINES)
     api(COROUTINES_ANDROID)
 
-
     kapt(ROOM_COMPILER)
     kapt(GLIDE_COMPILER)
 
     api(MODULE_ANDROID)
     api(MODULE_BASE)
+    kapt(MODULE_COMPILER)
 
     //anroid jetpack 架构组件
     api(VIEW_MODEL_KTX)
