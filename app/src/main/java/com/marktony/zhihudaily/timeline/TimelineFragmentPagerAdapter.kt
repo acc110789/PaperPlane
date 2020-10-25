@@ -18,7 +18,7 @@ package com.marktony.zhihudaily.timeline
 
 import android.content.Context
 import androidx.fragment.app.FragmentPagerAdapter
-import com.famous.paperplane.zhihu.ZhihuDailyFragment
+import com.famous.paperplane.zhihu.daily.ZhihuDailyFragment
 
 import com.marktony.zhihudaily.R
 
@@ -30,11 +30,11 @@ import com.marktony.zhihudaily.R
  */
 
 class TimelineFragmentPagerAdapter(
-        fm: androidx.fragment.app.FragmentManager,
-        context: Context,
-        private val mZhihuFragment: ZhihuDailyFragment,
-        private val mDoubanFragment: DoubanMomentFragment,
-        private val mGuokrFragment: GuokrHandpickFragment
+    fm: androidx.fragment.app.FragmentManager,
+    context: Context,
+    private val mZhihuFragment: ZhihuDailyFragment,
+    private val mDoubanFragment: DoubanMomentFragment,
+    private val mGuokrFragment: GuokrHandpickFragment
 ) : androidx.fragment.app.FragmentPagerAdapter(fm) {
 
     private val pageCount = 3

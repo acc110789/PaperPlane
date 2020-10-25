@@ -1,13 +1,13 @@
-package com.famous.paperplane.zhihu
+package com.famous.paperplane.zhihu.daily
 
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.famous.paperplane.business_base.OnRecyclerViewItemOnClickListener
 import com.famous.paperplane.business_base.imageService
 import com.famous.paperplane.business_base.layoutInflater
+import com.famous.paperplane.zhihu.R
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import kotlinx.android.extensions.LayoutContainer
 
@@ -27,7 +27,10 @@ class ZhihuDailyNewsItemViewHolder(
         ): ZhihuDailyNewsItemViewHolder {
             val itemView =
                 parent.layoutInflater().inflate(R.layout.item_universal_layout, parent, false)
-            return ZhihuDailyNewsItemViewHolder(itemView, context)
+            return ZhihuDailyNewsItemViewHolder(
+                itemView,
+                context
+            )
         }
     }
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.famous.paperplane.zhihu
+package com.famous.paperplane.zhihu.daily
 
 import androidx.lifecycle.ViewModel
 import com.famous.paperplane.business_base.Result
@@ -31,9 +31,9 @@ import kotlin.coroutines.CoroutineContext
  */
 
 class ZhihuDailyPresenter(
-        private val mView: ZhihuDailyContract.View,
-        private val mRepository: ZhihuDailyNewsRepository,
-        private val uiContext: CoroutineContext = Dispatchers.Main
+    private val mView: ZhihuDailyContract.View,
+    private val mRepository: ZhihuDailyNewsRepository,
+    private val uiContext: CoroutineContext = Dispatchers.Main
 ): ViewModel(), ZhihuDailyContract.Presenter {
 
     init {

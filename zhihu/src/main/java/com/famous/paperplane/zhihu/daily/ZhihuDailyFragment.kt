@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.famous.paperplane.zhihu
+package com.famous.paperplane.zhihu.daily
 
 import android.content.Intent
 import android.os.Bundle
@@ -28,6 +28,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.famous.paperplane.business_base.*
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.famous.paperplane.business_base.app.appModule
+import com.famous.paperplane.zhihu.R
+import com.famous.paperplane.zhihu.zhihuModule
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.fragment_timeline_page.*
 import org.koin.android.ext.android.inject
@@ -42,7 +44,8 @@ import java.util.*
  * Displays a grid of [ZhihuDailyNewsQuestion]s.
  */
 
-class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.View, ZhihuDailyNewsItemContext {
+class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.View,
+    ZhihuDailyNewsItemContext {
 
     override lateinit var mPresenter: ZhihuDailyContract.Presenter
 
@@ -61,7 +64,8 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
 
     companion object {
 
-        fun newInstance(): ZhihuDailyFragment = ZhihuDailyFragment()
+        fun newInstance(): ZhihuDailyFragment =
+            ZhihuDailyFragment()
 
     }
 
@@ -76,7 +80,8 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
         mDay = c.get(Calendar.DAY_OF_MONTH)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(R.layout.fragment_timeline_page, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(
+        R.layout.fragment_timeline_page, container, false)
 
     override fun onItemClick(item: ZhihuDailyNewsQuestion) {
         val intent = Intent(activity, appModule.detailActivityClass()).apply {
@@ -92,7 +97,9 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
         super.onViewCreated(view, savedInstanceState)
 
         context?.let {it
-            refresh_layout.setColorSchemeColors(ContextCompat.getColor(it, R.color.colorAccent))
+            refresh_layout.setColorSchemeColors(ContextCompat.getColor(it,
+                R.color.colorAccent
+            ))
         }
         refresh_layout.setOnRefreshListener {
             val c = Calendar.getInstance()

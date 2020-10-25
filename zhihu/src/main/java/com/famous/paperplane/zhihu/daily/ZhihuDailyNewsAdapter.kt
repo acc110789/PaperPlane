@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package com.famous.paperplane.zhihu
+package com.famous.paperplane.zhihu.daily
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.famous.paperplane.business_base.OnRecyclerViewItemOnClickListener
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
+import org.koin.core.parameter.parametersOf
+import org.koin.java.KoinJavaComponent.getKoin
 
 /**
  * Created by lizhaotailang on 2017/5/21.
@@ -27,13 +28,19 @@ import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
  * Adapter between the data of [ZhihuDailyNewsQuestion] and [RecyclerView].
  */
 
-class ZhihuDailyNewsAdapter(private val itemContext: ZhihuDailyNewsItemContext) : RecyclerView.Adapter<ZhihuDailyNewsItemViewHolder>() {
+class ZhihuDailyNewsAdapter(private val itemContext: ZhihuDailyNewsItemContext) :
+    RecyclerView.Adapter<ZhihuDailyNewsItemViewHolder>() {
 
     private val mList = mutableListOf<ZhihuDailyNewsQuestion>()
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) = ZhihuDailyNewsItemViewHolder.create(viewGroup, context = itemContext)
+    override fun onCreateViewHolder(
+        viewGroup: ViewGroup,
+        viewType: Int
+    ): ZhihuDailyNewsItemViewHolder =
+        getKoin().get { parametersOf(viewGroup, itemContext) }
 
-    override fun onBindViewHolder(viewHolder: ZhihuDailyNewsItemViewHolder, i: Int) = viewHolder.bind(mList[i])
+    override fun onBindViewHolder(viewHolder: ZhihuDailyNewsItemViewHolder, i: Int) =
+        viewHolder.bind(mList[i])
 
     override fun getItemCount(): Int = mList.size
 

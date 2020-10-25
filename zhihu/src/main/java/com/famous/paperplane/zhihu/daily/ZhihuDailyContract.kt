@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.famous.paperplane.zhihu
+package com.famous.paperplane.zhihu.daily
 
 import com.famous.paperplane.business_base.BasePresenter
 import com.famous.paperplane.business_base.BaseView
