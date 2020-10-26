@@ -28,7 +28,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.famous.paperplane.business_base.*
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
-import com.famous.paperplane.business_base.app.appModule
 import com.famous.paperplane.zhihu.R
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.fragment_timeline_page.*
@@ -99,7 +98,7 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemC
         refresh_layout.setOnRefreshListener {
             val c = Calendar.getInstance()
             c.timeZone = TimeZone.getTimeZone("GMT+08")
-            viewModel.loadNews(true, true, c.timeInMillis)
+            viewModel.loadNews(true, c.timeInMillis)
         }
     }
 
@@ -149,7 +148,7 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemC
     private fun loadMore() {
         val c = Calendar.getInstance()
         c.set(mYear, mMonth, --mDay)
-        viewModel.loadNews(true, false, c.timeInMillis)
+        viewModel.loadNews(false, c.timeInMillis)
     }
 
     fun showDatePickerDialog() {
@@ -163,7 +162,7 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemC
             mDay = dayOfMonth
             c.set(mYear, monthOfYear, mDay)
 
-            viewModel.loadNews(true, true, c.timeInMillis)
+            viewModel.loadNews(true, c.timeInMillis)
 
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH))
 

@@ -20,7 +20,6 @@ import com.famous.paperplane.business_base.Result
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsLocalDataSource
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.famous.paperplane.zhihu.net.ZhihuDailyNewsRemoteDataSource
-import java.util.*
 
 /**
  * Created by lizhaotailang on 2017/5/21.
@@ -32,36 +31,34 @@ import java.util.*
  * which was from the locally persisted in database.
  */
 
-object ZhihuDailyNewsRepository : ZhihuDailyNewsDataSource {
+object ZhihuDailyNewsRepository {
 
     private val mRemoteDataSource = ZhihuDailyNewsRemoteDataSource
     private val mLocalDataSource = ZhihuDailyNewsLocalDataSource
-    private var mCachedItems: MutableMap<Int, ZhihuDailyNewsQuestion> = LinkedHashMap()
+    private var mCachedItems = mutableMapOf<Int, ZhihuDailyNewsQuestion>()
 
+    suspend fun getZhihuDailyNewsFromCache(): Result<List<ZhihuDailyNewsQuestion>> {
+        return Result.Success(mCachedItems.values.toList())
+    }
 
-    override suspend fun getZhihuDailyNews(forceUpdate: Boolean, clearCache: Boolean, date: Long): Result<List<ZhihuDailyNewsQuestion>> {
-        if (!forceUpdate) {
-            return Result.Success(mCachedItems.values.toList())
-        }
-
-        val result = mRemoteDataSource.getZhihuDailyNews(false, clearCache, date)
+    suspend fun getZhihuDailyNews(date: Long, clearCache: Boolean): Result<List<ZhihuDailyNewsQuestion>> {
+        val result = mRemoteDataSource.getZhihuDailyNews(date)
         return if (result is Result.Success) {
             refreshCache(clearCache, result.data)
             saveAll(result.data)
-
             result
         } else {
-            mLocalDataSource.getZhihuDailyNews(false, false, date).also {
-                if (it is Result.Success) {
-                    refreshCache(clearCache, it.data)
-                }
+            val localResult = mLocalDataSource.getZhihuDailyNews(date)
+            if (localResult is Result.Success) {
+                refreshCache(clearCache, localResult.data)
             }
+            localResult
         }
     }
 
-    override suspend fun getFavorites(): Result<List<ZhihuDailyNewsQuestion>> = mLocalDataSource.getFavorites()
+    suspend fun getFavorites(): Result<List<ZhihuDailyNewsQuestion>> = mLocalDataSource.getFavorites()
 
-    override suspend fun getItem(itemId: Int): Result<ZhihuDailyNewsQuestion> {
+    suspend fun getItem(itemId: Int): Result<ZhihuDailyNewsQuestion> {
         val cachedItem = getItemWithId(itemId)
 
         if (cachedItem != null) {
@@ -75,7 +72,7 @@ object ZhihuDailyNewsRepository : ZhihuDailyNewsDataSource {
         }
     }
 
-    override suspend fun favoriteItem(itemId: Int, favorite: Boolean) {
+    suspend fun favoriteItem(itemId: Int, favorite: Boolean) {
         mLocalDataSource.favoriteItem(itemId, favorite)
 
         val cachedItem = getItemWithId(itemId)
@@ -84,7 +81,7 @@ object ZhihuDailyNewsRepository : ZhihuDailyNewsDataSource {
         }
     }
 
-    override suspend fun saveAll(list: List<ZhihuDailyNewsQuestion>) {
+    suspend fun saveAll(list: List<ZhihuDailyNewsQuestion>) {
         mLocalDataSource.saveAll(list)
 
         for (item in list) {

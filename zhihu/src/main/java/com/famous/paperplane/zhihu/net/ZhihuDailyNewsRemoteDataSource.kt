@@ -18,7 +18,6 @@ package com.famous.paperplane.zhihu.net
 
 import com.famous.paperplane.business_base.RemoteDataNotFoundException
 import com.famous.paperplane.business_base.Result
-import com.famous.paperplane.zhihu.base.ZhihuDailyNewsDataSource
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.famous.paperplane.zhihu.utils.formatZhihuDailyDateLongToString
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -34,11 +33,11 @@ import kotlin.coroutines.resume
  * Implementation of the [ZhihuDailyNews] data source that accesses network.
  */
 
-object ZhihuDailyNewsRemoteDataSource : ZhihuDailyNewsDataSource {
+internal object ZhihuDailyNewsRemoteDataSource {
 
     private val mZhihuDailyService by getKoin().inject<ZhihuDailyService>()
 
-    override suspend fun getZhihuDailyNews(forceUpdate: Boolean, clearCache: Boolean, date: Long): Result<List<ZhihuDailyNewsQuestion>> = suspendCancellableCoroutine { continuation ->
+    internal suspend fun getZhihuDailyNews(date: Long): Result<List<ZhihuDailyNewsQuestion>> = suspendCancellableCoroutine { continuation ->
         val callback = object: Callback<ZhihuDailyNews> {
             override fun onResponse(
                 call: Call<ZhihuDailyNews>,
@@ -70,23 +69,4 @@ object ZhihuDailyNewsRemoteDataSource : ZhihuDailyNewsDataSource {
         }
         mZhihuDailyService.getZhihuList(formatZhihuDailyDateLongToString(date)).enqueue(callback)
     }
-
-    // Not required because the [com.marktony.zhihudaily.data.source.repository.ZhihuDailyNewsRepository] handles the logic of refreshing the
-    // news from all the available data sources.
-    override suspend fun getFavorites(): Result<List<ZhihuDailyNewsQuestion>> = Result.Error(RemoteDataNotFoundException())
-
-    // Not required because the [com.marktony.zhihudaily.data.source.repository.ZhihuDailyNewsRepository] handles the logic of refreshing the
-    // news from all the available data sources.
-    override suspend fun getItem(itemId: Int): Result<ZhihuDailyNewsQuestion> = Result.Error(RemoteDataNotFoundException())
-
-    override suspend fun favoriteItem(itemId: Int, favorite: Boolean) {
-        // Not required because the [com.marktony.zhihudaily.data.source.repository.ZhihuDailyNewsRepository] handles the logic of refreshing the
-        // news from all the available data sources.
-    }
-
-    override suspend fun saveAll(list: List<ZhihuDailyNewsQuestion>) {
-        // Not required because the [com.marktony.zhihudaily.data.source.repository.ZhihuDailyNewsRepository] handles the logic of refreshing the
-        // news from all the available data sources.
-    }
-
 }

@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 class ZhihuDailyViewModel: BaseViewModel() {
 
     private sealed class UiEvent {
-        class Load(val forceUpdate: Boolean, val clearCache: Boolean, val date: Long) : UiEvent()
+        class Load(val clearCache: Boolean, val date: Long) : UiEvent()
     }
 
     val showLoadingIndicator = MutableLiveData<Boolean>()
@@ -21,8 +21,8 @@ class ZhihuDailyViewModel: BaseViewModel() {
     private val uiEventChannel = Channel<UiEvent>()
 
 
-    fun loadNews(forceUpdate: Boolean, clearCache: Boolean, date: Long) {
-        uiEventChannel.offer(UiEvent.Load(forceUpdate, clearCache, date))
+    fun loadNews(clearCache: Boolean, date: Long) {
+        uiEventChannel.offer(UiEvent.Load(clearCache, date))
     }
 
     init {
@@ -32,14 +32,14 @@ class ZhihuDailyViewModel: BaseViewModel() {
     private fun listenEvent() = viewModelScope.launch {
         for (event in uiEventChannel) {
             when(event) {
-                is UiEvent.Load -> loadNewsInner(event.forceUpdate, event.clearCache, event.date)
+                is UiEvent.Load -> loadNewsInner(event.clearCache, event.date)
             }
         }
     }
 
 
-    private suspend fun loadNewsInner(forceUpdate: Boolean, clearCache: Boolean, date: Long) {
-        val result = ZhihuDailyNewsRepository.getZhihuDailyNews(forceUpdate, clearCache, date)
+    private suspend fun loadNewsInner(clearCache: Boolean, date: Long) {
+        val result = ZhihuDailyNewsRepository.getZhihuDailyNews(date, clearCache)
         if (result is Result.Success) {
             newsList.postValue(result.data.toMutableList())
         }
