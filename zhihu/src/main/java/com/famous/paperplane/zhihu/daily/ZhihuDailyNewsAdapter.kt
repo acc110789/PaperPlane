@@ -19,6 +19,7 @@ package com.famous.paperplane.zhihu.daily
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
+import com.famous.paperplane.zhihu.zhihuDailyScopeViewModelName
 import org.koin.core.parameter.parametersOf
 import org.koin.core.scope.Scope
 
@@ -32,7 +33,7 @@ private const val LOAD_MORE_INTERVAL = 3
 
 class ZhihuDailyNewsAdapter(private val scope: Scope) : RecyclerView.Adapter<ZhihuDailyNewsItemViewHolder>() {
 
-    private val viewModel: ZhihuDailyViewModel by scope.inject()
+    private val viewModel: ZhihuDailyViewModel by scope.inject(zhihuDailyScopeViewModelName)
 
     private val mList = mutableListOf<ZhihuDailyNewsQuestion>()
 

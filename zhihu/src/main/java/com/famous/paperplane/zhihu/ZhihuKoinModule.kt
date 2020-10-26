@@ -7,11 +7,14 @@ import com.famous.paperplane.zhihu.net.ZHIHU_DAILY_BASE
 import com.famous.paperplane.zhihu.net.ZhihuDailyService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.androidx.viewmodel.dsl.setIsViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.core.scope.Scope
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
+internal val zhihuDailyScopeViewModelName = named("zhihuDailyViewModel")
 
 val zhihuKoinModule = module {
 
@@ -37,9 +40,7 @@ val zhihuKoinModule = module {
 
     scope<ZhihuDailyFragment> {
 
-        scoped { ZhihuDailyViewModel() }.apply {
-            setIsViewModel()
-        }
+        viewModel { ZhihuDailyViewModel() }
 
         factory { param ->
             val parent: ViewGroup = param.component1()

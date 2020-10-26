@@ -29,9 +29,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.famous.paperplane.business_base.*
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.famous.paperplane.zhihu.R
+import com.famous.paperplane.zhihu.zhihuDailyScopeViewModelName
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.fragment_timeline_page.*
 import org.koin.androidx.scope.ScopeFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.util.*
 
@@ -44,7 +46,7 @@ import java.util.*
 
 class ZhihuDailyFragment : ScopeFragment() {
 
-    private val viewModel: ZhihuDailyViewModel by inject()
+    private val viewModel: ZhihuDailyViewModel by viewModel()
     private val mAdapter: ZhihuDailyNewsAdapter by inject { parametersOf(scope) }
 
     private lateinit var mLayoutManager: LinearLayoutManager
@@ -62,6 +64,7 @@ class ZhihuDailyFragment : ScopeFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        scope.declare(viewModel, zhihuDailyScopeViewModelName)
 
         initRefreshLayout()
 
