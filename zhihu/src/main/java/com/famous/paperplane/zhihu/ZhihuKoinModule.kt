@@ -56,13 +56,15 @@ val zhihuKoinModule = module {
 
         //ZhihuDailyNewsItemViewHolder
         factory { param ->
-            val parent: ViewGroup = param.get()
+            val parent: ViewGroup = param.component1()
             val itemView = parent.layoutInflater().inflate(R.layout.item_universal_layout, parent, false)
             ZhihuDailyNewsItemViewHolder(itemView, get(zhihuDailyScopeViewModel))
         }
 
         factory {
-            val viewHolderFactory: ZhihuDailyNewsItemViewHolderFactory = { get { parametersOf(it) } }
+            val viewHolderFactory: ZhihuDailyNewsItemViewHolderFactory = {
+                get { parametersOf(it) }
+            }
             ZhihuDailyNewsAdapter(get(zhihuDailyScopeViewModel), viewHolderFactory)
         }
     }
