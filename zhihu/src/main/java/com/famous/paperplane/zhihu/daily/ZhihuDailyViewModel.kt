@@ -13,6 +13,7 @@ class ZhihuDailyViewModel: BaseViewModel() {
 
     private sealed class UiEvent {
         class Load(val clearCache: Boolean, val date: Long) : UiEvent()
+        object LoadCache: UiEvent()
     }
 
     val showLoadingIndicator = MutableLiveData<Boolean>()
@@ -20,9 +21,12 @@ class ZhihuDailyViewModel: BaseViewModel() {
 
     private val uiEventChannel = Channel<UiEvent>()
 
-
     fun loadNews(clearCache: Boolean, date: Long) {
         uiEventChannel.offer(UiEvent.Load(clearCache, date))
+    }
+
+    fun loadNewsFromCache() {
+        uiEventChannel.offer(UiEvent.LoadCache)
     }
 
     init {
@@ -33,16 +37,25 @@ class ZhihuDailyViewModel: BaseViewModel() {
         for (event in uiEventChannel) {
             when(event) {
                 is UiEvent.Load -> loadNewsInner(event.clearCache, event.date)
+                is UiEvent.LoadCache -> loadNewsFromCacheInner()
             }
         }
     }
 
-
     private suspend fun loadNewsInner(clearCache: Boolean, date: Long) {
+        showLoadingIndicator.postValue(true)
         val result = ZhihuDailyNewsRepository.getZhihuDailyNews(date, clearCache)
+
+        showLoadingIndicator.postValue(false)
         if (result is Result.Success) {
             newsList.postValue(result.data.toMutableList())
         }
-        showLoadingIndicator.postValue(false)
+    }
+
+    private suspend fun loadNewsFromCacheInner() {
+        val result = ZhihuDailyNewsRepository.getZhihuDailyNewsFromCache()
+        if (result is Result.Success) {
+            newsList.postValue(result.data.toMutableList())
+        }
     }
 }

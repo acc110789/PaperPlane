@@ -53,6 +53,8 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemC
     private var mMonth: Int = 0
     private var mDay: Int = 0
 
+    private var mIsFirstLoad = true
+
     companion object {
         fun newInstance(): ZhihuDailyFragment = ZhihuDailyFragment()
     }
@@ -126,6 +128,13 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemC
         val c = Calendar.getInstance()
         c.timeZone = TimeZone.getTimeZone("GMT+08")
         c.set(mYear, mMonth, mDay)
+
+        if (mIsFirstLoad) {
+            viewModel.loadNews( false, c.timeInMillis)
+            mIsFirstLoad = false
+        } else {
+            viewModel.loadNewsFromCache()
+        }
     }
 
     private fun showResult(list: List<ZhihuDailyNewsQuestion>) {
