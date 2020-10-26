@@ -28,7 +28,7 @@ const val OK_GLIDE = "com.github.bumptech.glide:okhttp3-integration:$GLIDE_VERSI
 
 const val DATE_TIME_PICKER = "com.wdullaer:materialdatetimepicker:3.6.0"
 
-private const val COROUTINES_VERSION = "1.3.8"
+private const val COROUTINES_VERSION = "1.3.9"
 const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION"
 const val COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
 

@@ -20,7 +20,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import org.koin.core.parameter.parametersOf
-import org.koin.java.KoinJavaComponent.getKoin
+import org.koin.core.scope.Scope
 
 /**
  * Created by lizhaotailang on 2017/5/21.
@@ -28,19 +28,27 @@ import org.koin.java.KoinJavaComponent.getKoin
  * Adapter between the data of [ZhihuDailyNewsQuestion] and [RecyclerView].
  */
 
-class ZhihuDailyNewsAdapter(private val itemContext: ZhihuDailyNewsItemContext) :
-    RecyclerView.Adapter<ZhihuDailyNewsItemViewHolder>() {
+private const val LOAD_MORE_INTERVAL = 3
+
+class ZhihuDailyNewsAdapter(private val scope: Scope) : RecyclerView.Adapter<ZhihuDailyNewsItemViewHolder>() {
+
+    private val viewModel: ZhihuDailyViewModel by scope.inject()
 
     private val mList = mutableListOf<ZhihuDailyNewsQuestion>()
 
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
-    ): ZhihuDailyNewsItemViewHolder =
-        getKoin().get { parametersOf(viewGroup, itemContext) }
+    ): ZhihuDailyNewsItemViewHolder = scope.get { parametersOf(viewGroup, scope) }
 
-    override fun onBindViewHolder(viewHolder: ZhihuDailyNewsItemViewHolder, i: Int) =
+    override fun onBindViewHolder(viewHolder: ZhihuDailyNewsItemViewHolder, i: Int) {
         viewHolder.bind(mList[i])
+
+        val shouldLoadMore = i + LOAD_MORE_INTERVAL >= itemCount
+        if (shouldLoadMore) {
+            viewModel.loadMore()
+        }
+    }
 
     override fun getItemCount(): Int = mList.size
 

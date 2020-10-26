@@ -31,7 +31,7 @@ import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.famous.paperplane.zhihu.R
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.fragment_timeline_page.*
-import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.ScopeFragment
 import org.koin.core.parameter.parametersOf
 import java.util.*
 
@@ -42,10 +42,10 @@ import java.util.*
  * Displays a grid of [ZhihuDailyNewsQuestion]s.
  */
 
-class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemContext {
+class ZhihuDailyFragment : ScopeFragment() {
 
     private val viewModel: ZhihuDailyViewModel by inject()
-    private val mAdapter: ZhihuDailyNewsAdapter by inject { parametersOf(this) }
+    private val mAdapter: ZhihuDailyNewsAdapter by inject { parametersOf(scope) }
 
     private lateinit var mLayoutManager: LinearLayoutManager
 
@@ -59,7 +59,6 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemC
         savedInstanceState: Bundle?
     ): View? =
         inflater.inflate(R.layout.fragment_timeline_page, container, false)
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -95,11 +94,9 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemC
         recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0) {
+                val hideFloatActionButton = dy > 0
+                if (hideFloatActionButton) {
                     activity?.findViewById<FloatingActionButton>(R.id.fab)?.hide()
-                    if (mLayoutManager.findLastCompletelyVisibleItemPosition() == mAdapter.itemCount - 1) {
-                        viewModel.loadMore()
-                    }
                 } else {
                     activity?.findViewById<FloatingActionButton>(R.id.fab)?.show()
                 }

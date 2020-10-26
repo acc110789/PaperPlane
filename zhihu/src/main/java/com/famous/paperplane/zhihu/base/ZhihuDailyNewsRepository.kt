@@ -41,19 +41,8 @@ object ZhihuDailyNewsRepository {
         return Result.Success(mCachedItems.values.toList())
     }
 
-    suspend fun getZhihuDailyNews(date: Long, clearCache: Boolean): Result<List<ZhihuDailyNewsQuestion>> {
-        val result = mRemoteDataSource.getZhihuDailyNews(date)
-        return if (result is Result.Success) {
-            refreshCache(clearCache, result.data)
-            saveAll(result.data)
-            result
-        } else {
-            val localResult = mLocalDataSource.getZhihuDailyNews(date)
-            if (localResult is Result.Success) {
-                refreshCache(clearCache, localResult.data)
-            }
-            localResult
-        }
+    suspend fun getZhihuDailyNews(date: Long): Result<List<ZhihuDailyNewsQuestion>> {
+        return mRemoteDataSource.getZhihuDailyNews(date)
     }
 
     suspend fun getFavorites(): Result<List<ZhihuDailyNewsQuestion>> = mLocalDataSource.getFavorites()

@@ -77,7 +77,7 @@ class ZhihuDailyViewModel: BaseViewModel() {
 
     private suspend fun refreshInner() {
         showLoadingIndicator.postValue(true)
-        val result = ZhihuDailyNewsRepository.getZhihuDailyNews(currentDate, true)
+        val result = ZhihuDailyNewsRepository.getZhihuDailyNews(currentDate)
         showLoadingIndicator.postValue(false)
         if (result is Result.Success) {
             newsList.postValue(result.data.toMutableList())
@@ -87,12 +87,16 @@ class ZhihuDailyViewModel: BaseViewModel() {
     private suspend fun loadMoreInner() {
         showLoadingIndicator.postValue(true)
         mDay--
-        val result = ZhihuDailyNewsRepository.getZhihuDailyNews(currentDate, false)
+        val result = ZhihuDailyNewsRepository.getZhihuDailyNews(currentDate)
         showLoadingIndicator.postValue(false)
         if (result is Result.Success) {
             val list = mutableListOf<ZhihuDailyNewsQuestion>()
             newsList.value?.let { list.addAll(it) }
-            list.addAll(result.data)
+            val oldIdSet = list.map { it.id }.toSet()
+            for (item in result.data) {
+                if (oldIdSet.contains(item.id)) continue
+                list.add(item)
+            }
             newsList.postValue(list)
         }
     }
