@@ -19,9 +19,6 @@ package com.famous.paperplane.zhihu.daily
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
-import com.famous.paperplane.zhihu.zhihuDailyScopeViewModelName
-import org.koin.core.parameter.parametersOf
-import org.koin.core.scope.Scope
 
 /**
  * Created by lizhaotailang on 2017/5/21.
@@ -31,16 +28,19 @@ import org.koin.core.scope.Scope
 
 private const val LOAD_MORE_INTERVAL = 3
 
-class ZhihuDailyNewsAdapter(private val scope: Scope) : RecyclerView.Adapter<ZhihuDailyNewsItemViewHolder>() {
+typealias ZhihuDailyNewsItemViewHolderFactory = (ViewGroup) -> ZhihuDailyNewsItemViewHolder
 
-    private val viewModel: ZhihuDailyViewModel by scope.inject(zhihuDailyScopeViewModelName)
+class ZhihuDailyNewsAdapter(
+    private val viewModel: ZhihuDailyViewModel,
+    private val viewHolderFactory: ZhihuDailyNewsItemViewHolderFactory
+) : RecyclerView.Adapter<ZhihuDailyNewsItemViewHolder>() {
 
     private val mList = mutableListOf<ZhihuDailyNewsQuestion>()
 
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
-    ): ZhihuDailyNewsItemViewHolder = scope.get { parametersOf(viewGroup, scope) }
+    ): ZhihuDailyNewsItemViewHolder = viewHolderFactory(viewGroup)
 
     override fun onBindViewHolder(viewHolder: ZhihuDailyNewsItemViewHolder, i: Int) {
         viewHolder.bind(mList[i])

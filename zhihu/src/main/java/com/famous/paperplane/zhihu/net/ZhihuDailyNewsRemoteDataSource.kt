@@ -34,9 +34,7 @@ import kotlin.coroutines.resume
  * Implementation of the [ZhihuDailyNews] data source that accesses network.
  */
 
-internal object ZhihuDailyNewsRemoteDataSource {
-
-    private val mZhihuDailyService by getKoin().inject<ZhihuDailyService>()
+class ZhihuDailyNewsRemoteDataSource(private val mZhihuDailyService: ZhihuDailyService) {
 
     internal suspend fun getZhihuDailyNews(date: Long): Result<List<ZhihuDailyNewsQuestion>> {
         val firstDayResult = getZhihuDailyNewsInner(formatZhihuDailyDateToTomorrowToString(date))

@@ -20,7 +20,6 @@ import com.famous.paperplane.business_base.LocalDataNotFoundException
 import com.famous.paperplane.business_base.Result
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
-import org.koin.java.KoinJavaComponent.getKoin
 
 /**
  * Created by lizhaotailang on 2017/5/21.
@@ -28,9 +27,7 @@ import org.koin.java.KoinJavaComponent.getKoin
  * Concrete implementation of a [ZhihuDailyNewsQuestion] data source as database.
  */
 
-object ZhihuDailyNewsLocalDataSource {
-
-    private val mZhihuDailyNewsDao: ZhihuDailyNewsDao by getKoin().inject()
+class ZhihuDailyNewsLocalDataSource(private val mZhihuDailyNewsDao: ZhihuDailyNewsDao) {
 
     suspend fun getZhihuDailyNews(date: Long): Result<List<ZhihuDailyNewsQuestion>> = withContext(IO) {
         val news = mZhihuDailyNewsDao.queryAllByDate(date)

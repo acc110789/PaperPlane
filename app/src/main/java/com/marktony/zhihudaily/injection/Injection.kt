@@ -7,12 +7,13 @@ import com.marktony.zhihudaily.data.source.remote.*
 import com.marktony.zhihudaily.data.source.repository.*
 import com.marktony.zhihudaily.database.AppDatabaseDelegate
 import com.marktony.zhihudaily.util.AppExecutors
+import org.koin.java.KoinJavaComponent.getKoin
 
 object Injection {
 
     private val appExecutors: AppExecutors = AppExecutors()
 
-    fun provideZhihuDailyNewsRepository(context: Context): ZhihuDailyNewsRepository = ZhihuDailyNewsRepository
+    fun provideZhihuDailyNewsRepository(context: Context): ZhihuDailyNewsRepository = getKoin().get()
 
     fun provideZhihuDailyContentRepository(context: Context): ZhihuDailyContentRepository = ZhihuDailyContentRepository.getInstance(ZhihuDailyContentRemoteDataSource.getInstance(appExecutors), ZhihuDailyContentLocalDataSource.getInstance(appExecutors, AppDatabaseDelegate.zhihuDailyContentDao()))
 

@@ -1,6 +1,5 @@
 package com.famous.paperplane.zhihu.daily
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.famous.paperplane.business_base.BaseViewModel
@@ -11,7 +10,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import java.util.*
 
-class ZhihuDailyViewModel: BaseViewModel() {
+class ZhihuDailyViewModel(private val repository: ZhihuDailyNewsRepository): BaseViewModel() {
 
     private sealed class UiEvent {
         object InitLoad: UiEvent()
@@ -78,7 +77,7 @@ class ZhihuDailyViewModel: BaseViewModel() {
 
     private suspend fun refreshInner() {
         showLoadingIndicator.postValue(true)
-        val result = ZhihuDailyNewsRepository.getZhihuDailyNews(currentDate)
+        val result = repository.getZhihuDailyNews(currentDate)
         showLoadingIndicator.postValue(false)
         if (result is Result.Success) {
             newsList.postValue(result.data.toMutableList())
@@ -88,7 +87,7 @@ class ZhihuDailyViewModel: BaseViewModel() {
     private suspend fun loadMoreInner() {
         showLoadingIndicator.postValue(true)
         mDay--
-        val result = ZhihuDailyNewsRepository.getZhihuDailyNews(currentDate)
+        val result = repository.getZhihuDailyNews(currentDate)
         showLoadingIndicator.postValue(false)
         if (result is Result.Success) {
             val list = mutableListOf<ZhihuDailyNewsQuestion>()
@@ -103,7 +102,7 @@ class ZhihuDailyViewModel: BaseViewModel() {
     }
 
     private suspend fun loadNewsFromCacheInner() {
-        val result = ZhihuDailyNewsRepository.getZhihuDailyNewsFromCache()
+        val result = repository.getZhihuDailyNewsFromCache()
         if (result is Result.Success) {
             newsList.postValue(result.data.toMutableList())
         }

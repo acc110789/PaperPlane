@@ -31,10 +31,11 @@ import com.famous.paperplane.zhihu.net.ZhihuDailyNewsRemoteDataSource
  * which was from the locally persisted in database.
  */
 
-object ZhihuDailyNewsRepository {
+class ZhihuDailyNewsRepository(
+    private val mLocalDataSource: ZhihuDailyNewsLocalDataSource,
+    private val mRemoteDataSource: ZhihuDailyNewsRemoteDataSource
+) {
 
-    private val mRemoteDataSource = ZhihuDailyNewsRemoteDataSource
-    private val mLocalDataSource = ZhihuDailyNewsLocalDataSource
     private var mCachedItems = mutableMapOf<Int, ZhihuDailyNewsQuestion>()
 
     suspend fun getZhihuDailyNewsFromCache(): Result<List<ZhihuDailyNewsQuestion>> {
@@ -45,7 +46,8 @@ object ZhihuDailyNewsRepository {
         return mRemoteDataSource.getZhihuDailyNews(date)
     }
 
-    suspend fun getFavorites(): Result<List<ZhihuDailyNewsQuestion>> = mLocalDataSource.getFavorites()
+    suspend fun getFavorites(): Result<List<ZhihuDailyNewsQuestion>> =
+        mLocalDataSource.getFavorites()
 
     suspend fun getItem(itemId: Int): Result<ZhihuDailyNewsQuestion> {
         val cachedItem = getItemWithId(itemId)
@@ -88,6 +90,7 @@ object ZhihuDailyNewsRepository {
         }
     }
 
-    private fun getItemWithId(id: Int): ZhihuDailyNewsQuestion? = if (mCachedItems.isEmpty()) null else mCachedItems[id]
+    private fun getItemWithId(id: Int): ZhihuDailyNewsQuestion? =
+        if (mCachedItems.isEmpty()) null else mCachedItems[id]
 
 }

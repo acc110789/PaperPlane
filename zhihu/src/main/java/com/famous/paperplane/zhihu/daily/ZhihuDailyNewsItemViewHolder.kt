@@ -11,14 +11,11 @@ import com.famous.paperplane.business_base.app.appModule
 import com.famous.paperplane.business_base.imageService
 import com.famous.paperplane.zhihu.R
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
-import org.koin.core.scope.Scope
 
 class ZhihuDailyNewsItemViewHolder(
     itemView: View,
-    private val scope: Scope
+    private val viewModel: ZhihuDailyViewModel
 ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-
-    private val viewModel: ZhihuDailyViewModel by scope.inject()
 
     private var item: ZhihuDailyNewsQuestion? = null
 

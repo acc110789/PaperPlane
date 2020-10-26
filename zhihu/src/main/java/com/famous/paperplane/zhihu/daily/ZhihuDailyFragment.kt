@@ -29,7 +29,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.famous.paperplane.business_base.*
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.famous.paperplane.zhihu.R
-import com.famous.paperplane.zhihu.zhihuDailyScopeViewModelName
+import com.famous.paperplane.zhihu.zhihuDailyScopeViewModel
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.fragment_timeline_page.*
 import org.koin.androidx.scope.ScopeFragment
@@ -64,7 +64,7 @@ class ZhihuDailyFragment : ScopeFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        scope.declare(viewModel, zhihuDailyScopeViewModelName)
+        scope.declare(viewModel, zhihuDailyScopeViewModel)
 
         initRefreshLayout()
 
