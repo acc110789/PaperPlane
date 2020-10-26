@@ -25,6 +25,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.famous.paperplane.business_base.*
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.famous.paperplane.business_base.app.appModule
@@ -45,21 +46,16 @@ import java.util.*
 class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemContext {
 
     private val viewModel: ZhihuDailyViewModel by inject()
-
     private val mAdapter: ZhihuDailyNewsAdapter by inject { parametersOf(this) }
+
     private lateinit var mLayoutManager: LinearLayoutManager
 
     private var mYear: Int = 0
     private var mMonth: Int = 0
     private var mDay: Int = 0
 
-    private var mListSize = 0
-
     companion object {
-
-        fun newInstance(): ZhihuDailyFragment =
-            ZhihuDailyFragment()
-
+        fun newInstance(): ZhihuDailyFragment = ZhihuDailyFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,42 +68,51 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemC
         mDay = c.get(Calendar.DAY_OF_MONTH)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(
-        R.layout.fragment_timeline_page, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? =
+        inflater.inflate(R.layout.fragment_timeline_page, container, false)
 
-    override fun onItemClick(item: ZhihuDailyNewsQuestion) {
-        val intent = Intent(activity, appModule.detailActivityClass()).apply {
-            putExtra(DetailActivityParam.KEY_ARTICLE_ID, item.id)
-            putExtra(DetailActivityParam.KEY_ARTICLE_TYPE, ContentType.TYPE_ZHIHU_DAILY)
-            putExtra(DetailActivityParam.KEY_ARTICLE_TITLE, item.title)
-            putExtra(DetailActivityParam.KEY_ARTICLE_IS_FAVORITE, item.isFavorite)
-        }
-        startActivity(intent)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        context?.let {it
-            refresh_layout.setColorSchemeColors(ContextCompat.getColor(it,
-                R.color.colorAccent
-            ))
+        initRefreshLayout()
+
+        initRecyclerView()
+
+        viewModel.newsList.observe(viewLifecycleOwner) {
+            showResult(it)
         }
+        viewModel.showLoadingIndicator.observe(viewLifecycleOwner) {
+            refresh_layout.post {
+                refresh_layout.isRefreshing = it
+            }
+        }
+    }
+
+    private fun initRefreshLayout() {
+        val context = this.context ?: return
+        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
         refresh_layout.setOnRefreshListener {
             val c = Calendar.getInstance()
             c.timeZone = TimeZone.getTimeZone("GMT+08")
             viewModel.loadNews(true, true, c.timeInMillis)
         }
+    }
 
+    private fun initRecyclerView() {
         recycler_view.adapter = mAdapter
         mLayoutManager = LinearLayoutManager(context)
         recycler_view.layoutManager = mLayoutManager
-        recycler_view.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
+        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy > 0) {
                     activity?.findViewById<FloatingActionButton>(R.id.fab)?.hide()
-                    if (mLayoutManager.findLastCompletelyVisibleItemPosition() == mListSize - 1) {
+                    if (mLayoutManager.findLastCompletelyVisibleItemPosition() == mAdapter.itemCount - 1) {
                         loadMore()
                     }
                 } else {
@@ -115,11 +120,6 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemC
                 }
             }
         })
-
-        viewModel.newsList.observe(viewLifecycleOwner) {
-            showResult(it)
-        }
-        viewModel.showLoadingIndicator.observe(viewLifecycleOwner) { refresh_layout.post { refresh_layout.isRefreshing = it } }
     }
 
     override fun onResume() {
@@ -131,7 +131,6 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemC
 
     private fun showResult(list: List<ZhihuDailyNewsQuestion>) {
         mAdapter.updateData(list)
-        mListSize = list.size
 
         empty_view.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
         recycler_view.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
@@ -144,7 +143,6 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemC
             context?.let {
                 LocalBroadcastManager.getInstance(it).sendBroadcast(intent)
             }
-
         }
     }
 

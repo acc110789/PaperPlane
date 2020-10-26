@@ -1,9 +1,13 @@
 package com.famous.paperplane.zhihu.daily
 
+import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.famous.paperplane.business_base.ContentType
+import com.famous.paperplane.business_base.DetailActivityParam
+import com.famous.paperplane.business_base.app.appModule
 import com.famous.paperplane.business_base.imageService
 import com.famous.paperplane.zhihu.R
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
@@ -30,6 +34,13 @@ class ZhihuDailyNewsItemViewHolder(
 
     override fun onClick(view: View) {
         val item = this.item ?: return
-        itemContext.onItemClick(item)
+        val context = itemView.context ?: return
+        val intent = Intent(context, appModule.detailActivityClass()).apply {
+            putExtra(DetailActivityParam.KEY_ARTICLE_ID, item.id)
+            putExtra(DetailActivityParam.KEY_ARTICLE_TYPE, ContentType.TYPE_ZHIHU_DAILY)
+            putExtra(DetailActivityParam.KEY_ARTICLE_TITLE, item.title)
+            putExtra(DetailActivityParam.KEY_ARTICLE_IS_FAVORITE, item.isFavorite)
+        }
+        context.startActivity(intent)
     }
 }
