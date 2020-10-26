@@ -16,22 +16,52 @@
 
 package com.marktony.zhihudaily.database
 
+import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import android.content.Context
 import com.famous.paperplane.zhihu.db.ZhihuDailyContent
-import com.famous.paperplane.zhihu.db.ZhihuDailyContentDao
-import com.famous.paperplane.zhihu.db.ZhihuDailyNewsDao
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.marktony.zhihudaily.data.*
-import com.marktony.zhihudaily.database.dao.*
+import org.koin.dsl.module
 
 /**
  * Created by lizhaotailang on 2017/6/15.
  *
  * Main database description.
  */
+
+private const val DATABASE_NAME = "paper-plane-db"
+
+val appDataBaseKoinModule = module {
+    //AppDatabase
+    single {
+        val application = get<Application>()
+        val builder = Room.databaseBuilder(
+            application,
+            AppDatabase::class.java, DATABASE_NAME
+        )
+        builder.build()
+    }
+
+    //ZhihuDailyNewsDao
+    single { get<AppDatabase>().zhihuDailyNewsDao() }
+
+    //ZhihuDailyContentDao
+    single { get<AppDatabase>().zhihuDailyContentDao() }
+
+    //DoubanMomentNewsDao
+    single { get<AppDatabase>().doubanMomentNewsDao() }
+
+    //doubanMomentContentDao
+    single { get<AppDatabase>().doubanMomentContentDao() }
+
+    //GuokrHandpickNewsDao
+    single { get<AppDatabase>().guokrHandpickNewsDao() }
+
+    //GuokrHandpickContentDao
+    single { get<AppDatabase>().guokrHandpickContentDao() }
+}
 
 @Database(entities = [
     ZhihuDailyNewsQuestion::class,
@@ -41,38 +71,4 @@ import com.marktony.zhihudaily.database.dao.*
     DoubanMomentContent::class,
     GuokrHandpickContentResult::class
 ], version = 1)
-abstract class AppDatabase : RoomDatabase() {
-
-    abstract fun zhihuDailyNewsDao(): ZhihuDailyNewsDao
-
-    abstract fun doubanMomentNewsDao(): DoubanMomentNewsDao
-
-    abstract fun guokrHandpickNewsDao(): GuokrHandpickNewsDao
-
-    abstract fun zhihuDailyContentDao(): ZhihuDailyContentDao
-
-    abstract fun doubanMomentContentDao(): DoubanMomentContentDao
-
-    abstract fun guokrHandpickContentDao(): GuokrHandpickContentDao
-
-    companion object {
-        const val DATABASE_NAME = "paper-plane-db"
-
-        private var INSTANCE: AppDatabase? = null
-
-        private val lock = Any()
-
-        fun getInstance(context: Context): AppDatabase {
-            synchronized(lock) {
-                if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(
-                            context.applicationContext,
-                            AppDatabase::class.java, DATABASE_NAME
-                    ).build()
-                }
-                return INSTANCE as AppDatabase
-            }
-        }
-    }
-
-}
+abstract class AppDatabase : IAppDatabase, RoomDatabase()

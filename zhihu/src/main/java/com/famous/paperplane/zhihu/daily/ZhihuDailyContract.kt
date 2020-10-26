@@ -34,7 +34,6 @@ interface ZhihuDailyContract {
 
         fun setLoadingIndicator(active: Boolean)
 
-        fun showResult(list: MutableList<ZhihuDailyNewsQuestion>)
 
     }
 

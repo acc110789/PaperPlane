@@ -18,6 +18,8 @@ package com.marktony.zhihudaily
 
 import android.app.Application
 import com.famous.paperplane.zhihu.zhihuKoinModule
+import com.marktony.zhihudaily.database.appDataBaseKoinModule
+import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
@@ -33,7 +35,8 @@ class PaperPlaneApp : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            modules(zhihuKoinModule)
+            androidContext(this@PaperPlaneApp)
+            modules(appDataBaseKoinModule, zhihuKoinModule)
             androidLogger(Level.DEBUG)
         }
     }

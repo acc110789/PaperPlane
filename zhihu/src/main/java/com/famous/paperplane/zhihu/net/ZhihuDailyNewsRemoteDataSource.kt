@@ -22,7 +22,7 @@ import com.famous.paperplane.zhihu.base.ZhihuDailyNewsDataSource
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.famous.paperplane.zhihu.utils.formatZhihuDailyDateLongToString
 import kotlinx.coroutines.suspendCancellableCoroutine
-import org.koin.java.KoinJavaComponent.inject
+import org.koin.java.KoinJavaComponent.getKoin
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,7 +36,7 @@ import kotlin.coroutines.resume
 
 object ZhihuDailyNewsRemoteDataSource : ZhihuDailyNewsDataSource {
 
-    private val mZhihuDailyService by inject(ZhihuDailyService::class.java)
+    private val mZhihuDailyService by getKoin().inject<ZhihuDailyService>()
 
     override suspend fun getZhihuDailyNews(forceUpdate: Boolean, clearCache: Boolean, date: Long): Result<List<ZhihuDailyNewsQuestion>> = suspendCancellableCoroutine { continuation ->
         val callback = object: Callback<ZhihuDailyNews> {

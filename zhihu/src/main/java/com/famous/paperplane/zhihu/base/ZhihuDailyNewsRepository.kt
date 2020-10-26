@@ -17,7 +17,9 @@
 package com.famous.paperplane.zhihu.base
 
 import com.famous.paperplane.business_base.Result
+import com.famous.paperplane.zhihu.db.ZhihuDailyNewsLocalDataSource
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
+import com.famous.paperplane.zhihu.net.ZhihuDailyNewsRemoteDataSource
 import java.util.*
 
 /**
@@ -30,29 +32,12 @@ import java.util.*
  * which was from the locally persisted in database.
  */
 
-class ZhihuDailyNewsRepository private constructor(
-        private val mRemoteDataSource: ZhihuDailyNewsDataSource,
-        private val mLocalDataSource: ZhihuDailyNewsDataSource
-) : ZhihuDailyNewsDataSource {
+object ZhihuDailyNewsRepository : ZhihuDailyNewsDataSource {
 
+    private val mRemoteDataSource = ZhihuDailyNewsRemoteDataSource
+    private val mLocalDataSource = ZhihuDailyNewsLocalDataSource
     private var mCachedItems: MutableMap<Int, ZhihuDailyNewsQuestion> = LinkedHashMap()
 
-    companion object {
-
-        private var INSTANCE: ZhihuDailyNewsRepository? = null
-
-        fun getInstance(remoteDataSource: ZhihuDailyNewsDataSource,
-                        localDataSource: ZhihuDailyNewsDataSource): ZhihuDailyNewsRepository {
-            if (INSTANCE == null) {
-                INSTANCE = ZhihuDailyNewsRepository(remoteDataSource, localDataSource)
-            }
-            return INSTANCE!!
-        }
-
-        fun destroyInstance() {
-            INSTANCE = null
-        }
-    }
 
     override suspend fun getZhihuDailyNews(forceUpdate: Boolean, clearCache: Boolean, date: Long): Result<List<ZhihuDailyNewsQuestion>> {
         if (!forceUpdate) {

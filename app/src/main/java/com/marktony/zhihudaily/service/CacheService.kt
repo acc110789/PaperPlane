@@ -29,6 +29,7 @@ import com.marktony.zhihudaily.database.AppDatabase
 import com.marktony.zhihudaily.retrofit.RetrofitService
 import com.famous.paperplane.zhihu.net.ZhihuDailyService
 import com.marktony.zhihudaily.util.KEY_TIME_OF_SAVING_ARTICLES
+import org.koin.android.ext.android.inject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
@@ -43,7 +44,7 @@ import java.util.*
 
 class CacheService : Service() {
 
-    private lateinit var mDb: AppDatabase
+    private val mDb: AppDatabase by inject()
 
     private var mReceiver: LocalReceiver? = null
 
@@ -78,8 +79,6 @@ class CacheService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-
-        mDb = AppDatabase.getInstance(this)
 
         mReceiver = LocalReceiver()
 

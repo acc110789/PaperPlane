@@ -42,11 +42,9 @@ import java.util.*
  * Displays a grid of [ZhihuDailyNewsQuestion]s.
  */
 
-class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.View,
-    ZhihuDailyNewsItemContext {
+class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemContext {
 
     private val viewModel: ZhihuDailyViewModel by inject()
-    override lateinit var mPresenter: ZhihuDailyContract.Presenter
 
     private val mAdapter: ZhihuDailyNewsAdapter by inject { parametersOf(this) }
     private lateinit var mLayoutManager: LinearLayoutManager
@@ -55,11 +53,7 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
     private var mMonth: Int = 0
     private var mDay: Int = 0
 
-    private var mIsFirstLoad = true
     private var mListSize = 0
-
-    override val isActive: Boolean
-        get() = isAdded && isResumed
 
     companion object {
 
@@ -102,7 +96,7 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
         refresh_layout.setOnRefreshListener {
             val c = Calendar.getInstance()
             c.timeZone = TimeZone.getTimeZone("GMT+08")
-            mPresenter.loadNews(true, true, c.timeInMillis)
+            viewModel.loadNews(true, true, c.timeInMillis)
         }
 
         recycler_view.adapter = mAdapter
@@ -121,31 +115,21 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
                 }
             }
         })
+
+        viewModel.newsList.observe(viewLifecycleOwner) {
+            showResult(it)
+        }
+        viewModel.showLoadingIndicator.observe(viewLifecycleOwner) { refresh_layout.post { refresh_layout.isRefreshing = it } }
     }
 
     override fun onResume() {
         super.onResume()
-        mPresenter.start()
         val c = Calendar.getInstance()
         c.timeZone = TimeZone.getTimeZone("GMT+08")
         c.set(mYear, mMonth, mDay)
-        setLoadingIndicator(mIsFirstLoad)
-        if (mIsFirstLoad) {
-            mPresenter.loadNews(true, false, c.timeInMillis)
-            mIsFirstLoad = false
-        } else {
-            mPresenter.loadNews(false, false, c.timeInMillis)
-        }
-
     }
 
-    override fun setLoadingIndicator(active: Boolean) {
-        refresh_layout.post {
-            refresh_layout.isRefreshing = active
-        }
-    }
-
-    override fun showResult(list: MutableList<ZhihuDailyNewsQuestion>) {
+    private fun showResult(list: List<ZhihuDailyNewsQuestion>) {
         mAdapter.updateData(list)
         mListSize = list.size
 
@@ -167,7 +151,7 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
     private fun loadMore() {
         val c = Calendar.getInstance()
         c.set(mYear, mMonth, --mDay)
-        mPresenter.loadNews(true, false, c.timeInMillis)
+        viewModel.loadNews(true, false, c.timeInMillis)
     }
 
     fun showDatePickerDialog() {
@@ -181,7 +165,7 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
             mDay = dayOfMonth
             c.set(mYear, monthOfYear, mDay)
 
-            mPresenter.loadNews(true, true, c.timeInMillis)
+            viewModel.loadNews(true, true, c.timeInMillis)
 
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH))
 

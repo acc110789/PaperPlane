@@ -16,12 +16,12 @@
 
 package com.famous.paperplane.zhihu.db
 
-import androidx.annotation.VisibleForTesting
 import com.famous.paperplane.business_base.LocalDataNotFoundException
 import com.famous.paperplane.business_base.Result
 import com.famous.paperplane.zhihu.base.ZhihuDailyNewsDataSource
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
+import org.koin.java.KoinJavaComponent.getKoin
 
 /**
  * Created by lizhaotailang on 2017/5/21.
@@ -29,28 +29,9 @@ import kotlinx.coroutines.withContext
  * Concrete implementation of a [ZhihuDailyNewsQuestion] data source as database.
  */
 
-class ZhihuDailyNewsLocalDataSource private constructor(
-        val mZhihuDailyNewsDao: ZhihuDailyNewsDao
-) : ZhihuDailyNewsDataSource {
+object ZhihuDailyNewsLocalDataSource: ZhihuDailyNewsDataSource {
 
-    companion object {
-        private var INSTANCE: ZhihuDailyNewsLocalDataSource? = null
-
-        @JvmStatic
-        fun getInstance(zhihuDailyNewsDao: ZhihuDailyNewsDao): ZhihuDailyNewsLocalDataSource {
-            if (INSTANCE == null) {
-                synchronized(ZhihuDailyNewsLocalDataSource::javaClass) {
-                    INSTANCE = ZhihuDailyNewsLocalDataSource(zhihuDailyNewsDao)
-                }
-            }
-            return INSTANCE!!
-        }
-
-        @VisibleForTesting
-        fun clearInstance() {
-            INSTANCE = null
-        }
-    }
+    private val mZhihuDailyNewsDao: ZhihuDailyNewsDao by getKoin().inject()
 
     override suspend fun getZhihuDailyNews(forceUpdate: Boolean, clearCache: Boolean, date: Long): Result<List<ZhihuDailyNewsQuestion>> = withContext(IO) {
         val news = mZhihuDailyNewsDao.queryAllByDate(date)
@@ -67,19 +48,16 @@ class ZhihuDailyNewsLocalDataSource private constructor(
         if (item != null) Result.Success(item) else Result.Error(LocalDataNotFoundException())
     }
 
-    override suspend fun favoriteItem(itemId: Int, favorite: Boolean) {
-        withContext(IO) {
-            mZhihuDailyNewsDao.queryItemById(itemId)?.let {
-                it.isFavorite = favorite
-                mZhihuDailyNewsDao.update(it)
-            }
+    override suspend fun favoriteItem(itemId: Int, favorite: Boolean) = withContext(IO) {
+        mZhihuDailyNewsDao.queryItemById(itemId)?.let {
+            it.isFavorite = favorite
+            mZhihuDailyNewsDao.update(it)
         }
+        Unit
     }
 
-    override suspend fun saveAll(list: List<ZhihuDailyNewsQuestion>) {
-        withContext(IO) {
-            mZhihuDailyNewsDao.insertAll(list)
-        }
-    }
+    override suspend fun saveAll(list: List<ZhihuDailyNewsQuestion>) = withContext(IO) {
+        mZhihuDailyNewsDao.insertAll(list)
 
+    }
 }
