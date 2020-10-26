@@ -16,19 +16,17 @@
 
 package com.famous.paperplane.zhihu.net
 
-import androidx.annotation.VisibleForTesting
 import com.famous.paperplane.business_base.RemoteDataNotFoundException
 import com.famous.paperplane.business_base.Result
-import com.famous.paperplane.zhihu.BuildConfig
 import com.famous.paperplane.zhihu.base.ZhihuDailyNewsDataSource
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.famous.paperplane.zhihu.utils.formatZhihuDailyDateLongToString
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import kotlinx.coroutines.suspendCancellableCoroutine
+import org.koin.java.KoinJavaComponent.inject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.coroutines.resume
 
 /**
  * Created by lizhaotailang on 2017/5/21.
@@ -36,69 +34,41 @@ import retrofit2.converter.gson.GsonConverterFactory
  * Implementation of the [ZhihuDailyNews] data source that accesses network.
  */
 
-class ZhihuDailyNewsRemoteDataSource private constructor() : ZhihuDailyNewsDataSource {
+object ZhihuDailyNewsRemoteDataSource : ZhihuDailyNewsDataSource {
 
-    private val mZhihuDailyService: ZhihuDailyService by lazy {
-        val httpClientBuilder = OkHttpClient.Builder()
+    private val mZhihuDailyService by inject(ZhihuDailyService::class.java)
 
-        if (BuildConfig.DEBUG) {
-            httpClientBuilder.addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
-        }
-
-        httpClientBuilder.retryOnConnectionFailure(true)
-
-        val retrofit = Retrofit.Builder()
-                .baseUrl(ZHIHU_DAILY_BASE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClientBuilder.build())
-                .build()
-
-        retrofit.create(ZhihuDailyService::class.java)
-    }
-
-    companion object {
-
-        private var INSTANCE: ZhihuDailyNewsRemoteDataSource? = null
-
-        @JvmStatic
-        fun getInstance(): ZhihuDailyNewsRemoteDataSource {
-            if (INSTANCE == null) {
-                synchronized(ZhihuDailyNewsRemoteDataSource::javaClass) {
-                    INSTANCE = ZhihuDailyNewsRemoteDataSource()
+    override suspend fun getZhihuDailyNews(forceUpdate: Boolean, clearCache: Boolean, date: Long): Result<List<ZhihuDailyNewsQuestion>> = suspendCancellableCoroutine { continuation ->
+        val callback = object: Callback<ZhihuDailyNews> {
+            override fun onResponse(
+                call: Call<ZhihuDailyNews>,
+                response: Response<ZhihuDailyNews>
+            ) {
+                if (!response.isSuccessful) {
+                    continuation.resume(Result.Error(RemoteDataNotFoundException()))
+                    return
                 }
-            }
-            return INSTANCE!!
-        }
 
-        @VisibleForTesting
-        fun clearInstance() {
-            INSTANCE = null
-        }
-
-    }
-
-    override suspend fun getZhihuDailyNews(forceUpdate: Boolean, clearCache: Boolean, date: Long): Result<List<ZhihuDailyNewsQuestion>> = withContext(IO) {
-        try {
-            val response = mZhihuDailyService.getZhihuList(formatZhihuDailyDateLongToString(date)).execute()
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    if (it.stories.isNotEmpty()) {
-                        Result.Success(it.stories)
-                    } else {
-                        Result.Error(RemoteDataNotFoundException())
-                    }
-                } ?: run {
-                    Result.Error(RemoteDataNotFoundException())
+                val body = response.body()
+                if (body == null) {
+                    continuation.resume(Result.Error(RemoteDataNotFoundException()))
+                    return
                 }
-            } else {
-                Result.Error(RemoteDataNotFoundException())
-            }
-        } catch (e: Exception) {
-            Result.Error(RemoteDataNotFoundException())
-        }
 
+                val stories = body.stories
+                if (stories.isEmpty()) {
+                    continuation.resume(Result.Error(RemoteDataNotFoundException()))
+                    return
+                }
+                continuation.resume(Result.Success(stories))
+            }
+
+            override fun onFailure(call: Call<ZhihuDailyNews>, t: Throwable) {
+                continuation.resume(Result.Error(t))
+            }
+
+        }
+        mZhihuDailyService.getZhihuList(formatZhihuDailyDateLongToString(date)).enqueue(callback)
     }
 
     // Not required because the [com.marktony.zhihudaily.data.source.repository.ZhihuDailyNewsRepository] handles the logic of refreshing the

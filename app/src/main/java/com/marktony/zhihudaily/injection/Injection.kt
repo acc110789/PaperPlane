@@ -14,7 +14,7 @@ object Injection {
 
     private val appExecutors: AppExecutors = AppExecutors()
 
-    fun provideZhihuDailyNewsRepository(context: Context): ZhihuDailyNewsRepository = ZhihuDailyNewsRepository.getInstance(ZhihuDailyNewsRemoteDataSource.getInstance(), ZhihuDailyNewsLocalDataSource.getInstance(AppDatabase.getInstance(context).zhihuDailyNewsDao()))
+    fun provideZhihuDailyNewsRepository(context: Context): ZhihuDailyNewsRepository = ZhihuDailyNewsRepository.getInstance(ZhihuDailyNewsRemoteDataSource, ZhihuDailyNewsLocalDataSource.getInstance(AppDatabase.getInstance(context).zhihuDailyNewsDao()))
 
     fun provideZhihuDailyContentRepository(context: Context): ZhihuDailyContentRepository = ZhihuDailyContentRepository.getInstance(ZhihuDailyContentRemoteDataSource.getInstance(appExecutors), ZhihuDailyContentLocalDataSource.getInstance(appExecutors, AppDatabase.getInstance(context).zhihuDailyContentDao()))
 

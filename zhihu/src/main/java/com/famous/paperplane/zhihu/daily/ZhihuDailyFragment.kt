@@ -29,11 +29,9 @@ import com.famous.paperplane.business_base.*
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.famous.paperplane.business_base.app.appModule
 import com.famous.paperplane.zhihu.R
-import com.famous.paperplane.zhihu.zhihuModule
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.fragment_timeline_page.*
 import org.koin.android.ext.android.inject
-import org.koin.core.context.loadKoinModules
 import org.koin.core.parameter.parametersOf
 import java.util.*
 
@@ -47,6 +45,7 @@ import java.util.*
 class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.View,
     ZhihuDailyNewsItemContext {
 
+    private val viewModel: ZhihuDailyViewModel by inject()
     override lateinit var mPresenter: ZhihuDailyContract.Presenter
 
     private val mAdapter: ZhihuDailyNewsAdapter by inject { parametersOf(this) }
@@ -71,7 +70,6 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyContract.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loadKoinModules(zhihuModule)
 
         val c = Calendar.getInstance()
         c.timeZone = TimeZone.getTimeZone("GMT+08")

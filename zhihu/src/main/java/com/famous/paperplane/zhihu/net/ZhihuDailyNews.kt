@@ -16,7 +16,6 @@
 
 package com.famous.paperplane.zhihu.net
 
-import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.google.gson.annotations.Expose
@@ -31,7 +30,6 @@ import kotlinx.android.parcel.Parcelize
  */
 
 @Parcelize
-@SuppressLint("ParcelCreator")
 data class ZhihuDailyNews(
 
         @Expose
@@ -42,4 +40,4 @@ data class ZhihuDailyNews(
         @SerializedName("stories")
         val stories: List<ZhihuDailyNewsQuestion>
 
-) : Parcelable
+):Parcelable

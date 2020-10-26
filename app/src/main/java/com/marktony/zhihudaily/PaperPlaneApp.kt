@@ -17,6 +17,7 @@
 package com.marktony.zhihudaily
 
 import android.app.Application
+import com.famous.paperplane.zhihu.zhihuKoinModule
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
@@ -32,12 +33,8 @@ class PaperPlaneApp : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
+            modules(zhihuKoinModule)
             androidLogger(Level.DEBUG)
         }
-//        if (PreferenceManager.getDefaultSharedPreferences(applicationContext).getBoolean("night_mode", false)) {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//        } else {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//        }
     }
 }
