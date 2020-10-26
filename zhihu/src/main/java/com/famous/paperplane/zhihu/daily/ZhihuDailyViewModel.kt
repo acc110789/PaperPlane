@@ -8,11 +8,13 @@ import com.famous.paperplane.zhihu.base.ZhihuDailyNewsRepository
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
+import java.util.*
 
 class ZhihuDailyViewModel: BaseViewModel() {
 
     private sealed class UiEvent {
-        class Load(val clearCache: Boolean, val date: Long) : UiEvent()
+        object InitLoad: UiEvent()
+        object LoadMore : UiEvent()
         object LoadCache: UiEvent()
     }
 
@@ -21,34 +23,77 @@ class ZhihuDailyViewModel: BaseViewModel() {
 
     private val uiEventChannel = Channel<UiEvent>()
 
-    fun loadNews(clearCache: Boolean, date: Long) {
-        uiEventChannel.offer(UiEvent.Load(clearCache, date))
+    private var mYear: Int = 0
+    private var mMonth: Int = 0
+    private var mDay: Int = 0
+
+    private val currentDate: Long get() {
+        val c = Calendar.getInstance()
+        c.set(mYear, mMonth, mDay)
+        return c.timeInMillis
     }
 
-    fun loadNewsFromCache() {
-        uiEventChannel.offer(UiEvent.LoadCache)
+    fun refresh() {
+        uiEventChannel.offer(UiEvent.InitLoad)
+    }
+
+    fun loadMore() {
+        uiEventChannel.offer(UiEvent.LoadMore)
+    }
+
+    fun setCalendar(c: Calendar) {
+        mYear = c.get(Calendar.YEAR)
+        mMonth = c.get(Calendar.MONTH)
+        mDay = c.get(Calendar.DAY_OF_MONTH)
+        refresh()
+    }
+
+    fun getCurrentCalendar(): Calendar {
+        val c = Calendar.getInstance()
+        c.set(mYear, mMonth, mDay)
+        return c
     }
 
     init {
         listenEvent()
+
+        val c = Calendar.getInstance()
+        c.timeZone = TimeZone.getTimeZone("GMT+08")
+        mYear = c.get(Calendar.YEAR)
+        mMonth = c.get(Calendar.MONTH)
+        mDay = c.get(Calendar.DAY_OF_MONTH)
+        refresh()
     }
 
     private fun listenEvent() = viewModelScope.launch {
         for (event in uiEventChannel) {
             when(event) {
-                is UiEvent.Load -> loadNewsInner(event.clearCache, event.date)
+                is UiEvent.InitLoad -> refreshInner()
+                is UiEvent.LoadMore -> loadMoreInner()
                 is UiEvent.LoadCache -> loadNewsFromCacheInner()
             }
         }
     }
 
-    private suspend fun loadNewsInner(clearCache: Boolean, date: Long) {
+    private suspend fun refreshInner() {
         showLoadingIndicator.postValue(true)
-        val result = ZhihuDailyNewsRepository.getZhihuDailyNews(date, clearCache)
-
+        val result = ZhihuDailyNewsRepository.getZhihuDailyNews(currentDate, true)
         showLoadingIndicator.postValue(false)
         if (result is Result.Success) {
             newsList.postValue(result.data.toMutableList())
+        }
+    }
+
+    private suspend fun loadMoreInner() {
+        showLoadingIndicator.postValue(true)
+        mDay--
+        val result = ZhihuDailyNewsRepository.getZhihuDailyNews(currentDate, false)
+        showLoadingIndicator.postValue(false)
+        if (result is Result.Success) {
+            val list = mutableListOf<ZhihuDailyNewsQuestion>()
+            newsList.value?.let { list.addAll(it) }
+            list.addAll(result.data)
+            newsList.postValue(list)
         }
     }
 

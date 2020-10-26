@@ -22,4 +22,8 @@ sealed class Result<out T : Any> {
 
     class Error<out T : Any>(val exception: Throwable) : Result<T>()
 
+    val isSuccess get() = this is Success<*>
+
+    val successData get() = (this as Success).data
+
 }

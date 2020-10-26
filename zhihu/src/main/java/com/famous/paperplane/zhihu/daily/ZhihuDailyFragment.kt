@@ -49,24 +49,8 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemC
 
     private lateinit var mLayoutManager: LinearLayoutManager
 
-    private var mYear: Int = 0
-    private var mMonth: Int = 0
-    private var mDay: Int = 0
-
-    private var mIsFirstLoad = true
-
     companion object {
         fun newInstance(): ZhihuDailyFragment = ZhihuDailyFragment()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val c = Calendar.getInstance()
-        c.timeZone = TimeZone.getTimeZone("GMT+08")
-        mYear = c.get(Calendar.YEAR)
-        mMonth = c.get(Calendar.MONTH)
-        mDay = c.get(Calendar.DAY_OF_MONTH)
     }
 
     override fun onCreateView(
@@ -100,7 +84,7 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemC
         refresh_layout.setOnRefreshListener {
             val c = Calendar.getInstance()
             c.timeZone = TimeZone.getTimeZone("GMT+08")
-            viewModel.loadNews(true, c.timeInMillis)
+            viewModel.refresh()
         }
     }
 
@@ -114,27 +98,13 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemC
                 if (dy > 0) {
                     activity?.findViewById<FloatingActionButton>(R.id.fab)?.hide()
                     if (mLayoutManager.findLastCompletelyVisibleItemPosition() == mAdapter.itemCount - 1) {
-                        loadMore()
+                        viewModel.loadMore()
                     }
                 } else {
                     activity?.findViewById<FloatingActionButton>(R.id.fab)?.show()
                 }
             }
         })
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val c = Calendar.getInstance()
-        c.timeZone = TimeZone.getTimeZone("GMT+08")
-        c.set(mYear, mMonth, mDay)
-
-        if (mIsFirstLoad) {
-            viewModel.loadNews( false, c.timeInMillis)
-            mIsFirstLoad = false
-        } else {
-            viewModel.loadNewsFromCache()
-        }
     }
 
     private fun showResult(list: List<ZhihuDailyNewsQuestion>) {
@@ -154,24 +124,15 @@ class ZhihuDailyFragment : androidx.fragment.app.Fragment(), ZhihuDailyNewsItemC
         }
     }
 
-    private fun loadMore() {
-        val c = Calendar.getInstance()
-        c.set(mYear, mMonth, --mDay)
-        viewModel.loadNews(false, c.timeInMillis)
-    }
 
     fun showDatePickerDialog() {
         val activity = activity ?: return
 
-        val c = Calendar.getInstance()
-        c.set(mYear, mMonth, mDay)
+        val c = viewModel.getCurrentCalendar()
         val dialog = DatePickerDialog.newInstance({ _, year, monthOfYear, dayOfMonth ->
-            mYear = year
-            mMonth = monthOfYear
-            mDay = dayOfMonth
-            c.set(mYear, monthOfYear, mDay)
-
-            viewModel.loadNews(true, c.timeInMillis)
+            val newCalendar = Calendar.getInstance()
+            newCalendar.set(year, monthOfYear, dayOfMonth)
+            viewModel.setCalendar(newCalendar)
 
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH))
 

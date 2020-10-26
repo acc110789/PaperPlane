@@ -10,13 +10,16 @@ import java.util.*
  * A util class for formatting the date between string and long.
  */
 
-fun formatZhihuDailyDateLongToString(date: Long): String {
-    val sDate: String
-    val d = Date(date + 24 * 60 * 60 * 1000)
-    val format = SimpleDateFormat("yyyyMMdd")
-    sDate = format.format(d)
+fun formatZhihuDailyDateToTomorrowToString(date: Long): String =
+    formatZhihuDailyDateToString(date + 24 * 60 * 60 * 1000)
 
-    return sDate
+fun formatZhihuDailyDateToTodayToString(date: Long): String =
+    formatZhihuDailyDateToString(date)
+
+private fun formatZhihuDailyDateToString(date: Long): String {
+    val d = Date(date)
+    val format = SimpleDateFormat("yyyyMMdd")
+    return format.format(d)
 }
 
 fun formatZhihuDailyDateStringToLong(date: String): Long {

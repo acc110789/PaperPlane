@@ -19,7 +19,8 @@ package com.famous.paperplane.zhihu.net
 import com.famous.paperplane.business_base.RemoteDataNotFoundException
 import com.famous.paperplane.business_base.Result
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
-import com.famous.paperplane.zhihu.utils.formatZhihuDailyDateLongToString
+import com.famous.paperplane.zhihu.utils.formatZhihuDailyDateToTodayToString
+import com.famous.paperplane.zhihu.utils.formatZhihuDailyDateToTomorrowToString
 import kotlinx.coroutines.suspendCancellableCoroutine
 import org.koin.java.KoinJavaComponent.getKoin
 import retrofit2.Call
@@ -37,7 +38,25 @@ internal object ZhihuDailyNewsRemoteDataSource {
 
     private val mZhihuDailyService by getKoin().inject<ZhihuDailyService>()
 
-    internal suspend fun getZhihuDailyNews(date: Long): Result<List<ZhihuDailyNewsQuestion>> = suspendCancellableCoroutine { continuation ->
+    internal suspend fun getZhihuDailyNews(date: Long): Result<List<ZhihuDailyNewsQuestion>> {
+        val firstDayResult = getZhihuDailyNewsInner(formatZhihuDailyDateToTomorrowToString(date))
+        if (!firstDayResult.isSuccess) return firstDayResult
+
+        val secondDayResult = getZhihuDailyNewsInner(formatZhihuDailyDateToTodayToString(date))
+        if (!secondDayResult.isSuccess) return firstDayResult
+
+        val finalItemList = mutableListOf<ZhihuDailyNewsQuestion>()
+        val finalItemIdSet = mutableSetOf<Int>()
+        for (item in firstDayResult.successData + secondDayResult.successData) {
+            if (finalItemIdSet.contains(item.id)) continue
+            finalItemIdSet.add(item.id)
+
+            finalItemList.add(item)
+        }
+        return Result.Success(finalItemList)
+    }
+
+    private suspend fun getZhihuDailyNewsInner(date: String): Result<List<ZhihuDailyNewsQuestion>> = suspendCancellableCoroutine { continuation ->
         val callback = object: Callback<ZhihuDailyNews> {
             override fun onResponse(
                 call: Call<ZhihuDailyNews>,
@@ -67,6 +86,6 @@ internal object ZhihuDailyNewsRemoteDataSource {
             }
 
         }
-        mZhihuDailyService.getZhihuList(formatZhihuDailyDateLongToString(date)).enqueue(callback)
+        mZhihuDailyService.getZhihuList(date).enqueue(callback)
     }
 }
