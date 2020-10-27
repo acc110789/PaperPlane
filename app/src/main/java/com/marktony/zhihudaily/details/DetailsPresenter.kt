@@ -24,6 +24,7 @@ import com.marktony.zhihudaily.data.source.repository.*
 import com.famous.paperplane.business_base.launchSilent
 import com.famous.paperplane.douban.repo.DoubanMomentContentRepository
 import com.famous.paperplane.douban.repo.DoubanMomentNewsRepository
+import com.famous.paperplane.zhihu.repo.ZhihuDailyContentRepository
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
 
@@ -60,7 +61,8 @@ class DetailsPresenter : DetailsContract.Presenter {
 
     constructor(view: DetailsContract.View,
                 zhihuNewsRepository: ZhihuDailyNewsRepository,
-                zhihuContentRepository: ZhihuDailyContentRepository) {
+                zhihuContentRepository: ZhihuDailyContentRepository
+    ) {
         mView = view
         mView.mPresenter = this
         mZhihuNewsRepository = zhihuNewsRepository

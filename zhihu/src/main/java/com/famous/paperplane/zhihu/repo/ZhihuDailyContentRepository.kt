@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.data.source.repository
+package com.famous.paperplane.zhihu.repo
 
 import com.famous.paperplane.zhihu.db.ZhihuDailyContent
 import com.famous.paperplane.business_base.Result
-import com.marktony.zhihudaily.data.source.datasource.ZhihuDailyContentDataSource
+import com.famous.paperplane.zhihu.db.ZhihuDailyContentLocalDataSource
+import com.famous.paperplane.zhihu.net.ZhihuDailyContentRemoteDataSource
 
 /**
  * Created by lizhaotailang on 2017/5/26.
@@ -30,31 +31,14 @@ import com.marktony.zhihudaily.data.source.datasource.ZhihuDailyContentDataSourc
  * which was from the locally persisted in database.
  */
 
-class ZhihuDailyContentRepository private constructor(
-        private val mRemoteDataSource: ZhihuDailyContentDataSource,
-        private val mLocalDataSource: ZhihuDailyContentDataSource
-) : ZhihuDailyContentDataSource {
+class ZhihuDailyContentRepository internal constructor(
+    private val mRemoteDataSource: ZhihuDailyContentRemoteDataSource,
+    private val mLocalDataSource: ZhihuDailyContentLocalDataSource
+) {
 
     private var mContent: ZhihuDailyContent? = null
 
-    companion object {
-
-        var INSTANCE: ZhihuDailyContentRepository? = null
-
-        fun getInstance(remoteDataSource: ZhihuDailyContentDataSource,
-                        localDataSource: ZhihuDailyContentDataSource): ZhihuDailyContentRepository {
-            if (INSTANCE == null) {
-                INSTANCE = ZhihuDailyContentRepository(remoteDataSource, localDataSource)
-            }
-            return INSTANCE!!
-        }
-
-        fun destroyInstance() {
-            INSTANCE = null
-        }
-    }
-
-    override suspend fun getZhihuDailyContent(id: Int): Result<ZhihuDailyContent> {
+    suspend fun getZhihuDailyContent(id: Int): Result<ZhihuDailyContent> {
         if (mContent != null && mContent?.id == id) {
             return Result.Success(mContent!!)
         }
@@ -74,7 +58,7 @@ class ZhihuDailyContentRepository private constructor(
         }
     }
 
-    override suspend fun saveContent(content: ZhihuDailyContent) {
+    suspend fun saveContent(content: ZhihuDailyContent) {
         mLocalDataSource.saveContent(content)
     }
 

@@ -4,10 +4,13 @@ import android.view.ViewGroup
 import com.famous.paperplane.business_base.layoutInflater
 import com.famous.paperplane.zhihu.repo.ZhihuDailyNewsRepository
 import com.famous.paperplane.zhihu.daily.*
+import com.famous.paperplane.zhihu.db.ZhihuDailyContentLocalDataSource
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsLocalDataSource
 import com.famous.paperplane.zhihu.net.ZHIHU_DAILY_BASE
+import com.famous.paperplane.zhihu.net.ZhihuDailyContentRemoteDataSource
 import com.famous.paperplane.zhihu.net.ZhihuDailyNewsRemoteDataSource
 import com.famous.paperplane.zhihu.net.ZhihuDailyService
+import com.famous.paperplane.zhihu.repo.ZhihuDailyContentRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -20,6 +23,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 internal val zhihuDailyScopeViewModel = named("zhihuDailyViewModel")
 
 val zhihuKoinModule = module {
+
+    //ZhihuDailyContentLocalDataSource
+    single { ZhihuDailyContentLocalDataSource(get()) }
+
+    //ZhihuDailyContentRemoteDataSource
+    single { ZhihuDailyContentRemoteDataSource(get()) }
+
+    //ZhihuDailyContentRepository
+    single { ZhihuDailyContentRepository(get(), get()) }
 
     //ZhihuDailyNewsLocalDataSource
     single { ZhihuDailyNewsLocalDataSource(get()) }
