@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.data
+package com.famous.paperplane.douban.entity
 
 import android.annotation.SuppressLint
 import android.os.Parcelable

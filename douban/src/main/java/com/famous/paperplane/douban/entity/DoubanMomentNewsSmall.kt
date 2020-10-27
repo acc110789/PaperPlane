@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.data
+package com.famous.paperplane.douban.entity
 
 import android.annotation.SuppressLint
 import androidx.room.ColumnInfo
@@ -26,24 +26,24 @@ import kotlinx.android.parcel.Parcelize
 /**
  * Created by lizhaotailang on 2017/6/17.
  *
- * Immutable model class for douban moment news medium image. See the json string for more details.
+ * Immutable model class for douban moment news small image. See the json string for more details.
  * Entity class for [com.google.gson.Gson] and [android.arch.persistence.room.Room].
  */
 @Parcelize
 @SuppressLint("ParcelCreator")
-data class DoubanMomentNewsMedium(
+data class DoubanMomentNewsSmall(
 
-        @ColumnInfo(name = "medium_url")
+        @ColumnInfo(name = "small_url")
         @Expose
         @SerializedName("url")
         val url: String,
 
-        @ColumnInfo(name = "medium_width")
+        @ColumnInfo(name = "small_width")
         @Expose
         @SerializedName("width")
         val width: Int,
 
-        @ColumnInfo(name = "medium_height")
+        @ColumnInfo(name = "small_height")
         @Expose
         @SerializedName("height")
         val height: Int

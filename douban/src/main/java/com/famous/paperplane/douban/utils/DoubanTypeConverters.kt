@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.database.converter
+package com.famous.paperplane.douban.utils
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.marktony.zhihudaily.data.DoubanMomentNewsThumbs
+import com.famous.paperplane.douban.entity.DoubanMomentNewsThumbs
 import java.util.*
 
 /**

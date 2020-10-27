@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.famous.paperplane.zhihu.base
+package com.famous.paperplane.zhihu.repo
 
 import com.famous.paperplane.business_base.Result
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsLocalDataSource

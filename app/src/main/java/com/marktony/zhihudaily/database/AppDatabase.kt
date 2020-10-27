@@ -20,6 +20,8 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.famous.paperplane.douban.entity.DoubanMomentContent
+import com.famous.paperplane.douban.entity.DoubanMomentNewsPosts
 import com.famous.paperplane.zhihu.db.ZhihuDailyContent
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.marktony.zhihudaily.data.*

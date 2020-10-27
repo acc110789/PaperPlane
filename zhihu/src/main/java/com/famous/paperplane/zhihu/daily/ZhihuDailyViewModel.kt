@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.famous.paperplane.business_base.BaseViewModel
 import com.famous.paperplane.business_base.Result
-import com.famous.paperplane.zhihu.base.ZhihuDailyNewsRepository
+import com.famous.paperplane.zhihu.repo.ZhihuDailyNewsRepository
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch

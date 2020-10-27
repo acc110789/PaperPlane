@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.database.dao
+package com.famous.paperplane.douban.db
 
 import androidx.room.*
-import com.marktony.zhihudaily.data.DoubanMomentContent
+import com.famous.paperplane.douban.entity.DoubanMomentContent
 
 /**
  * Created by lizhaotailang on 2017/6/15.

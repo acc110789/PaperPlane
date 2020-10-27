@@ -23,7 +23,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.marktony.zhihudaily.R
-import com.marktony.zhihudaily.data.DoubanMomentNewsPosts
+import com.famous.paperplane.douban.entity.DoubanMomentNewsPosts
 import com.marktony.zhihudaily.data.GuokrHandpickNewsResult
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.marktony.zhihudaily.glide.loadImage
@@ -39,10 +39,10 @@ import kotlinx.android.synthetic.main.item_category.view.*
  */
 
 class FavoritesAdapter(
-        private val mContext: Context,
-        private val mZhihuList: MutableList<ZhihuDailyNewsQuestion>,
-        private val mDoubanList: MutableList<DoubanMomentNewsPosts>,
-        private val mGuokrList: MutableList<GuokrHandpickNewsResult>
+    private val mContext: Context,
+    private val mZhihuList: MutableList<ZhihuDailyNewsQuestion>,
+    private val mDoubanList: MutableList<DoubanMomentNewsPosts>,
+    private val mGuokrList: MutableList<GuokrHandpickNewsResult>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mContext)

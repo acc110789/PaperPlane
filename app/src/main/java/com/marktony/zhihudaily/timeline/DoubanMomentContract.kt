@@ -18,7 +18,7 @@ package com.marktony.zhihudaily.timeline
 
 import com.famous.paperplane.business_base.BasePresenter
 import com.famous.paperplane.business_base.BaseView
-import com.marktony.zhihudaily.data.DoubanMomentNewsPosts
+import com.famous.paperplane.douban.entity.DoubanMomentNewsPosts
 
 /**
  * Created by lizhaotailang on 2017/5/21.

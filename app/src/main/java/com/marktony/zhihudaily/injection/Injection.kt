@@ -1,7 +1,9 @@
 package com.marktony.zhihudaily.injection
 
 import android.content.Context
-import com.famous.paperplane.zhihu.base.ZhihuDailyNewsRepository
+import com.famous.paperplane.douban.repo.DoubanMomentContentRepository
+import com.famous.paperplane.douban.repo.DoubanMomentNewsRepository
+import com.famous.paperplane.zhihu.repo.ZhihuDailyNewsRepository
 import com.marktony.zhihudaily.data.source.local.*
 import com.marktony.zhihudaily.data.source.remote.*
 import com.marktony.zhihudaily.data.source.repository.*
@@ -21,8 +23,8 @@ object Injection {
 
     fun provideGuokrHandpickContentRepository(context: Context): GuokrHandpickContentRepository = GuokrHandpickContentRepository.getInstance(GuokrHandpickContentRemoteDataSource.getInstance(appExecutors), GuokrHandpickContentLocalDataSource.getInstance(appExecutors, AppDatabaseDelegate.guokrHandpickContentDao()))
 
-    fun provideDoubanMomentNewsRepository(context: Context): DoubanMomentNewsRepository = DoubanMomentNewsRepository.getInstance(DoubanMomentNewsRemoteDataSource.getInstance(appExecutors), DoubanMomentNewsLocalDataSource.getInstance(appExecutors, AppDatabaseDelegate.doubanMomentNewsDao()))
+    fun provideDoubanMomentNewsRepository(context: Context): DoubanMomentNewsRepository = getKoin().get()
 
-    fun provideDoubanMomentContentRepository(context: Context): DoubanMomentContentRepository = DoubanMomentContentRepository.getInstance(DoubanMomentContentRemoteDataSource.getInstance(appExecutors), DoubanMomentContentLocalDataSource.getInstance(appExecutors, AppDatabaseDelegate.doubanMomentContentDao()))
+    fun provideDoubanMomentContentRepository(context: Context): DoubanMomentContentRepository = getKoin().get()
 
 }

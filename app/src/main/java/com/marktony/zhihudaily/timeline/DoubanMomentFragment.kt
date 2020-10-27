@@ -24,7 +24,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.marktony.zhihudaily.R
 import com.famous.paperplane.business_base.ContentType
-import com.marktony.zhihudaily.data.DoubanMomentNewsPosts
+import com.famous.paperplane.douban.entity.DoubanMomentNewsPosts
 import com.famous.paperplane.business_base.PostType
 import com.marktony.zhihudaily.details.DetailsActivity
 import com.famous.paperplane.business_base.OnRecyclerViewItemOnClickListener

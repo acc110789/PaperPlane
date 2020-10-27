@@ -32,6 +32,8 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import com.famous.paperplane.business_base.ContentType
+import com.famous.paperplane.douban.entity.DoubanMomentContent
+import com.famous.paperplane.douban.entity.DoubanMomentNewsThumbs
 import com.famous.paperplane.zhihu.db.ZhihuDailyContent
 import com.marktony.zhihudaily.R
 import com.marktony.zhihudaily.customtabs.CustomTabsHelper

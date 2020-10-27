@@ -40,15 +40,7 @@ interface RetrofitService {
 
     }
 
-    interface DoubanMomentService {
 
-        @GET("stream/date/{date}")
-        fun getDoubanList(@Path("date") date: String): Call<DoubanMomentNews>
-
-        @GET("post/{id}")
-        fun getDoubanContent(@Path("id") id: Int): Call<DoubanMomentContent>
-
-    }
 
     interface GuokrHandpickService {
 

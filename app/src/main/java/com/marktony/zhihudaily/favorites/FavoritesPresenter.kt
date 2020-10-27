@@ -17,9 +17,9 @@
 package com.marktony.zhihudaily.favorites
 
 import com.famous.paperplane.business_base.Result
-import com.marktony.zhihudaily.data.source.repository.DoubanMomentNewsRepository
+import com.famous.paperplane.douban.repo.DoubanMomentNewsRepository
 import com.marktony.zhihudaily.data.source.repository.GuokrHandpickNewsRepository
-import com.famous.paperplane.zhihu.base.ZhihuDailyNewsRepository
+import com.famous.paperplane.zhihu.repo.ZhihuDailyNewsRepository
 import com.famous.paperplane.business_base.launchSilent
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
@@ -32,11 +32,11 @@ import kotlin.coroutines.CoroutineContext
  */
 
 class FavoritesPresenter(
-        private val mView: FavoritesContract.View,
-        private val mZhihuRepository: ZhihuDailyNewsRepository,
-        private val mDoubanRepository: DoubanMomentNewsRepository,
-        private val mGuokrRepository: GuokrHandpickNewsRepository,
-        private val uiContext: CoroutineContext = Dispatchers.Main
+    private val mView: FavoritesContract.View,
+    private val mZhihuRepository: ZhihuDailyNewsRepository,
+    private val mDoubanRepository: DoubanMomentNewsRepository,
+    private val mGuokrRepository: GuokrHandpickNewsRepository,
+    private val uiContext: CoroutineContext = Dispatchers.Main
 ) : FavoritesContract.Presenter {
 
     init {

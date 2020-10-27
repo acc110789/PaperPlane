@@ -21,6 +21,8 @@ import com.famous.paperplane.zhihu.db.ZhihuDailyContent
 import com.famous.paperplane.business_base.BasePresenter
 import com.famous.paperplane.business_base.BaseView
 import com.famous.paperplane.business_base.ContentType
+import com.famous.paperplane.douban.entity.DoubanMomentContent
+import com.famous.paperplane.douban.entity.DoubanMomentNewsThumbs
 import com.marktony.zhihudaily.data.*
 
 /**

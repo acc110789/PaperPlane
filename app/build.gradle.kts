@@ -44,6 +44,7 @@ dependencies {
     implementation(fileTree("include" to listOf("*.jar"), "dir" to "libs"))
 
     api(project(":zhihu"))
+    api(project(":douban"))
 
     kapt(ROOM_COMPILER)
     kapt(GLIDE_COMPILER)

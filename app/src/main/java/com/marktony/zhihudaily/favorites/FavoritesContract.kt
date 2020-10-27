@@ -18,7 +18,7 @@ package com.marktony.zhihudaily.favorites
 
 import com.famous.paperplane.business_base.BasePresenter
 import com.famous.paperplane.business_base.BaseView
-import com.marktony.zhihudaily.data.DoubanMomentNewsPosts
+import com.famous.paperplane.douban.entity.DoubanMomentNewsPosts
 import com.marktony.zhihudaily.data.GuokrHandpickNewsResult
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 

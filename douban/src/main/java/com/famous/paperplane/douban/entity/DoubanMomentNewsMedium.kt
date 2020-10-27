@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.data
+package com.famous.paperplane.douban.entity
 
 import android.annotation.SuppressLint
 import androidx.room.ColumnInfo
-import androidx.room.Embedded
 import android.os.Parcelable
-
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
@@ -28,40 +26,26 @@ import kotlinx.android.parcel.Parcelize
 /**
  * Created by lizhaotailang on 2017/6/17.
  *
- * Immutable model class for douban moment news thumbs. See the json string for more details.
+ * Immutable model class for douban moment news medium image. See the json string for more details.
  * Entity class for [com.google.gson.Gson] and [android.arch.persistence.room.Room].
  */
 @Parcelize
 @SuppressLint("ParcelCreator")
-data class DoubanMomentNewsThumbs(
+data class DoubanMomentNewsMedium(
 
-        @Embedded
+        @ColumnInfo(name = "medium_url")
         @Expose
-        @SerializedName("medium")
-        val medium: DoubanMomentNewsMedium,
+        @SerializedName("url")
+        val url: String,
 
-        @ColumnInfo(name = "thumb_description")
+        @ColumnInfo(name = "medium_width")
         @Expose
-        @SerializedName("description")
-        val description: String,
+        @SerializedName("width")
+        val width: Int,
 
-        @Embedded
+        @ColumnInfo(name = "medium_height")
         @Expose
-        @SerializedName("large")
-        val large: DoubanMomentNewsLarge,
-
-        @Expose
-        @SerializedName("tag_name")
-        val tagName: String,
-
-        @Embedded
-        @Expose
-        @SerializedName("small")
-        val small: DoubanMomentNewsSmall,
-
-        @ColumnInfo(name = "thumb_id")
-        @Expose
-        @SerializedName("id")
-        val id: Int = 0
+        @SerializedName("height")
+        val height: Int
 
 ) : Parcelable

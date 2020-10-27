@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.data.source.repository
+package com.famous.paperplane.douban.repo
 
-import com.marktony.zhihudaily.data.DoubanMomentNewsPosts
 import com.famous.paperplane.business_base.Result
-import com.marktony.zhihudaily.data.source.datasource.DoubanMomentNewsDataSource
-import com.marktony.zhihudaily.util.formatDoubanMomentDateStringToLong
+import com.famous.paperplane.douban.db.DoubanMomentNewsLocalDataSource
+import com.famous.paperplane.douban.entity.DoubanMomentNewsPosts
+import com.famous.paperplane.douban.net.DoubanMomentNewsRemoteDataSource
+import com.famous.paperplane.douban.utils.formatDoubanMomentDateStringToLong
 import java.util.*
 
 /**
@@ -32,31 +33,14 @@ import java.util.*
  * which was from the locally persisted in database.
  */
 
-class DoubanMomentNewsRepository private constructor(
-        private val mRemoteDataSource: DoubanMomentNewsDataSource,
-        private val mLocalDataSource: DoubanMomentNewsDataSource
-) : DoubanMomentNewsDataSource {
+class DoubanMomentNewsRepository internal constructor(
+    private val mRemoteDataSource: DoubanMomentNewsRemoteDataSource,
+    private val mLocalDataSource: DoubanMomentNewsLocalDataSource
+) {
 
     private var mCachedItems: MutableMap<Int, DoubanMomentNewsPosts> = LinkedHashMap()
 
-    companion object {
-
-        private var INSTANCE: DoubanMomentNewsRepository? = null
-
-        fun getInstance(remoteDataSource: DoubanMomentNewsDataSource,
-                        localDataSource: DoubanMomentNewsDataSource): DoubanMomentNewsRepository {
-            if (INSTANCE == null) {
-                INSTANCE = DoubanMomentNewsRepository(remoteDataSource, localDataSource)
-            }
-            return INSTANCE!!
-        }
-
-        fun destroyInstance() {
-            INSTANCE = null
-        }
-    }
-
-    override suspend fun getDoubanMomentNews(forceUpdate: Boolean, clearCache: Boolean, date: Long): Result<List<DoubanMomentNewsPosts>> {
+    suspend fun getDoubanMomentNews(forceUpdate: Boolean, clearCache: Boolean, date: Long): Result<List<DoubanMomentNewsPosts>> {
         if (!forceUpdate) {
             return Result.Success(mCachedItems.values.toList())
         }
@@ -76,9 +60,9 @@ class DoubanMomentNewsRepository private constructor(
         }
     }
 
-    override suspend fun getFavorites(): Result<List<DoubanMomentNewsPosts>> = mLocalDataSource.getFavorites()
+    suspend fun getFavorites(): Result<List<DoubanMomentNewsPosts>> = mLocalDataSource.getFavorites()
 
-    override suspend fun getItem(id: Int): Result<DoubanMomentNewsPosts> {
+    suspend fun getItem(id: Int): Result<DoubanMomentNewsPosts> {
         val cachedItem = getItemWithId(id)
 
         if (cachedItem != null) {
@@ -92,7 +76,7 @@ class DoubanMomentNewsRepository private constructor(
         }
     }
 
-    override suspend fun favoriteItem(itemId: Int, favorite: Boolean) {
+    suspend fun favoriteItem(itemId: Int, favorite: Boolean) {
         mLocalDataSource.favoriteItem(itemId, favorite)
 
         val cachedItem = getItemWithId(itemId)
@@ -101,7 +85,7 @@ class DoubanMomentNewsRepository private constructor(
         }
     }
 
-    override suspend fun saveAll(list: List<DoubanMomentNewsPosts>) {
+    suspend fun saveAll(list: List<DoubanMomentNewsPosts>) {
         for (item in list) {
             item.timestamp = formatDoubanMomentDateStringToLong(item.publishedTime)
             mCachedItems[item.id] = item

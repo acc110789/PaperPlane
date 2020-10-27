@@ -19,9 +19,11 @@ package com.marktony.zhihudaily.details
 import com.marktony.zhihudaily.R
 import com.famous.paperplane.business_base.ContentType
 import com.famous.paperplane.business_base.Result
-import com.famous.paperplane.zhihu.base.ZhihuDailyNewsRepository
+import com.famous.paperplane.zhihu.repo.ZhihuDailyNewsRepository
 import com.marktony.zhihudaily.data.source.repository.*
 import com.famous.paperplane.business_base.launchSilent
+import com.famous.paperplane.douban.repo.DoubanMomentContentRepository
+import com.famous.paperplane.douban.repo.DoubanMomentNewsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
 
@@ -48,7 +50,8 @@ class DetailsPresenter : DetailsContract.Presenter {
 
     constructor(view: DetailsContract.View,
                 doubanNewsRepository: DoubanMomentNewsRepository,
-                doubanContentRepository: DoubanMomentContentRepository) {
+                doubanContentRepository: DoubanMomentContentRepository
+    ) {
         mView = view
         mView.mPresenter = this
         mDoubanContentRepository = doubanContentRepository

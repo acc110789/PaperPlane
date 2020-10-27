@@ -17,7 +17,7 @@
 package com.marktony.zhihudaily.timeline
 
 import com.famous.paperplane.business_base.Result
-import com.marktony.zhihudaily.data.source.repository.DoubanMomentNewsRepository
+import com.famous.paperplane.douban.repo.DoubanMomentNewsRepository
 import com.famous.paperplane.business_base.launchSilent
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
@@ -30,9 +30,9 @@ import kotlin.coroutines.CoroutineContext
  */
 
 class DoubanMomentPresenter(
-        private val mView: DoubanMomentContract.View,
-        private val mRepository: DoubanMomentNewsRepository,
-        private val uiContext: CoroutineContext = Dispatchers.Main
+    private val mView: DoubanMomentContract.View,
+    private val mRepository: DoubanMomentNewsRepository,
+    private val uiContext: CoroutineContext = Dispatchers.Main
 ) : DoubanMomentContract.Presenter {
 
     init {

@@ -17,6 +17,7 @@
 package com.marktony.zhihudaily
 
 import android.app.Application
+import com.famous.paperplane.douban.doubanKoinModule
 import com.famous.paperplane.zhihu.zhihuKoinModule
 import com.marktony.zhihudaily.database.appDataBaseKoinModule
 import org.koin.android.ext.koin.androidContext
@@ -36,7 +37,7 @@ class PaperPlaneApp : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@PaperPlaneApp)
-            modules(appDataBaseKoinModule, zhihuKoinModule)
+            modules(appDataBaseKoinModule, zhihuKoinModule, doubanKoinModule)
             androidLogger(Level.DEBUG)
         }
     }

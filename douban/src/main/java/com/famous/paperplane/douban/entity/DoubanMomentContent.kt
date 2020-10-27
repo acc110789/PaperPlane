@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.data
+package com.famous.paperplane.douban.entity
 
 import android.annotation.SuppressLint
 import androidx.room.ColumnInfo
@@ -22,9 +22,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import android.os.Parcelable
+import com.famous.paperplane.douban.utils.DoubanTypeConverters
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.marktony.zhihudaily.database.converter.DoubanTypeConverters
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -40,103 +40,103 @@ import kotlinx.android.parcel.Parcelize
 @SuppressLint("ParcelCreator")
 data class DoubanMomentContent(
 
-        @ColumnInfo(name = "display_style")
+    @ColumnInfo(name = "display_style")
         @Expose
         @SerializedName("display_style")
         val displayStyle: Int,
 
-        @ColumnInfo(name = "short_url")
+    @ColumnInfo(name = "short_url")
         @Expose
         @SerializedName("short_url")
         val shortUrl: String,
 
-        @ColumnInfo(name = "abstract")
+    @ColumnInfo(name = "abstract")
         @Expose
         @SerializedName("abstract")
         val abs: String,
 
-        @ColumnInfo(name = "app_css")
+    @ColumnInfo(name = "app_css")
         @Expose
         @SerializedName("app_css")
         val appCss: Int,
 
-        @ColumnInfo(name = "like_count")
+    @ColumnInfo(name = "like_count")
         @Expose
         @SerializedName("like_count")
         val likeCount: Int,
 
-        @ColumnInfo(name = "thumbs")
+    @ColumnInfo(name = "thumbs")
         @Expose
         @SerializedName("thumbs")
         val thumbs: List<DoubanMomentNewsThumbs>,
 
-        @ColumnInfo(name = "created_time")
+    @ColumnInfo(name = "created_time")
         @Expose
         @SerializedName("created_time")
         val createdTime: String,
 
-        @ColumnInfo(name = "id")
+    @ColumnInfo(name = "id")
         @PrimaryKey
         @Expose
         @SerializedName("id")
         val id: Int = 0,
 
-        @ColumnInfo(name = "is_editor_choice")
+    @ColumnInfo(name = "is_editor_choice")
         @Expose
         @SerializedName("is_editor_choice")
         val isEditorChoice: Boolean,
 
-        @ColumnInfo(name = "original_url")
+    @ColumnInfo(name = "original_url")
         @Expose
         @SerializedName("original_url")
         val originalUrl: String,
 
-        @ColumnInfo(name = "content")
+    @ColumnInfo(name = "content")
         @Expose
         @SerializedName("content")
         val content: String,
 
-        @ColumnInfo(name = "share_pic_url")
+    @ColumnInfo(name = "share_pic_url")
         @Expose
         @SerializedName("share_pic_url")
         val sharePicUrl: String,
 
-        @ColumnInfo(name = "type")
+    @ColumnInfo(name = "type")
         @Expose
         @SerializedName("type")
         val type: String,
 
-        @ColumnInfo(name = "is_liked")
+    @ColumnInfo(name = "is_liked")
         @Expose
         @SerializedName("is_liked")
         val isLiked: Boolean,
 
-        @ColumnInfo(name = "photos")
+    @ColumnInfo(name = "photos")
         @Expose
         @SerializedName("photos")
         val photos: List<DoubanMomentNewsThumbs>,
 
-        @ColumnInfo(name = "published_time")
+    @ColumnInfo(name = "published_time")
         @Expose
         @SerializedName("published_time")
         val publishedTime: String,
 
-        @ColumnInfo(name = "url")
+    @ColumnInfo(name = "url")
         @Expose
         @SerializedName("url")
         val url: String,
 
-        @ColumnInfo(name = "column")
+    @ColumnInfo(name = "column")
         @Expose
         @SerializedName("column")
         val column: String,
 
-        @ColumnInfo(name = "comments_count")
+    @ColumnInfo(name = "comments_count")
         @Expose
         @SerializedName("comments_count")
         val commentsCount: Int,
 
-        @ColumnInfo(name = "title")
+    @ColumnInfo(name = "title")
         @Expose
         @SerializedName("title")
         val title: String

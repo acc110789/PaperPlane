@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.data.source.repository
+package com.famous.paperplane.douban.repo
 
-import com.marktony.zhihudaily.data.DoubanMomentContent
 import com.famous.paperplane.business_base.Result
-import com.marktony.zhihudaily.data.source.datasource.DoubanMomentContentDataSource
+import com.famous.paperplane.douban.db.DoubanMomentContentLocalDataSource
+import com.famous.paperplane.douban.entity.DoubanMomentContent
+import com.famous.paperplane.douban.net.DoubanMomentContentRemoteDataSource
 
 /**
  * Created by lizhaotailang on 2017/5/25.
@@ -31,31 +32,14 @@ import com.marktony.zhihudaily.data.source.datasource.DoubanMomentContentDataSou
  *
  */
 
-class DoubanMomentContentRepository private constructor(
-        private val mRemoteDataSource: DoubanMomentContentDataSource,
-        private val mLocalDataSource: DoubanMomentContentDataSource
-) : DoubanMomentContentDataSource {
+class DoubanMomentContentRepository internal constructor(
+    private val mRemoteDataSource: DoubanMomentContentRemoteDataSource,
+    private val mLocalDataSource: DoubanMomentContentLocalDataSource
+) {
 
     private var mContent: DoubanMomentContent? = null
 
-    companion object {
-
-        private var INSTANCE: DoubanMomentContentRepository? = null
-
-        fun getInstance(remoteDataSource: DoubanMomentContentDataSource,
-                        localDataSource: DoubanMomentContentDataSource): DoubanMomentContentRepository {
-            if (INSTANCE == null) {
-                INSTANCE = DoubanMomentContentRepository(remoteDataSource, localDataSource)
-            }
-            return INSTANCE!!
-        }
-
-        fun destroyInstance() {
-            INSTANCE = null
-        }
-    }
-
-    override suspend fun getDoubanMomentContent(id: Int): Result<DoubanMomentContent> {
+    suspend fun getDoubanMomentContent(id: Int): Result<DoubanMomentContent> {
         if (mContent != null && mContent?.id == id) {
             return Result.Success(mContent!!)
         }
@@ -75,7 +59,7 @@ class DoubanMomentContentRepository private constructor(
         }
     }
 
-    override suspend fun saveContent(content: DoubanMomentContent) {
+    suspend fun saveContent(content: DoubanMomentContent) {
         mLocalDataSource.saveContent(content)
     }
 

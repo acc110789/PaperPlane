@@ -2,7 +2,7 @@ package com.famous.paperplane.zhihu
 
 import android.view.ViewGroup
 import com.famous.paperplane.business_base.layoutInflater
-import com.famous.paperplane.zhihu.base.ZhihuDailyNewsRepository
+import com.famous.paperplane.zhihu.repo.ZhihuDailyNewsRepository
 import com.famous.paperplane.zhihu.daily.*
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsLocalDataSource
 import com.famous.paperplane.zhihu.net.ZHIHU_DAILY_BASE
