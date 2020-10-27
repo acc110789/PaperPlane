@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.timeline
+package com.famous.paperplane.douban
 
 import android.content.Intent
 import android.os.Bundle
@@ -22,18 +22,13 @@ import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.marktony.zhihudaily.R
-import com.famous.paperplane.business_base.ContentType
+import androidx.recyclerview.widget.RecyclerView
+import com.famous.paperplane.business_base.*
 import com.famous.paperplane.douban.entity.DoubanMomentNewsPosts
-import com.famous.paperplane.business_base.PostType
-import com.marktony.zhihudaily.details.DetailsActivity
-import com.famous.paperplane.business_base.OnRecyclerViewItemOnClickListener
-import com.famous.paperplane.empty_view
-import com.famous.paperplane.recycler_view
-import com.famous.paperplane.refresh_layout
-import com.marktony.zhihudaily.service.CacheService
+import com.famous.paperplane.business_base.app.appModule
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
-import kotlinx.android.synthetic.main.fragment_timeline.*
+import kotlinx.android.synthetic.main.fragment_timeline_page.view.*
 import java.util.*
 
 /**
@@ -88,18 +83,18 @@ class DoubanMomentFragment : androidx.fragment.app.Fragment(), DoubanMomentContr
 
         mLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         view.recycler_view.layoutManager = mLayoutManager
-        view.recycler_view.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+        view.recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
-            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
                 if (dy > 0) {
                     if (mLayoutManager.findLastCompletelyVisibleItemPosition() == mListSize - 1) {
                         loadMore()
                     }
-                    fab.hide()
+                    activity?.findViewById<FloatingActionButton>(R.id.fab)?.hide()
                 } else {
-                    fab.show()
+                    activity?.findViewById<FloatingActionButton>(R.id.fab)?.show()
                 }
             }
         })
@@ -131,11 +126,11 @@ class DoubanMomentFragment : androidx.fragment.app.Fragment(), DoubanMomentContr
             mAdapter = DoubanMomentNewsAdapter(list)
             mAdapter?.setItemClickListener(object : OnRecyclerViewItemOnClickListener {
                 override fun onItemClick(v: View, position: Int) {
-                    val intent = Intent(activity, DetailsActivity::class.java).apply {
-                        putExtra(DetailsActivity.KEY_ARTICLE_ID, list[position].id)
-                        putExtra(DetailsActivity.KEY_ARTICLE_TYPE, ContentType.TYPE_DOUBAN_MOMENT)
-                        putExtra(DetailsActivity.KEY_ARTICLE_TITLE, list[position].title)
-                        putExtra(DetailsActivity.KEY_ARTICLE_IS_FAVORITE, list[position].isFavorite)
+                    val intent = Intent(activity, appModule.detailActivityClass()).apply {
+                        putExtra(DetailActivityParam.KEY_ARTICLE_ID, list[position].id)
+                        putExtra(DetailActivityParam.KEY_ARTICLE_TYPE, ContentType.TYPE_DOUBAN_MOMENT)
+                        putExtra(DetailActivityParam.KEY_ARTICLE_TITLE, list[position].title)
+                        putExtra(DetailActivityParam.KEY_ARTICLE_IS_FAVORITE, list[position].isFavorite)
                     }
                     startActivity(intent)
                 }
@@ -152,9 +147,9 @@ class DoubanMomentFragment : androidx.fragment.app.Fragment(), DoubanMomentContr
         view?.recycler_view?.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
 
         for ((_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, id) in list) {
-            val intent = Intent(CacheService.BROADCAST_FILTER_ACTION)
-            intent.putExtra(CacheService.FLAG_ID, id)
-            intent.putExtra(CacheService.FLAG_TYPE, PostType.DOUBAN)
+            val intent = Intent(CacheServiceParam.BROADCAST_FILTER_ACTION)
+            intent.putExtra(CacheServiceParam.FLAG_ID, id)
+            intent.putExtra(CacheServiceParam.FLAG_TYPE, PostType.DOUBAN)
             context?.let {
                 androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(it).sendBroadcast(intent)
             }

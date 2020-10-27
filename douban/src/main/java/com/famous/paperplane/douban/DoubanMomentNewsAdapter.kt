@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.timeline
+package com.famous.paperplane.douban
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.marktony.zhihudaily.R
 import com.famous.paperplane.douban.entity.DoubanMomentNewsPosts
-import com.marktony.zhihudaily.glide.loadImage
 import com.famous.paperplane.business_base.OnRecyclerViewItemOnClickListener
+import com.famous.paperplane.business_base.imageService
 import com.famous.paperplane.business_base.image_view_cover
 import com.famous.paperplane.business_base.text_view_title
 
@@ -33,7 +32,7 @@ import com.famous.paperplane.business_base.text_view_title
  * Adapter between the data of [DoubanMomentNewsPosts] and [RecyclerView].
  */
 
-class DoubanMomentNewsAdapter(private val mList: MutableList<DoubanMomentNewsPosts>) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
+class DoubanMomentNewsAdapter(private val mList: MutableList<DoubanMomentNewsPosts>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var mListener: OnRecyclerViewItemOnClickListener? = null
 
@@ -42,7 +41,7 @@ class DoubanMomentNewsAdapter(private val mList: MutableList<DoubanMomentNewsPos
         private const val TYPE_NO_IMG = 0x01
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): RecyclerView.ViewHolder {
         return if (i == TYPE_ITEM) {
             ItemViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.item_universal_layout, viewGroup, false), mListener)
         } else {
@@ -50,11 +49,11 @@ class DoubanMomentNewsAdapter(private val mList: MutableList<DoubanMomentNewsPos
         }
     }
 
-    override fun onBindViewHolder(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, i: Int) {
+    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, i: Int) {
         val (_, _, _, _, _, _, _, _, _, _, _, _, _, thumbs, _, title) = mList[i]
         if (viewHolder is ItemViewHolder) {
             with(viewHolder.itemView) {
-                image_view_cover.loadImage(thumbs[0].medium.url)
+                imageService.loadImage(image_view_cover, thumbs[0].medium.url)
                 text_view_title.text = title
             }
         } else if (viewHolder is NoImgViewHolder) {
@@ -80,7 +79,7 @@ class DoubanMomentNewsAdapter(private val mList: MutableList<DoubanMomentNewsPos
     class ItemViewHolder(
             itemView: View,
             var listener: OnRecyclerViewItemOnClickListener?
-    ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)
@@ -94,7 +93,7 @@ class DoubanMomentNewsAdapter(private val mList: MutableList<DoubanMomentNewsPos
     class NoImgViewHolder(
             itemView: View,
             private val listener: OnRecyclerViewItemOnClickListener?
-    ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)
