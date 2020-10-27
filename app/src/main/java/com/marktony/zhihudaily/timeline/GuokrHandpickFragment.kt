@@ -23,15 +23,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.famous.paperplane.business_base.*
 import com.marktony.zhihudaily.R
-import com.famous.paperplane.business_base.ContentType
 import com.marktony.zhihudaily.data.GuokrHandpickNewsResult
-import com.famous.paperplane.business_base.PostType
 import com.marktony.zhihudaily.details.DetailsActivity
-import com.famous.paperplane.business_base.OnRecyclerViewItemOnClickListener
-import com.famous.paperplane.empty_view
-import com.famous.paperplane.recycler_view
-import com.famous.paperplane.refresh_layout
 import com.marktony.zhihudaily.service.CacheService
 
 /**

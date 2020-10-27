@@ -28,7 +28,6 @@ import com.famous.paperplane.douban.entity.DoubanMomentNewsPosts
 import com.famous.paperplane.business_base.app.appModule
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
-import kotlinx.android.synthetic.main.fragment_timeline_page.view.*
 import java.util.*
 
 /**

@@ -78,7 +78,6 @@ class DetailsActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         ZhihuDailyContentRepository.destroyInstance()
-        DoubanMomentContentRepository.destroyInstance()
         GuokrHandpickContentRepository.destroyInstance()
     }
 

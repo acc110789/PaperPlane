@@ -25,6 +25,7 @@ import android.os.Handler
 import android.os.IBinder
 import androidx.preference.PreferenceManager
 import com.famous.paperplane.business_base.PostType
+import com.famous.paperplane.douban.net.DoubanMomentService
 import com.marktony.zhihudaily.database.AppDatabase
 import com.marktony.zhihudaily.retrofit.RetrofitService
 import com.famous.paperplane.zhihu.net.ZhihuDailyService
@@ -49,7 +50,7 @@ class CacheService : Service() {
     private var mReceiver: LocalReceiver? = null
 
     private lateinit var mZhihuService: ZhihuDailyService
-    private lateinit var mDoubanService: RetrofitService.DoubanMomentService
+    private lateinit var mDoubanService: DoubanMomentService
     private lateinit var mGuokrService: RetrofitService.GuokrHandpickService
 
     private var mZhihuCacheDone = false
@@ -96,7 +97,7 @@ class CacheService : Service() {
                 .baseUrl(RetrofitService.DOUBAN_MOMENT_BASE)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(RetrofitService.DoubanMomentService::class.java)
+                .create(DoubanMomentService::class.java)
 
         mGuokrService = Retrofit.Builder()
                 .baseUrl(RetrofitService.GUOKR_HANDPICK_BASE)

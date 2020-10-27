@@ -31,7 +31,6 @@ import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
 import com.famous.paperplane.zhihu.R
 import com.famous.paperplane.zhihu.zhihuDailyScopeViewModel
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
-import kotlinx.android.synthetic.main.fragment_timeline_page.*
 import org.koin.androidx.scope.ScopeFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -66,35 +65,35 @@ class ZhihuDailyFragment : ScopeFragment() {
         super.onViewCreated(view, savedInstanceState)
         scope.declare(viewModel, zhihuDailyScopeViewModel)
 
-        initRefreshLayout()
+        initRefreshLayout(view)
 
-        initRecyclerView()
+        initRecyclerView(view)
 
         viewModel.newsList.observe(viewLifecycleOwner) {
             showResult(it)
         }
         viewModel.showLoadingIndicator.observe(viewLifecycleOwner) {
-            refresh_layout.post {
-                refresh_layout.isRefreshing = it
+            view.refresh_layout.post {
+                view.refresh_layout.isRefreshing = it
             }
         }
     }
 
-    private fun initRefreshLayout() {
+    private fun initRefreshLayout(view: View) {
         val context = this.context ?: return
-        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
-        refresh_layout.setOnRefreshListener {
+        view.refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
+        view.refresh_layout.setOnRefreshListener {
             val c = Calendar.getInstance()
             c.timeZone = TimeZone.getTimeZone("GMT+08")
             viewModel.refresh()
         }
     }
 
-    private fun initRecyclerView() {
-        recycler_view.adapter = mAdapter
+    private fun initRecyclerView(view: View) {
+        view.recycler_view.adapter = mAdapter
         mLayoutManager = LinearLayoutManager(context)
-        recycler_view.layoutManager = mLayoutManager
-        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        view.recycler_view.layoutManager = mLayoutManager
+        view.recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val hideFloatActionButton = dy > 0
@@ -110,8 +109,8 @@ class ZhihuDailyFragment : ScopeFragment() {
     private fun showResult(list: List<ZhihuDailyNewsQuestion>) {
         mAdapter.updateData(list)
 
-        empty_view.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
-        recycler_view.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
+        view?.empty_view?.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
+        view?.recycler_view?.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
 
         // Cache data of the items
         for ((_, _, id) in list) {
