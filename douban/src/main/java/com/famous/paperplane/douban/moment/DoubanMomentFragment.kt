@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.famous.paperplane.douban
+package com.famous.paperplane.douban.moment
 
 import android.content.Intent
 import android.os.Bundle
@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.famous.paperplane.business_base.*
 import com.famous.paperplane.douban.entity.DoubanMomentNewsPosts
 import com.famous.paperplane.business_base.app.appModule
+import com.famous.paperplane.douban.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import java.util.*
@@ -66,7 +67,8 @@ class DoubanMomentFragment : androidx.fragment.app.Fragment(), DoubanMomentContr
         mDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(R.layout.fragment_timeline_page, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(
+        R.layout.fragment_timeline_page, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

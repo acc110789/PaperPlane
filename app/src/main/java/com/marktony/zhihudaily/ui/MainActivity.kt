@@ -18,7 +18,6 @@ package com.marktony.zhihudaily.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import com.marktony.zhihudaily.R
 import com.marktony.zhihudaily.favorites.FavoritesFragment
@@ -58,8 +57,8 @@ class MainActivity : AppCompatActivity() {
         val appExecutors = AppExecutors()
         FavoritesPresenter(
                 mFavoritesFragment,
-                Injection.provideZhihuDailyNewsRepository(this@MainActivity),
-                Injection.provideDoubanMomentNewsRepository(this@MainActivity),
+                Injection.provideZhihuDailyNewsRepository(),
+                Injection.provideDoubanMomentNewsRepository(),
                 Injection.provideGuokrHandpickNewsRepository(this@MainActivity))
 
         if (savedInstanceState != null) {

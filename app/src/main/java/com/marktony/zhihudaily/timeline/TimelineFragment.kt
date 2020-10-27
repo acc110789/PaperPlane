@@ -22,8 +22,8 @@ import androidx.viewpager.widget.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.famous.paperplane.douban.DoubanMomentFragment
-import com.famous.paperplane.douban.DoubanMomentPresenter
+import com.famous.paperplane.douban.moment.DoubanMomentFragment
+import com.famous.paperplane.douban.moment.DoubanMomentPresenter
 import com.famous.paperplane.zhihu.daily.ZhihuDailyFragment
 import com.marktony.zhihudaily.R
 import com.marktony.zhihudaily.injection.Injection
@@ -58,7 +58,7 @@ class TimelineFragment : androidx.fragment.app.Fragment() {
         mGuokrFragment = GuokrHandpickFragment.newInstance()
 
         context?.let {
-            DoubanMomentPresenter(mDoubanFragment, Injection.provideDoubanMomentNewsRepository(it))
+            DoubanMomentPresenter(mDoubanFragment, Injection.provideDoubanMomentNewsRepository())
 
             GuokrHandpickPresenter(mGuokrFragment, Injection.provideGuokrHandpickNewsRepository(it))
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.famous.paperplane.douban
+package com.famous.paperplane.douban.moment
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -25,6 +25,7 @@ import com.famous.paperplane.business_base.OnRecyclerViewItemOnClickListener
 import com.famous.paperplane.business_base.imageService
 import com.famous.paperplane.business_base.image_view_cover
 import com.famous.paperplane.business_base.text_view_title
+import com.famous.paperplane.douban.R
 
 /**
  * Created by lizhaotailang on 2017/5/22.

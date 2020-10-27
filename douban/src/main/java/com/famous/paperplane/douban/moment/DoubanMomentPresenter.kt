@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.famous.paperplane.douban
+package com.famous.paperplane.douban.moment
 
 import com.famous.paperplane.business_base.Result
 import com.famous.paperplane.douban.repo.DoubanMomentNewsRepository

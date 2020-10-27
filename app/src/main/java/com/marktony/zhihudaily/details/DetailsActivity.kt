@@ -60,12 +60,14 @@ class DetailsActivity : AppCompatActivity() {
         when {
             mType === ContentType.TYPE_ZHIHU_DAILY -> DetailsPresenter(
                     mDetailsFragment,
-                    Injection.provideZhihuDailyNewsRepository(this@DetailsActivity),
-                    Injection.provideZhihuDailyContentRepository(this@DetailsActivity))
+                    Injection.provideZhihuDailyNewsRepository(),
+                    Injection.provideZhihuDailyContentRepository()
+            )
             mType === ContentType.TYPE_DOUBAN_MOMENT -> DetailsPresenter(
                     mDetailsFragment,
-                    Injection.provideDoubanMomentNewsRepository(this@DetailsActivity),
-                    Injection.provideDoubanMomentContentRepository(this@DetailsActivity))
+                    Injection.provideDoubanMomentNewsRepository(),
+                    Injection.provideDoubanMomentContentRepository()
+            )
             mType === ContentType.TYPE_GUOKR_HANDPICK -> DetailsPresenter(
                     mDetailsFragment,
                     Injection.provideGuokrHandpickNewsRepository(this@DetailsActivity),
@@ -76,7 +78,6 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        ZhihuDailyContentRepository.destroyInstance()
         GuokrHandpickContentRepository.destroyInstance()
     }
 
