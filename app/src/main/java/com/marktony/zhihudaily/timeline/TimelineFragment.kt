@@ -60,7 +60,7 @@ class TimelineFragment : androidx.fragment.app.Fragment() {
         context?.let {
             DoubanMomentPresenter(mDoubanFragment, Injection.provideDoubanMomentNewsRepository())
 
-            GuokrHandpickPresenter(mGuokrFragment, Injection.provideGuokrHandpickNewsRepository(it))
+            GuokrHandpickPresenter(mGuokrFragment, Injection.provideGuokrHandpickNewsRepository())
 
             view_pager.adapter = TimelineFragmentPagerAdapter(
                     childFragmentManager,

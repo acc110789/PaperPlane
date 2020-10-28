@@ -59,7 +59,8 @@ class MainActivity : AppCompatActivity() {
                 mFavoritesFragment,
                 Injection.provideZhihuDailyNewsRepository(),
                 Injection.provideDoubanMomentNewsRepository(),
-                Injection.provideGuokrHandpickNewsRepository(this@MainActivity))
+                Injection.provideGuokrHandpickNewsRepository()
+        )
 
         if (savedInstanceState != null) {
             val id = savedInstanceState.getInt(KEY_BOTTOM_NAVIGATION_VIEW_SELECTED_ID, R.id.nav_timeline)

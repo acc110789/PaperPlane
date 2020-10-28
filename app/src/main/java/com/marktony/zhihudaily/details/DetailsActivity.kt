@@ -69,8 +69,9 @@ class DetailsActivity : AppCompatActivity() {
             )
             mType === ContentType.TYPE_GUOKR_HANDPICK -> DetailsPresenter(
                     mDetailsFragment,
-                    Injection.provideGuokrHandpickNewsRepository(this@DetailsActivity),
-                    Injection.provideGuokrHandpickContentRepository(this@DetailsActivity))
+                    Injection.provideGuokrHandpickNewsRepository(),
+                    Injection.provideGuokrHandpickContentRepository()
+            )
         }
 
     }
