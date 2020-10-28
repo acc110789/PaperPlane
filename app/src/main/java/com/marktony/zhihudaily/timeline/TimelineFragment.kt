@@ -24,6 +24,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.famous.paperplane.douban.moment.DoubanMomentFragment
 import com.famous.paperplane.douban.moment.DoubanMomentPresenter
+import com.famous.paperplane.guokr.handpick.GuokrHandpickFragment
+import com.famous.paperplane.guokr.handpick.GuokrHandpickPresenter
 import com.famous.paperplane.zhihu.daily.ZhihuDailyFragment
 import com.marktony.zhihudaily.R
 import com.marktony.zhihudaily.injection.Injection

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.timeline
+package com.famous.paperplane.guokr.handpick
 
 import com.famous.paperplane.business_base.Result
 import com.famous.paperplane.guokr.repo.GuokrHandpickNewsRepository

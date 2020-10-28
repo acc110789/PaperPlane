@@ -20,6 +20,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.marktony.zhihudaily.R
 import com.famous.paperplane.business_base.ContentType
+import com.famous.paperplane.business_base.DetailActivityParam
 import com.famous.paperplane.guokr.repo.GuokrHandpickContentRepository
 import com.marktony.zhihudaily.injection.Injection
 
@@ -36,10 +37,10 @@ class DetailsActivity : AppCompatActivity() {
     private var mType: ContentType = ContentType.TYPE_ZHIHU_DAILY
 
     companion object {
-        const val KEY_ARTICLE_TYPE = "KEY_ARTICLE_TYPE"
-        const val KEY_ARTICLE_ID = "KEY_ARTICLE_ID"
-        const val KEY_ARTICLE_TITLE = "KEY_ARTICLE_TITLE"
-        const val KEY_ARTICLE_IS_FAVORITE = "KEY_ARTICLE_IS_FAVORITE"
+        const val KEY_ARTICLE_TYPE = DetailActivityParam.KEY_ARTICLE_TYPE
+        const val KEY_ARTICLE_ID = DetailActivityParam.KEY_ARTICLE_ID
+        const val KEY_ARTICLE_TITLE = DetailActivityParam.KEY_ARTICLE_TITLE
+        const val KEY_ARTICLE_IS_FAVORITE = DetailActivityParam.KEY_ARTICLE_IS_FAVORITE
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,11 +75,6 @@ class DetailsActivity : AppCompatActivity() {
             )
         }
 
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        GuokrHandpickContentRepository.destroyInstance()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

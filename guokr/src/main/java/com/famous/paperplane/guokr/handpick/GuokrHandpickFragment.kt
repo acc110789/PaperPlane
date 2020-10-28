@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.timeline
+package com.famous.paperplane.guokr.handpick
 
 import android.content.Intent
 import android.os.Bundle
@@ -24,10 +24,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.famous.paperplane.business_base.*
-import com.marktony.zhihudaily.R
+import com.famous.paperplane.business_base.app.appModule
 import com.famous.paperplane.guokr.entity.GuokrHandpickNewsResult
-import com.marktony.zhihudaily.details.DetailsActivity
-import com.marktony.zhihudaily.service.CacheService
 
 /**
  * Created by lizhaotailang on 2017/5/24.
@@ -104,11 +102,11 @@ class GuokrHandpickFragment : androidx.fragment.app.Fragment(), GuokrHandpickCon
             mAdapter?.setItemClickListener(object : OnRecyclerViewItemOnClickListener {
 
                 override fun onItemClick(v: View, position: Int) {
-                    val intent = Intent(activity, DetailsActivity::class.java).apply {
-                        putExtra(DetailsActivity.KEY_ARTICLE_ID, list[position].id)
-                        putExtra(DetailsActivity.KEY_ARTICLE_TYPE, ContentType.TYPE_GUOKR_HANDPICK)
-                        putExtra(DetailsActivity.KEY_ARTICLE_TITLE, list[position].title)
-                        putExtra(DetailsActivity.KEY_ARTICLE_IS_FAVORITE, list[position].isFavorite)
+                    val intent = Intent(activity, appModule.detailActivityClass()).apply {
+                        putExtra(DetailActivityParam.KEY_ARTICLE_ID, list[position].id)
+                        putExtra(DetailActivityParam.KEY_ARTICLE_TYPE, ContentType.TYPE_GUOKR_HANDPICK)
+                        putExtra(DetailActivityParam.KEY_ARTICLE_TITLE, list[position].title)
+                        putExtra(DetailActivityParam.KEY_ARTICLE_IS_FAVORITE, list[position].isFavorite)
                     }
                     startActivity(intent)
                 }
@@ -125,9 +123,9 @@ class GuokrHandpickFragment : androidx.fragment.app.Fragment(), GuokrHandpickCon
         view?.recycler_view?.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
 
         for ((_, _, _, _, _, id) in list) {
-            val intent = Intent(CacheService.BROADCAST_FILTER_ACTION)
-            intent.putExtra(CacheService.FLAG_ID, id)
-            intent.putExtra(CacheService.FLAG_TYPE, PostType.GUOKR)
+            val intent = Intent(CacheServiceParam.BROADCAST_FILTER_ACTION)
+            intent.putExtra(CacheServiceParam.FLAG_ID, id)
+            intent.putExtra(CacheServiceParam.FLAG_TYPE, PostType.GUOKR)
             context?.let {
                 LocalBroadcastManager.getInstance(it).sendBroadcast(intent)
             }

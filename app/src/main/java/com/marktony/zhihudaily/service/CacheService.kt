@@ -24,8 +24,10 @@ import android.content.IntentFilter
 import android.os.Handler
 import android.os.IBinder
 import androidx.preference.PreferenceManager
+import com.famous.paperplane.business_base.CacheServiceParam
 import com.famous.paperplane.business_base.PostType
 import com.famous.paperplane.douban.net.DoubanMomentService
+import com.famous.paperplane.guokr.net.GuokrHandpickService
 import com.marktony.zhihudaily.database.AppDatabase
 import com.marktony.zhihudaily.retrofit.RetrofitService
 import com.famous.paperplane.zhihu.net.ZhihuDailyService
@@ -51,7 +53,7 @@ class CacheService : Service() {
 
     private lateinit var mZhihuService: ZhihuDailyService
     private lateinit var mDoubanService: DoubanMomentService
-    private lateinit var mGuokrService: RetrofitService.GuokrHandpickService
+    private lateinit var mGuokrService: GuokrHandpickService
 
     private var mZhihuCacheDone = false
     private var mDoubanCacheDone = false
@@ -68,10 +70,10 @@ class CacheService : Service() {
 
     companion object {
 
-        val FLAG_ID = "flag_id"
-        val FLAG_TYPE = "flag_type"
+        val FLAG_ID = CacheServiceParam.FLAG_ID
+        val FLAG_TYPE = CacheServiceParam.FLAG_TYPE
 
-        val BROADCAST_FILTER_ACTION = "com.marktony.zhihudaily.LOCAL_BROADCAST"
+        val BROADCAST_FILTER_ACTION = CacheServiceParam.BROADCAST_FILTER_ACTION
 
         private val MSG_CLEAR_CACHE_DONE = 1
 
@@ -103,7 +105,7 @@ class CacheService : Service() {
                 .baseUrl(RetrofitService.GUOKR_HANDPICK_BASE)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(RetrofitService.GuokrHandpickService::class.java)
+                .create(GuokrHandpickService::class.java)
     }
 
     override fun onDestroy() {

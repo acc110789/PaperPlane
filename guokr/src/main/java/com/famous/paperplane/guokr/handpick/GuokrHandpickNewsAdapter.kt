@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.timeline
+package com.famous.paperplane.guokr.handpick
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.marktony.zhihudaily.R
 import com.famous.paperplane.guokr.entity.GuokrHandpickNewsResult
-import com.marktony.zhihudaily.glide.loadImage
 import com.famous.paperplane.business_base.OnRecyclerViewItemOnClickListener
+import com.famous.paperplane.business_base.imageService
 import com.famous.paperplane.business_base.image_view_cover
 import com.famous.paperplane.business_base.text_view_title
+import com.famous.paperplane.guokr.R
 
 /**
  * Created by lizhaotailang on 2017/5/24.
@@ -36,13 +36,14 @@ import com.famous.paperplane.business_base.text_view_title
 class GuokrHandpickNewsAdapter(private val mList: MutableList<GuokrHandpickNewsResult>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var mListener: OnRecyclerViewItemOnClickListener? = null
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): RecyclerView.ViewHolder = ItemViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.item_universal_layout, viewGroup, false), mListener)
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): RecyclerView.ViewHolder = ItemViewHolder(LayoutInflater.from(viewGroup.context).inflate(
+        R.layout.item_universal_layout, viewGroup, false), mListener)
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, i: Int) {
         val (_, _, _, _, _, _, _, _, _, _, _, _, imageInfo, _, _, _, _, _, _, _, _, _, _, _, title) = mList[i]
 
         with((viewHolder as ItemViewHolder).itemView) {
-            image_view_cover.loadImage(imageInfo.url)
+            imageService.loadImage(image_view_cover, imageInfo.url)
             text_view_title.text = title
         }
     }

@@ -19,6 +19,7 @@ package com.marktony.zhihudaily.timeline
 import android.content.Context
 import androidx.fragment.app.FragmentPagerAdapter
 import com.famous.paperplane.douban.moment.DoubanMomentFragment
+import com.famous.paperplane.guokr.handpick.GuokrHandpickFragment
 import com.famous.paperplane.zhihu.daily.ZhihuDailyFragment
 
 import com.marktony.zhihudaily.R
