@@ -14,28 +14,21 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.retrofit
+package com.famous.paperplane.guokr
+
+import com.famous.paperplane.guokr.entity.GuokrHandpickContentResult
+import com.famous.paperplane.business_base.Result
 
 /**
- * Created by lizhaotailang on 2017/5/21.
+ * Created by lizhaotailang on 2017/5/26.
  *
- * Interface of retrofit requests. API included.
+ * Main entry point for accessing [GuokrHandpickContentResult] data.
  */
 
-interface RetrofitService {
+interface GuokrHandpickContentDataSource {
 
-    companion object {
+    suspend fun getGuokrHandpickContent(id: Int): Result<GuokrHandpickContentResult>
 
-        const val ZHIHU_DAILY_BASE = "https://news-at.zhihu.com/api/4/news/"
-
-        const val DOUBAN_MOMENT_BASE = "https://moment.douban.com/api/"
-
-        const val GUOKR_HANDPICK_BASE = "http://apis.guokr.com/minisite/"
-
-    }
-
-
-
-
+    suspend fun saveContent(content: GuokrHandpickContentResult)
 
 }

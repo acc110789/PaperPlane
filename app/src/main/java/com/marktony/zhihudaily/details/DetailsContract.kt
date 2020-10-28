@@ -23,7 +23,7 @@ import com.famous.paperplane.business_base.BaseView
 import com.famous.paperplane.business_base.ContentType
 import com.famous.paperplane.douban.entity.DoubanMomentContent
 import com.famous.paperplane.douban.entity.DoubanMomentNewsThumbs
-import com.marktony.zhihudaily.data.*
+import com.famous.paperplane.guokr.entity.GuokrHandpickContentResult
 
 /**
  * Created by lizhaotailang on 2017/5/24.

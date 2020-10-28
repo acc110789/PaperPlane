@@ -18,7 +18,7 @@ package com.marktony.zhihudaily.favorites
 
 import com.famous.paperplane.business_base.Result
 import com.famous.paperplane.douban.repo.DoubanMomentNewsRepository
-import com.marktony.zhihudaily.data.source.repository.GuokrHandpickNewsRepository
+import com.famous.paperplane.guokr.repo.GuokrHandpickNewsRepository
 import com.famous.paperplane.zhihu.repo.ZhihuDailyNewsRepository
 import com.famous.paperplane.business_base.launchSilent
 import kotlinx.coroutines.Dispatchers

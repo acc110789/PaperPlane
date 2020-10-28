@@ -14,28 +14,21 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.retrofit
+package com.famous.paperplane.guokr.utils
 
-/**
- * Created by lizhaotailang on 2017/5/21.
- *
- * Interface of retrofit requests. API included.
- */
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
-interface RetrofitService {
 
-    companion object {
-
-        const val ZHIHU_DAILY_BASE = "https://news-at.zhihu.com/api/4/news/"
-
-        const val DOUBAN_MOMENT_BASE = "https://moment.douban.com/api/"
-
-        const val GUOKR_HANDPICK_BASE = "http://apis.guokr.com/minisite/"
-
+fun formatGuokrHandpickTimeStringToLong(date: String): Long {
+    var d: Date? = null
+    try {
+        d = SimpleDateFormat("yyyy-MM-dd").parse(date.substring(0, 10))
+    } catch (e: ParseException) {
+        e.printStackTrace()
     }
 
-
-
-
-
+    return if (d == null) 0 else d.time
 }
+

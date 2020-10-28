@@ -22,9 +22,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.famous.paperplane.douban.entity.DoubanMomentContent
 import com.famous.paperplane.douban.entity.DoubanMomentNewsPosts
+import com.famous.paperplane.guokr.entity.GuokrHandpickContentResult
+import com.famous.paperplane.guokr.entity.GuokrHandpickNewsResult
 import com.famous.paperplane.zhihu.db.ZhihuDailyContent
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsQuestion
-import com.marktony.zhihudaily.data.*
 import org.koin.dsl.module
 
 /**

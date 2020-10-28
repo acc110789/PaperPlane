@@ -20,10 +20,11 @@ import com.marktony.zhihudaily.R
 import com.famous.paperplane.business_base.ContentType
 import com.famous.paperplane.business_base.Result
 import com.famous.paperplane.zhihu.repo.ZhihuDailyNewsRepository
-import com.marktony.zhihudaily.data.source.repository.*
 import com.famous.paperplane.business_base.launchSilent
 import com.famous.paperplane.douban.repo.DoubanMomentContentRepository
 import com.famous.paperplane.douban.repo.DoubanMomentNewsRepository
+import com.famous.paperplane.guokr.repo.GuokrHandpickContentRepository
+import com.famous.paperplane.guokr.repo.GuokrHandpickNewsRepository
 import com.famous.paperplane.zhihu.repo.ZhihuDailyContentRepository
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
@@ -71,7 +72,8 @@ class DetailsPresenter : DetailsContract.Presenter {
 
     constructor(view: DetailsContract.View,
                 guokrNewsRepository: GuokrHandpickNewsRepository,
-                guokrContentRepository: GuokrHandpickContentRepository) {
+                guokrContentRepository: GuokrHandpickContentRepository
+    ) {
         mView = view
         mView.mPresenter = this
         mGuokrNewsRepository = guokrNewsRepository

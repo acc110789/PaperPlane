@@ -45,6 +45,7 @@ dependencies {
 
     api(project(":zhihu"))
     api(project(":douban"))
+    api(project(":guokr"))
 
     kapt(ROOM_COMPILER)
     kapt(GLIDE_COMPILER)

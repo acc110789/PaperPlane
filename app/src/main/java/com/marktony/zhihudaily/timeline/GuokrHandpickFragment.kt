@@ -25,7 +25,7 @@ import android.view.ViewGroup
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.famous.paperplane.business_base.*
 import com.marktony.zhihudaily.R
-import com.marktony.zhihudaily.data.GuokrHandpickNewsResult
+import com.famous.paperplane.guokr.entity.GuokrHandpickNewsResult
 import com.marktony.zhihudaily.details.DetailsActivity
 import com.marktony.zhihudaily.service.CacheService
 

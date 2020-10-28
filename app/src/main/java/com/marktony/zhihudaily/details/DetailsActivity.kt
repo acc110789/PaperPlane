@@ -20,8 +20,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.marktony.zhihudaily.R
 import com.famous.paperplane.business_base.ContentType
-import com.marktony.zhihudaily.data.source.repository.GuokrHandpickContentRepository
-import com.famous.paperplane.zhihu.repo.ZhihuDailyContentRepository
+import com.famous.paperplane.guokr.repo.GuokrHandpickContentRepository
 import com.marktony.zhihudaily.injection.Injection
 
 /**

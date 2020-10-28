@@ -14,34 +14,27 @@
  * limitations under the License.
  */
 
-package com.marktony.zhihudaily.timeline
+package com.famous.paperplane.guokr
 
-import com.famous.paperplane.business_base.BasePresenter
-import com.famous.paperplane.business_base.BaseView
 import com.famous.paperplane.guokr.entity.GuokrHandpickNewsResult
+import com.famous.paperplane.business_base.Result
 
 /**
  * Created by lizhaotailang on 2017/5/24.
  *
- * This specifies the contract between the view and the presenter.
+ * Main entry point for accessing the [GuokrHandpickNewsResult]s data.
  */
 
-interface GuokrHandpickContract {
+interface GuokrHandpickDataSource {
 
-    interface View : BaseView<Presenter> {
+    suspend fun getGuokrHandpickNews(forceUpdate: Boolean, clearCache: Boolean, offset: Int, limit: Int): Result<List<GuokrHandpickNewsResult>>
 
-        val isActive: Boolean
+    suspend fun getFavorites(): Result<List<GuokrHandpickNewsResult>>
 
-        fun setLoadingIndicator(active: Boolean)
+    suspend fun getItem(itemId: Int): Result<GuokrHandpickNewsResult>
 
-        fun showResult(list: MutableList<GuokrHandpickNewsResult>)
+    suspend fun favoriteItem(itemId: Int, favorite: Boolean)
 
-    }
-
-    interface Presenter : BasePresenter {
-
-        fun load(forceUpdate: Boolean, clearCache: Boolean, offset: Int, limit: Int)
-
-    }
+    suspend fun saveAll(list: List<GuokrHandpickNewsResult>)
 
 }

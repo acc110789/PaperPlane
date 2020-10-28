@@ -4,8 +4,8 @@ import com.famous.paperplane.zhihu.db.ZhihuDailyContentDao
 import com.famous.paperplane.zhihu.db.ZhihuDailyNewsDao
 import com.famous.paperplane.douban.db.DoubanMomentContentDao
 import com.famous.paperplane.douban.db.DoubanMomentNewsDao
-import com.marktony.zhihudaily.database.dao.GuokrHandpickContentDao
-import com.marktony.zhihudaily.database.dao.GuokrHandpickNewsDao
+import com.famous.paperplane.guokr.db.GuokrHandpickContentDao
+import com.famous.paperplane.guokr.db.GuokrHandpickNewsDao
 import org.koin.java.KoinJavaComponent.getKoin
 
 object AppDatabaseDelegate: IAppDatabase {

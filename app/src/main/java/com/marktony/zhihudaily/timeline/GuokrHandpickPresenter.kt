@@ -17,7 +17,7 @@
 package com.marktony.zhihudaily.timeline
 
 import com.famous.paperplane.business_base.Result
-import com.marktony.zhihudaily.data.source.repository.GuokrHandpickNewsRepository
+import com.famous.paperplane.guokr.repo.GuokrHandpickNewsRepository
 import com.famous.paperplane.business_base.launchSilent
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
@@ -30,9 +30,9 @@ import kotlin.coroutines.CoroutineContext
  */
 
 class GuokrHandpickPresenter(
-        private val mView: GuokrHandpickContract.View,
-        private val mRepository: GuokrHandpickNewsRepository,
-        private val uiContext: CoroutineContext = Dispatchers.Main
+    private val mView: GuokrHandpickContract.View,
+    private val mRepository: GuokrHandpickNewsRepository,
+    private val uiContext: CoroutineContext = Dispatchers.Main
 ) : GuokrHandpickContract.Presenter {
 
     init {
